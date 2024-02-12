@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Repository\UtilisateurRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-class Utilisateur
+#[ORM\EntityListeners(['App\EntityListener\UserListener'])]
+class Utilisateur implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -31,6 +33,10 @@ class Utilisateur
 
     #[ORM\Column(length: 30)]
     private ?string $genre = null;
+
+    #[ORM\ManyToOne(inversedBy: 'utilisateurs')]
+    private ?Role $role = null;
+
 
     public function getId(): ?int
     {
@@ -108,4 +114,51 @@ class Utilisateur
 
         return $this;
     }
+
+    public function getRole(): ?Role
+    {
+        return $this->role;
+    }
+    
+    public function setRole(?Role $role): static
+    {
+        $this->role = $role;
+    
+        return $this;
+    }
+
+    public function getRoles(): array
+{
+    // Si l'utilisateur a un rôle défini, utilisez-le
+    if ($this->role) {
+        return [$this->role->getNomRole()];
+    }
+
+    // Sinon, retournez un rôle par défaut
+    return ['ROLE_USER'];
+}
+public function getUsername(): string
+    {
+        return $this->email;
+    }
+    public function getPassword(): string
+    {
+        return $this->mdp;
+    }
+
+    public function getSalt(): ?string
+    {
+       
+        return null;
+    }
+    
+    public function eraseCredentials(): void
+    {
+        // Cette méthode est utilisée pour effacer les données sensibles de l'objet utilisateur
+        
+    }
+    public function getUserIdentifier(): string
+{
+    return $this->email;
+}
 }

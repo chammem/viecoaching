@@ -9,6 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UtilisateurController extends AbstractController
@@ -21,28 +22,20 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
-    #[Route('/showUtilisateur', name: 'showJoueur')]
-    public function showJoueur(UtilisateurRepository $joueurRepository): Response
-    {
-        $joueur=$joueurRepository->FindBy(array (), array ('nom' => 'ASC'));
-        $joueur=$joueurRepository->showJoueurs();
-        return $this->render('joueur/showJoueur.html.twig', [
-            'joueur' => $joueur,
-        ]);
-    }
 
     #[Route('/addUtilisateur', name: 'addUtilisateur')]
-    public function addUtilisateur(ManagerRegistry $managerRegistry , Request $req): Response
+    public function addUtilisateur(ManagerRegistry $managerRegistry , Request $req ): Response
     {
         $em=$managerRegistry->getManager();
         $utilisateur=new Utilisateur;
         $form=$this->createForm(UtilisateurType::class,$utilisateur);
         $form->handleRequest($req);
         if($form->isSubmitted() && $form->isValid())
-        
-        {   $em->persist($utilisateur);
+        {    
+            
+            $em->persist($utilisateur);
             $em->flush();
-            return $this->redirectToRoute('showUtilisateur');
+            return $this->redirectToRoute('addUtilisateur');
         }
         return $this->renderForm('utilisateur/addUtilisateur.html.twig', [
             'form' => $form ,
