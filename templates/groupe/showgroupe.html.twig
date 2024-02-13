@@ -1,0 +1,37 @@
+
+<table border="3">
+    <tr>
+        <td>id</td>
+        <td>nom</td>
+        <td>description</td>
+                <td>Typegroupe</td>
+
+
+<td>datecreation</td>
+ <td>action</td>
+                <td>supprimer</td>
+
+          
+        
+        
+       
+    </tr>
+    {% for i in groupe  %}
+    <tr>
+        <td>{{i.id}}</td>
+        <td>{{i.nom}}</td>
+        <td>{{i.description}}</td>
+        <td>{{i.Typegroupe.nomtype}}</td>
+        <td>{{i.datecreation.format('Y-M-D')}}</td>
+ <td><a href={{path('editgroupep',{'id':i.id})}}> edit</a></td>
+    <td><a href={{path('deletegroupe',{'id':i.id})}}> Delete</a></td>
+
+
+
+
+        
+</tr>
+
+    {% endfor %}
+   
+</table>

@@ -1,0 +1,25 @@
+
+<table border="3">
+    <tr>
+        <td>id</td>
+        <td>nomtype</td>
+        <td>action</td>
+                <td>supprimer</td>
+
+        
+        
+       
+    </tr>
+    {% for i in typegroupe  %}
+    <tr>
+        <td>{{i.id}}</td>
+        <td>{{i.nomtype}}</td>
+    <td><a href={{path('editgroupe',{'id':i.id})}}> edit</a></td>
+    <td><a href={{path('deletegroupe',{'id':i.id})}}> Delete</a></td>
+
+        
+</tr>
+
+    {% endfor %}
+   
+</table>
