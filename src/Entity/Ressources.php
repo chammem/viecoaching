@@ -6,6 +6,7 @@ use App\Repository\RessourcesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use PhpParser\Node\Expr\Cast\String_;
 
 #[ORM\Entity(repositoryClass: RessourcesRepository::class)]
 class Ressources
@@ -110,6 +111,10 @@ class Ressources
        $this->categorie->removeElement($categorie);
 
        return $this;
+   }
+   public function __toString()
+   {
+    return(string)$this->getTitreR();
    }
     
 }
