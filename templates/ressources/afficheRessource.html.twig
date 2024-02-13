@@ -1,0 +1,21 @@
+
+
+<table border="3">
+    <tr>
+        <td>idR</td>
+        <td>Titre</td>
+        <td>Type</td>
+        <td>Url</td>
+        <td>Categorie name</td>
+    </tr>
+    <tr>
+        {% for i in ressource %}
+        <td>{{i.id}}</td>
+        <td>{{i.TitreR}}</td>
+        <td>{{i.TypeR}}</td>
+        <td>{{i.url}}</td>
+        <td>{{i.categorie}}</td>
+
+    </tr>
+    {% endfor %}
+</table>

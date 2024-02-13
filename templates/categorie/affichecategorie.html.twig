@@ -1,0 +1,20 @@
+
+
+<table border="3">
+    <tr>
+        <td>idC</td>
+        <td>Nom de la categorie</td>
+        <td>Nom de la ressource</td>
+
+       
+    </tr>
+    <tr>
+        {% for i in cat %}
+        <td>{{i.id}}</td>
+        <td>{{i.nomCategorie}}</td>
+        <td>{{i.ressources}}</td>
+
+
+    </tr>
+    {% endfor %}
+</table>
