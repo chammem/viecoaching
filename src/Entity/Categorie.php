@@ -26,14 +26,7 @@ class Categorie
         $this->ressources = new ArrayCollection();
     }
 
- /*   #[ORM\OneToMany(targetEntity: Ressources::class, mappedBy: 'categorie')]
-    private Collection $ressources;*/
-
-    /*public function __construct()
-    {
-        $this->ressources = new ArrayCollection();
-    }*/
-
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -54,32 +47,11 @@ class Categorie
     /** 
      * @return Collection<int, Ressources>
      */
-   /* public function getRessources(): Collection
-    {
-        return $this->ressources;
-    }
+   
 
-    public function addRessource(Ressources $ressource): static
-    {
-        if (!$this->ressources->contains($ressource)) {
-            $this->ressources->add($ressource);
-            $ressource->setCategorie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRessource(Ressources $ressource): static
-    {
-        if ($this->ressources->removeElement($ressource)) {
-            // set the owning side to null (unless already changed)
-            if ($ressource->getCategorie() === $this) {
-                $ressource->setCategorie(null);
-            }
-        }
-
-        return $this;
-    }*/
+   /**
+    * @return Collection<int, Ressources>
+    */
 
    /**
     * @return Collection<int, Ressources>
@@ -109,7 +81,7 @@ class Categorie
    }
    public function __toString()
    {
-    return(string)$this->getNomCategorie();
+       return(string)$this->getNomCategorie();
    }
-    
+  
 }

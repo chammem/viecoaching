@@ -1,21 +1,46 @@
+{% extends 'base-back.html.twig' %}
+{% block body %}
+{% block title %}{% endblock %}
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Liste des Ressources</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-responsive-sm">
+                <thead>
+                    <tr>
+                        <th>identifiant Ressource</th>
+                        <th>Titre</th>
+                        <th>Type</th>
+                        <th>Url</th>
+                        <th>Nom de la Categorie</th>
+                        <th>Modification</th>
+                        <th>Supprision</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ressource in ressource %}
+                    <tr>
+                        <td>{{ ressource.id }}</td>
+                        <td>{{ ressource.TitreR }}</td>
+                        <td>{{ ressource.TypeR }}</td>
+                        <td>{{ ressource.url }}</td>
+                        <td>
+                            {% for categorie in ressource.categorie %}
+                                {{ categorie.nomCategorie }}
+                                {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td><span class="badge badge-primary"><a href="{{ path('editressource', {'id': ressource.id}) }}">Modifier</a></span></td>
+                        <td><span class="badge badge-danger"><a href="{{ path('deletressource', {'id': ressource.id}) }}">Supprimer</a></span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
+{% endblock %}
 
-<table border="3">
-    <tr>
-        <td>idR</td>
-        <td>Titre</td>
-        <td>Type</td>
-        <td>Url</td>
-        <td>Categorie name</td>
-    </tr>
-    <tr>
-        {% for i in ressource %}
-        <td>{{i.id}}</td>
-        <td>{{i.TitreR}}</td>
-        <td>{{i.TypeR}}</td>
-        <td>{{i.url}}</td>
-        <td>{{i.categorie}}</td>
-
-    </tr>
-    {% endfor %}
-</table>

@@ -33,9 +33,6 @@ class Ressources
         $this->categorie = new ArrayCollection();
     }
 
-    /*#[ORM\ManyToOne(inversedBy: 'ressources')]
-    private ?Categorie $categorie = null;*/
-
     public function getId(): ?int
     {
         return $this->id;
@@ -77,44 +74,33 @@ class Ressources
         return $this;
     }
 
-   /* public function getCategorie(): ?Categorie
+    /**
+     * @return Collection<int, Categorie>
+     */
+    public function getCategorie(): Collection
     {
         return $this->categorie;
     }
 
-    public function setCategorie(?Categorie $categorie): static
+    public function addCategorie(Categorie $categorie): static
     {
-        $this->categorie = $categorie;
+        if (!$this->categorie->contains($categorie)) {
+            $this->categorie->add($categorie);
+        }
 
         return $this;
-    }*/
+    }
 
-   /**
-    * @return Collection<int, Categorie>
-    */
-   public function getCategorie(): Collection
-   {
-       return $this->categorie;
-   }
+    public function removeCategorie(Categorie $categorie): static
+    {
+        $this->categorie->removeElement($categorie);
 
-   public function addCategorie(Categorie $categorie): static
-   {
-       if (!$this->categorie->contains($categorie)) {
-           $this->categorie->add($categorie);
-       }
-
-       return $this;
-   }
-
-   public function removeCategorie(Categorie $categorie): static
-   {
-       $this->categorie->removeElement($categorie);
-
-       return $this;
-   }
-   public function __toString()
-   {
-    return(string)$this->getTitreR();
-   }
+        return $this;
+    }
+    public function __toString()
+    {
+        return(string)$this->getTitreR();
+    }
+  
     
 }
