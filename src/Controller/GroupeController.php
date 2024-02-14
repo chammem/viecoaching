@@ -35,19 +35,16 @@ class GroupeController extends AbstractController
 public function creategroupe(ManagerRegistry $m ,Request $req): Response
 {
     $em=$m->getManager();
-   $groupe = new groupe();
+   $groupe = new Groupe;
    $form = $this->createForm(GroupeType::class, $groupe);
    $form->handleRequest($req);
-
    if ($form->isSubmitted() && $form->isValid()) {
        $em->persist($groupe);
        $em->flush();
        return $this->redirectToRoute('showgroupe');
-
-
    }
    return $this->renderForm('groupe/creategroupe.html.twig', [
-    'f' =>$form
+    'form' =>$form
 ]);
 }
 
@@ -67,6 +64,8 @@ public function creategroupe(ManagerRegistry $m ,Request $req): Response
         return $this->renderForm('groupe/editgroupep.html.twig', [
         'form' =>$form  ]);
     }
+
+    
     #[Route('/deletegroupe/{id}', name: 'deletegroupe')]
     public function deletegroupe($id,ManagerRegistry $m, GroupeRepository $groupeRepository): Response
     {

@@ -1,25 +1,93 @@
+{% extends 'base-back.html.twig' %}
 
-<table border="3">
-    <tr>
-        <td>id</td>
-        <td>nomtype</td>
-        <td>action</td>
-                <td>supprimer</td>
+{% block body %}
+    <style>
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-        
-        
-       
-    </tr>
-    {% for i in typegroupe  %}
-    <tr>
-        <td>{{i.id}}</td>
-        <td>{{i.nomtype}}</td>
-    <td><a href={{path('editgroupe',{'id':i.id})}}> edit</a></td>
-    <td><a href={{path('deletegroupe',{'id':i.id})}}> Delete</a></td>
+        .card {
+            margin-bottom: 20px;
+        }
 
-        
-</tr>
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
 
-    {% endfor %}
-   
-</table>
+        .action-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        .action-links .btn {
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 3px;
+        }
+
+        .badge-primary a {
+            background-color: #007bff;
+        }
+
+        .badge-danger a {
+            background-color: #dc3545;
+        }
+    </style>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+            <div>
+                <div class="page-title">Les Types de Groupes</div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Liste des Types de Groupes</h4>
+                       
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Identifiant</th>
+                                        <th>Nom du Type</th>
+                                        <th>Action</th>
+                                        <th>Supprimer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for type in typegroupe %}
+                                        <tr>
+                                            <td>{{ type.id }}</td>
+                                            <td>{{ type.nomtype }}</td>
+                                            <td class="action-links">
+                                                <span class="badge badge-prima">
+                                                    <a href="{{ path('editgroupe', {'id': type.id}) }}"class="btn btn-primary">Modifier</a>
+                                                </span>
+                                            </td>
+                                            <td class="action-links">
+                                                <span class="badge badge-danr">
+                                                    <a href="{{ path('deletetypeg', {'id': type.id}) }}"class="btn btn-danger">Supprimer</a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

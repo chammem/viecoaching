@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\TypegroupeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Asser;
+
 
 #[ORM\Entity(repositoryClass: TypegroupeRepository::class)]
 class Typegroupe

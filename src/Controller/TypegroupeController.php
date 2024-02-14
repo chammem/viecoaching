@@ -34,7 +34,7 @@ class TypegroupeController extends AbstractController
 }
 #[Route('/createtypegroupe', name: 'createtypegroupe')]
 
-public function createtypegroupe(ManagerRegistry $m ,Request $req): Response
+ public function createtypegroupe(ManagerRegistry $m ,Request $req): Response
 {
     $em=$m->getManager();
    $typegroupe = new Typegroupe();
@@ -50,10 +50,13 @@ public function createtypegroupe(ManagerRegistry $m ,Request $req): Response
    }
 
    return $this->renderForm('typegroupe/create.html.twig', [
-       'f' =>$form
+       'form' =>$form
    ]);
 
-}
+} 
+
+
+
 #[Route('/editgroupe/{id}', name: 'editgroupe')]
     public function editgroupe($id,ManagerRegistry $m,TypegroupeRepository $typeRepository ,Request $req): Response
     {
@@ -70,14 +73,14 @@ public function createtypegroupe(ManagerRegistry $m ,Request $req): Response
         return $this->renderForm('typegroupe/editgroupe.html.twig', [
         'form' =>$form  ]);
     }
-    #[Route('/deletegroupe/{id}', name: 'deletegroupe')]
-    public function deletegroupe($id,ManagerRegistry $m, GroupeRepository $typeRepository,Request $req): Response
+    #[Route('/deletetypeg/{id}', name: 'deletetypeg')]
+    public function deletetypeg($id,ManagerRegistry $m, TypegroupeRepository $typeRepository): Response
     {
         $em=$m->getManager();
         $id=$typeRepository->find($id);
         $em->remove($id);
         $em->flush();
-        return $this->redirectToRoute('showgroupe');
+        return $this->redirectToRoute('showtype');
     }
     
 }

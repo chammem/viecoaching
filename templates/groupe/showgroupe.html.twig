@@ -1,37 +1,95 @@
+{% extends 'base-back.html.twig' %}
+{% block body %}
+ <style>
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-<table border="3">
-    <tr>
-        <td>id</td>
-        <td>nom</td>
-        <td>description</td>
-                <td>Typegroupe</td>
+        .card {
+            margin-bottom: 20px;
+        }
 
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
 
-<td>datecreation</td>
- <td>action</td>
-                <td>supprimer</td>
+        .action-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 5px;
+        }
 
-          
-        
-        
-       
-    </tr>
-    {% for i in groupe  %}
-    <tr>
-        <td>{{i.id}}</td>
-        <td>{{i.nom}}</td>
-        <td>{{i.description}}</td>
-        <td>{{i.Typegroupe.nomtype}}</td>
-        <td>{{i.datecreation.format('Y-M-D')}}</td>
- <td><a href={{path('editgroupep',{'id':i.id})}}> edit</a></td>
-    <td><a href={{path('deletegroupe',{'id':i.id})}}> Delete</a></td>
+        .action-links .btn {
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 3px;
+        }
 
+        .badge-primary a {
+            background-color: #007bff;
+        }
 
+        .badge-danger a {
+            background-color: #dc3545;
+        }
+    </style>
+    {% block title %}{% endblock %}
 
-
-        
-</tr>
-
-    {% endfor %}
-   
-</table>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="row">
+            <div class="col-lg-12">
+                <div class="page-title">Liste des Groupe</div>
+            </div>
+        </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Identifiant</th>
+                                        <th>Nom de Groupe</th>
+                                        <th>Description</th>
+                                        <th>Type De Groupe</th>
+                                        <th>Date de Creation</th>
+                                        <th>Action</th>
+                                        <th>Supprimer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for groupe in groupe %}
+                                        <tr>
+                                            <td>{{ groupe.id }}</td>
+                                            <td>{{ groupe.nom }}</td>
+                                            <td>{{ groupe.description }}</td>
+                                            <td>
+                                                {% if groupe.typegroupe is not null %}
+                                                    {{ groupe.typegroupe.nomtype }}
+                                                {% else %}
+                                                    Type de groupe non défini
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ groupe.datecreation ? groupe.datecreation.format('Y-M-D') : 'Date de création non définie' }}</td>
+                                            <td>
+                                                <a href="{{ path('editgroupep', {'id': groupe.id}) }}" class="btn btn-primary">Modifier</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ path('deletegroupe', {'id': groupe.id}) }}" class="btn btn-danger">Supprimer</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
