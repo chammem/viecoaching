@@ -1,0 +1,24 @@
+<table border="3">
+    <tr>
+        <td>id</td>
+        <td>titre</td>
+        <td>duree</td>
+        <td>lien</td>
+        <td>mot de passe </td>
+         <td>type seance </td>
+
+
+    </tr>
+    {% for i in seances %}
+    <tr>
+        <td>{{i.id}}</td>
+        <td>{{i.titre}}</td>
+        <td>{{i.duree|date('i:s') }}</td>
+        <td>{{i.lien}}</td>
+        <td>{{i.motdepasse}}</td>
+         <td>{{i.typeSeance}}</td>
+         <td><a href="{{path('app_editSeance',{'id':i.id})}}">Edit</a></td>
+          <td><a href="{{path('app_deleteSeance',{'id':i.id})}}">delete</a></td>
+    </tr>
+    {% endfor %}
+</table>

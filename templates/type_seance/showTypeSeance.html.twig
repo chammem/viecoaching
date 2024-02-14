@@ -1,0 +1,16 @@
+
+<table border="3">
+    <tr>
+        <td>id</td>
+        <td>nom type</td>
+
+    </tr>
+    {% for i in typeS %}
+    <tr>
+        <td>{{i.id}}</td>
+        <td>{{i.nomtype}}</td>
+         <td><a href="{{path('app_editTypeSeance',{'id':i.id})}}">Edit</a></td>
+          <td><a href="{{path('app_deleteTypeSeance',{'id':i.id})}}">delete</a></td>
+    </tr>
+    {% endfor %}
+</table>

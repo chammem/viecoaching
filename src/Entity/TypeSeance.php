@@ -6,7 +6,7 @@ use App\Repository\TypeSeanceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: TypeSeanceRepository::class)]
 class TypeSeance
 {
@@ -16,6 +16,8 @@ class TypeSeance
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message:"Le nom du type de séance ne peut pas être vide.")]
+    #[Assert\Length(max:50, maxMessage:"Le nom du type de séance ne peut pas dépasser {{ Limit }} caractères.")]
     private ?string $nom_type = null;
 
     #[ORM\OneToMany(targetEntity: Seance::class, mappedBy: 'typeSeance',cascade: ["all"],orphanRemoval:true)]

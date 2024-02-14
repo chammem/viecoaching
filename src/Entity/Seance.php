@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\SeanceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: SeanceRepository::class)]
 class Seance
 {
@@ -14,19 +14,27 @@ class Seance
     #[ORM\Column]
     private ?int $id = null;
 
+    
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message:"Le titre de la séance ne peut pas être vide.")]
+    #[Assert\Length(max:50, maxMessage:"Le titre de la séance ne peut pas dépasser {{ Limit }} caractères.")]
     private ?string $titre = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Assert\NotNull(message:"La durée de la séance doit être spécifiée.")]
+
     private ?\DateTimeInterface $duree = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Url(message:"Le lien doit être une URL valide.")]
     private ?string $lien = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\Length(max:50, maxMessage:"Le mot de passe ne peut pas dépasser {{ Limit }} caractères.")]
     private ?string $mot_de_passe = null;
 
     #[ORM\ManyToOne(inversedBy: 'seances')]
+    #[Assert\NotBlank(message:"Le type de séance doit être spécifié.")]
     private ?TypeSeance $typeSeance = null;
 
     public function getId(): ?int
