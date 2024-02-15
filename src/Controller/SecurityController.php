@@ -6,7 +6,7 @@ use App\Entity\Utilisateur;
 use App\Form\RegistreType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
@@ -35,28 +35,29 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/inscription', name: 'security.registration', methods:['GET','POST'])]
-    public function registration(ManagerRegistry $managerRegistry , Request $req): Response
-    {
-        $em=$managerRegistry->getManager();
-        $user = new Utilisateur();
-        $form=$this->createForm(RegistreType::class,$user);
-        $form->handleRequest($req);
-       
-        if($form->isSubmitted() and $form->isValid())
-        
-        {  
-            $user=$form->getData();
-            $this->addFlash(
-                'success',
-                'votre compte a bien été crée'
-            );
-            $em->persist($user);
-            $em->flush();
-            return $this->redirectToRoute('security.login');
+public function registration(ManagerRegistry $managerRegistry , Request $req): Response
+{
+    $em=$managerRegistry->getManager();
+    $user = new Utilisateur();
+    $form=$this->createForm(RegistreType::class,$user);
+    $form->handleRequest($req);
+   
+    if($form->isSubmitted() and $form->isValid())
+    {   
+        if ($form->get('image')->getData() === null) {
+            $user->setImage('default_image.jpg');
         }
-        return $this->render('security/registration.html.twig', [
-            'form' => $form->createView(),
-        ]);
-       
+        $user=$form->getData();
+        $this->addFlash(
+            'success',
+            'votre compte a bien été crée'
+        );
+        $em->persist($user);
+        $em->flush();
+        return $this->redirectToRoute('security.login');
     }
+    return $this->render('security/registration.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
 }

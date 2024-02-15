@@ -22,6 +22,7 @@ p {
     text-align: center;
     position: relative;
     margin-top: 20px;
+    
 }
 
 #msform fieldset {
@@ -46,28 +47,9 @@ p {
     display: none;
 }
 
-#msform input, #msform textarea {
-    padding: 8px 15px 8px 15px;
-    border: 1px solid #ccc;
-    border-radius: 0px;
-    margin-bottom: 25px;
-    margin-top: 2px;
-    width: 100%;
-    box-sizing: border-box;
-    font-family: montserrat;
-    color: #2C3E50;
-    background-color: #ECEFF1;
-    font-size: 16px;
-    letter-spacing: 1px;
-}
 
-#msform input:focus, #msform textarea:focus {
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    border: 1px solid #673AB7;
-    outline-width: 0;
-}
+
+
 
 /*Next Buttons*/
 #msform .action-button {
@@ -229,4 +211,51 @@ p {
 .fit-image{
     width: 100%;
     object-fit: cover;
+}
+#msform input[type="text"], #msform input[type="email"], #msform input[type="password"], #msform input[type="file"], #msform textarea {
+    padding: 8px 15px 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 25px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    background-color: #ECEFF1;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.radio-option .radio-input {
+    margin-right: 10px !important;
+}
+
+.radio-option label {
+    display: inline-block !important;
+}
+.msform-text {
+    padding: 8px 15px 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 25px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    background-color: #ECEFF1;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.radio-option-input {
+    margin-right: 10px !important;
+
 }

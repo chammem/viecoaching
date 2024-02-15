@@ -37,6 +37,12 @@ class Utilisateur implements UserInterface
     #[ORM\ManyToOne(inversedBy: 'utilisateurs')]
     private ?Role $role = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
+    #[ORM\Column(length: 30)]
+    private ?string $ville = null;
+
 
     public function getId(): ?int
     {
@@ -161,4 +167,28 @@ public function getUsername(): string
 {
     return $this->email;
 }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(string $ville): static
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
 }

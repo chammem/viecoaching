@@ -74,3 +74,15 @@ $(document).ready(function(){
     })
         
     });
+
+    $('.next').click(function(){
+        var current_step = $('#current_step').val();
+        current_step++;
+        $('#current_step').val(current_step);
+    });
+    
+    $('.previous').click(function(){
+        var current_step = $('#current_step').val();
+        current_step--;
+        $('#current_step').val(current_step);
+    });

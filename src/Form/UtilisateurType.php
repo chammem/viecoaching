@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,8 +18,9 @@ class UtilisateurType extends AbstractType
             ->add('tel')
             ->add('mdp')
             ->add('genre')
-            ->add('save',SubmitType::class)
-        
+            ->add('image')
+            ->add('ville')
+            ->add('role')
         ;
     }
 
