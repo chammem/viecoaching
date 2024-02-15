@@ -1,1 +1,26 @@
-{{form(form)}}
+{% extends 'base-back.html.twig' %}
+{% block body %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>VieCoaching - {% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('path/to/your/external.css') }}">
+    </head>
+    <body style="display: flex; justify-content: space-between;">
+    
+    
+
+        <div style="flex: 1; text-align: center;">
+            <h1 class="dancing-script">Ajouter une rubrique</h1>
+            <form>
+                {{ form(form) }}
+            </form>
+        </div>
+
+
+    </body>
+    </html>
+{% endblock %}

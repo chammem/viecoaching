@@ -1,3 +1,5 @@
+{% extends 'base-back.html.twig' %}
+{% block body %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VieCoaching</title>
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
         .dancing-script {
             font-family: 'Dancing Script', cursive;
             font-optical-sizing: auto;
@@ -24,7 +17,7 @@
             font-size: 24px;
             font-weight: bold;
             text-decoration: underline;
-            margin-top: 100px; 
+            margin-top: 20px; 
         }
 
         table {
@@ -48,7 +41,6 @@
     </style>
 </head>
 <body>
-
     <h1 class="dancing-script">Bienvenue dans la session Commentaire</h1>
 
     <table>
@@ -74,3 +66,4 @@
 
 </body>
 </html>
+{% endblock %}
