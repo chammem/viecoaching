@@ -1,0 +1,46 @@
+{% extends 'base-back.html.twig' %}
+{% block body %}
+{% block title %}{% endblock %}
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Liste des utilisateurs</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-responsive-sm">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Ville</th>
+                        <th>Numero telephone</th>
+                        <th>Genre</th>
+                        <th>Role</th>
+                        <th>Modififier</th>
+                        <th>Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in user %}
+                    <tr>
+                        <td>{{ u.email }}</td>
+                        <td>{{ u.nom }}</td>
+                        <td>{{ u.prenom }}</td>
+                        <td>{{ u.ville }}</td>
+                        <td>{{ u.tel }}</td>
+                        <td>{{ u.genre }}</td>
+                        <td>{% if u.role %}{{ u.role.NomRole }}{% else %}No Role{% endif %}</td>
+                        
+                      <td><span class="badge badge-primary"><a href="{{ path('editUtilisateur', {'id': u.id}) }}">Modifier</a></span></td>
+
+ <td><span class="badge badge-danger"><a href="{{ path('deleteUtilisateur', {'id': u.id}) }}">Supprimer</a></span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

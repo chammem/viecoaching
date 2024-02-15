@@ -6,6 +6,7 @@ use App\Repository\UtilisateurRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
@@ -17,22 +18,35 @@ class Utilisateur implements UserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
-    private ?string $nom = null;
+    #[Assert\NotBlank(message: "Le nom ne peut pas être vide.")]
+    private string $nom ;
 
     #[ORM\Column(length: 30)]
-    private ?string $prenom = null;
+    #[Assert\NotBlank(message: "Le prenom ne peut pas être vide.")]
+    private string $prenom ;
 
     #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    #[Assert\NotBlank(message: "L'email ne peut pas être vide.")]
+    #[Assert\Email(
+        message: "L'email '{{ value }}' n'est pas un email valide.",
+    )]
+    private string $email ;
 
     #[ORM\Column(type: Types::BIGINT)]
-    private ?string $tel = null;
+    #[Assert\Length(
+        min : 8,
+        max : 15,
+        minMessage: "numero de telephone ne peut pas  {{ limit }} character",
+        maxMessage: "numero de telephone ne peut pas {{ limit }} character"
+    )]
+    private string $tel ;
 
     #[ORM\Column(length: 255)]
-    private ?string $mdp = null;
+    #[Assert\NotBlank(message: "Le mot de passe ne peut pas être vide.")]
+    private string $mdp ;
 
     #[ORM\Column(length: 30)]
-    private ?string $genre = null;
+    private string $genre ;
 
     #[ORM\ManyToOne(inversedBy: 'utilisateurs')]
     private ?Role $role = null;
@@ -41,7 +55,8 @@ class Utilisateur implements UserInterface
     private ?string $image = null;
 
     #[ORM\Column(length: 30)]
-    private ?string $ville = null;
+    #[Assert\NotBlank(message: "Le nom ne peut pas être vide.")]
+    private string $ville ;
 
 
     public function getId(): ?int
@@ -49,72 +64,72 @@ class Utilisateur implements UserInterface
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getNom(): string
     {
         return $this->nom;
     }
 
-    public function setNom(string $nom): static
+    public function setNom(string $nom): self
     {
         $this->nom = $nom;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getPrenom(): string
     {
         return $this->prenom;
     }
 
-    public function setPrenom(string $prenom): static
+    public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
 
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
 
-    public function getTel(): ?string
+    public function getTel(): string
     {
         return $this->tel;
     }
 
-    public function setTel(string $tel): static
+    public function setTel(string $tel): self
     {
         $this->tel = $tel;
 
         return $this;
     }
 
-    public function getMdp(): ?string
+    public function getMdp(): string
     {
         return $this->mdp;
     }
 
-    public function setMdp(string $mdp): static
+    public function setMdp(string $mdp): self
     {
         $this->mdp = $mdp;
 
         return $this;
     }
 
-    public function getGenre(): ?string
+    public function getGenre(): string
     {
         return $this->genre;
     }
 
-    public function setGenre(string $genre): static
+    public function setGenre(string $genre): self
     {
         $this->genre = $genre;
 

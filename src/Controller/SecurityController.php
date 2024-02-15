@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateur;
+use App\Form\LoginType;
 use App\Form\RegistreType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,16 +15,17 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+   
+
     #[Route('/connexion', name: 'security.login', methods:['GET','POST'])]
-    public function connexion(AuthenticationUtils $authenticationUtils): Response
-    {
-        /*if ($security->getUser()) {
-        return $this->redirectToRoute('addUtilisateur');
-    }*/
-        
+    public function connexion(AuthenticationUtils $authenticationUtils,Request $req): Response
+   {  
+    
+   
         return $this->render('security/login.html.twig', [
             'last_email' => $authenticationUtils->getLastUsername(),
-            'error'=> $authenticationUtils->getLastAuthenticationError()
+            'error'=> $authenticationUtils->getLastAuthenticationError(),
+            
         ]);
     }
 
