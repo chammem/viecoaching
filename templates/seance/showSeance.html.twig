@@ -1,4 +1,9 @@
-<table border="3">
+
+{% extends 'base-front.html.twig' %}
+{%block title %} LISTE SEANCES  {% endblock %}
+{% block body %}
+{% if seances %}
+<table border="3" id="Seance" class="table table-striped">
     <tr>
         <td>id</td>
         <td>titre</td>
@@ -6,6 +11,8 @@
         <td>lien</td>
         <td>mot de passe </td>
          <td>type seance </td>
+        <td>Modifier</td>
+        <td>Supprimer</td>
 
 
     </tr>
@@ -17,8 +24,14 @@
         <td>{{i.lien}}</td>
         <td>{{i.motdepasse}}</td>
          <td>{{i.typeSeance}}</td>
-         <td><a href="{{path('app_editSeance',{'id':i.id})}}">Edit</a></td>
-          <td><a href="{{path('app_deleteSeance',{'id':i.id})}}">delete</a></td>
+         
+         <td><a href="{{path('app_editSeance',{'id':i.id})}}"class="btn btn-dark">Modifier</a></td>
+          <td><a href="{{path('app_deleteSeance',{'id':i.id})}}"class="btn btn-dark">Supprimer</a></td>
     </tr>
     {% endfor %}
 </table>
+{% else %}
+    <p>Aucun Séance</p>
+  {% endif %} 
+<a href="{{path('app_AddSeance')}}"class="btn btn-dark">AJOUTER</a>
+{% endblock %}

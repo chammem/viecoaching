@@ -14,7 +14,7 @@ class TypeSeanceType extends AbstractType
     {
         $builder
             ->add('nom_type')
-            ->add('save',SubmitType::class);
+            ->add('Ajouter',SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

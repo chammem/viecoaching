@@ -51,7 +51,7 @@ class TypeSeanceController extends AbstractController
        }
 
         return $this->renderForm('type_seance/AddTypeSeance.html.twig', [
-            'f' => $form,
+            'form' => $form,
         ]);
     }
 
@@ -72,7 +72,7 @@ class TypeSeanceController extends AbstractController
         }
 
         return $this->renderForm('type_seance/editTypeSeance.html.twig', [
-            'f' => $form,
+            'form' => $form,
             
         ]);
     }

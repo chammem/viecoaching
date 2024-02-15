@@ -50,7 +50,7 @@ class SeanceController extends AbstractController
        }
 
         return $this->renderForm('seance/AddSeance.html.twig', [
-            'f' => $form,
+            'form' => $form,
         ]);
     }
     #[Route('/editSeance/{id}', name: 'app_editSeance')]
@@ -69,7 +69,7 @@ class SeanceController extends AbstractController
         }
 
         return $this->renderForm('seance/editSeance.html.twig', [
-            'f' => $form,
+            'form' => $form,
             
         ]);
     }

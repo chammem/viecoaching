@@ -1,16 +1,33 @@
+{% extends 'base-front.html.twig' %}
+{%block title %} LISTE TYPES SEANCES  {% endblock %}
+{% block body %}
 
-<table border="3">
+{% if typeS %}
+<table border="3" id="typeS" class="table table-striped">
     <tr>
-        <td>id</td>
-        <td>nom type</td>
+        <td>Id</td>
+        <td>Nom type</td>
+        <td>Modifier</td>
+        <td>Supprimer</td>
+
+
 
     </tr>
     {% for i in typeS %}
     <tr>
         <td>{{i.id}}</td>
         <td>{{i.nomtype}}</td>
-         <td><a href="{{path('app_editTypeSeance',{'id':i.id})}}">Edit</a></td>
-          <td><a href="{{path('app_deleteTypeSeance',{'id':i.id})}}">delete</a></td>
+
+         <td><a href="{{path('app_editTypeSeance',{'id':i.id})}}"class="btn btn-dark">Modifier</a></td>
+          <td><a href="{{path('app_deleteTypeSeance',{'id':i.id})}}"class="btn btn-dark">Supprimer</a></td>
+          
     </tr>
     {% endfor %}
 </table>
+ {% else %}
+    <p>Aucun Type</p>
+  {% endif %} 
+ <a href="{{path('app_AddTypeSeance')}}"class="btn btn-dark">Ajouter</a>
+{% endblock %}
+
+

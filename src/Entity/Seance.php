@@ -22,14 +22,15 @@ class Seance
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     #[Assert\NotNull(message:"La durée de la séance doit être spécifiée.")]
-
     private ?\DateTimeInterface $duree = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotNull(message:"Le lien de la séance doit être spécifiée.")]
     #[Assert\Url(message:"Le lien doit être une URL valide.")]
     private ?string $lien = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotNull(message:"Le mot de passe de la séance doit être spécifiée.")]
     #[Assert\Length(max:50, maxMessage:"Le mot de passe ne peut pas dépasser {{ Limit }} caractères.")]
     private ?string $mot_de_passe = null;
 

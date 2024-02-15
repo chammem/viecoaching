@@ -1,1 +1,20 @@
-{{ form(f) }}
+{% extends 'base-front.html.twig' %}
+{%block title %} AJOUTER TYPE SEANCE  {% endblock %}
+{% block body %}
+
+<h2>Ajouter type de séance </h2>
+
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }} 
+<table>
+<tr>
+    <td>{{ form_label(form.nom_type,"Nom de type") }}</td>
+    <td>{{ form_widget(form.nom_type) }}</td>
+    <td>{{ form_errors(form.nom_type) }}</td>
+
+</tr>
+</table>
+
+{{ form_widget(form.Ajouter)}}
+{{ form_end(form) }}
+{% endblock %}
+
