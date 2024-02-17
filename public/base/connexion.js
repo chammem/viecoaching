@@ -82,34 +82,85 @@ signup_form_input.forEach((signup_e)=>{
     });
 });
 
-
-signin_eye_click.addEventListener('click',function(){
-   if(signin_type.type=="password"){
-       signin_type.type="text";
-       set_signin_eye.classList.remove('fa-eye-slash');
-       set_signin_eye.classList.add('fa-eye');
-       signin_type.classList.add('signin_eye_wrn');
-   } 
-   else{
-       signin_type.type="password";
-       set_signin_eye.classList.add('fa-eye-slash');
-       set_signin_eye.classList.remove('fa-eye');
-       signin_type.classList.remove('signin_eye_wrn');
-   }
+document.getElementById('signin_eye_click').addEventListener('click', function() {
+    var signin_type = document.getElementById('signin_type');
+    var signin_eye = document.getElementById('signin_eye_click');
+    
+    if (signin_type.type === "password") {
+        signin_type.type = "text";
+        signin_eye.classList.remove('fa-eye-slash');
+        signin_eye.classList.add('fa-eye');
+    } else {
+        signin_type.type = "password";
+        signin_eye.classList.add('fa-eye-slash');
+        signin_eye.classList.remove('fa-eye');
+    }
 });
 
-signup_eye_click.addEventListener('click',function(){ 
-   if(signup_type.type=="password"){
-       signup_type.type="text";
-       set_signin_eye.classList.remove('fa-eye-slash');
-       set_signup_eye.classList.add('fa-eye');
-       signup_type.classList.add('signup_eye_wrn');
-   }
-   else{
-       signup_type.type="password";
-       set_signin_eye.classList.add('fa-eye-slash');
-       set_signup_eye.classList.remove('fa-eye');
-       signup_type.classList.remove('signup_eye_wrn');
-       
-   }
+   
+
+var current_fs, next_fs, previous_fs; // champs de l'étape actuelle, de l'étape suivante et de l'étape précédente
+var opacity;
+var current = 1;
+var steps = $("fieldset").length;
+
+setProgressBar(current);
+
+$(".next").click(function(){
+
+    current_fs = $(this).parent();
+    next_fs = $(this).parent().next();
+
+    // Ajoute la classe "active" à la prochaine étape du formulaire
+    next_fs.show(); 
+
+    // Masque l'étape actuelle avec style
+    current_fs.animate({opacity: 0}, {
+        step: function(now) {
+            // pour les animations de style lors du changement d'étape
+            opacity = 1 - now;
+
+            current_fs.css({
+                'display': 'none',
+                'position': 'relative'
+            });
+            next_fs.css({'opacity': opacity});
+        }, 
+        duration: 600
+    });
+    setProgressBar(++current);
+});
+
+$(".previous").click(function(){
+
+    current_fs = $(this).parent();
+    previous_fs = $(this).parent().prev();
+
+    // Ajoute la classe "active" à l'étape précédente du formulaire
+    previous_fs.show();
+
+    // Masque l'étape actuelle avec style
+    current_fs.animate({opacity: 0}, {
+        step: function(now) {
+            // pour les animations de style lors du changement d'étape
+            opacity = 1 - now;
+
+            current_fs.css({
+                'display': 'none',
+                'position': 'relative'
+            });
+            previous_fs.css({'opacity': opacity});
+        }, 
+        duration: 600
+    });
+    setProgressBar(--current);
+
+
+function setProgressBar(curStep){
+    var percent = parseFloat(100 / steps) * curStep;
+    percent = percent.toFixed();
+    $(".progress-bar")
+        .css("width",percent+"%")
+        .html(percent+"%"); 
+}
 });

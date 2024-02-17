@@ -1,5 +1,56 @@
-$(document).ready(function(){
-    
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById('msform');
+    const progressBar = document.getElementById('progressbar');
+    const nextButtons = document.querySelectorAll('.next');
+    const previousButtons = document.querySelectorAll('.previous');
+    let currentStep = 0;
+
+    function showStep(stepIndex) {
+        const fieldsets = form.querySelectorAll('fieldset');
+        fieldsets.forEach((fieldset, index) => {
+            if (index === stepIndex) {
+                fieldset.style.display = 'block';
+            } else {
+                fieldset.style.display = 'none';
+            }
+        });
+
+        const progressBarItems = progressBar.querySelectorAll('li');
+        progressBarItems.forEach((item, index) => {
+            if (index === stepIndex) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+
+    function validateStep(stepIndex) {
+        // Implement your validation logic here
+        return true; // For demonstration, always return true
+    }
+
+    function goToNextStep() {
+        if (validateStep(currentStep)) {
+            currentStep++;
+            showStep(currentStep);
+        }
+    }
+
+    function goToPreviousStep() {
+        currentStep--;
+        showStep(currentStep);
+    }
+
+    nextButtons.forEach(button => {
+        button.addEventListener('click', goToNextStep);
+    });
+
+    previousButtons.forEach(button => {
+        button.addEventListener('click', goToPreviousStep);
+    });
+
+    showStep(currentStep);});
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
     var current = 1;
@@ -72,17 +123,4 @@ $(document).ready(function(){
     $(".submit").click(function(){
         return false;
     })
-        
-    });
-
-    $('.next').click(function(){
-        var current_step = $('#current_step').val();
-        current_step++;
-        $('#current_step').val(current_step);
-    });
     
-    $('.previous').click(function(){
-        var current_step = $('#current_step').val();
-        current_step--;
-        $('#current_step').val(current_step);
-    });

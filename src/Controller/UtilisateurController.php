@@ -16,13 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UtilisateurController extends AbstractController
 {
-    #[Route('/utilisateur', name: 'app_utilisateur')]
-    public function index(): Response
-    {
-        return $this->render('utilisateur/index.html.twig', [
-            'controller_name' => 'UtilisateurController',
-        ]);
-    }
     #[Route('/showuser', name: 'showuser')]
     public function showuser(UtilisateurRepository $utilisateurRepository): Response
     {
@@ -38,17 +31,7 @@ class UtilisateurController extends AbstractController
         $em=$managerRegistry->getManager();
         $utilisateur=new Utilisateur;
 
-       /* if (!$utilisateur->getRole()) {
-            $defaultRole = $roleRepository->findOneBy(['NomRole' => 'user']);
-            if (!$defaultRole) {
-                // Créer le rôle ROLE_USER s'il n'existe pas déjà
-                $defaultRole = new Role();
-                $defaultRole->setNomRole('user');
-                $em->persist($defaultRole);
-            }
-            $utilisateur->setRole($defaultRole);
-        */
-    
+        
         $form=$this->createForm(UtilisateurType::class,$utilisateur);
         $form->handleRequest($req);
         if($form->isSubmitted() && $form->isValid())

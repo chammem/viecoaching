@@ -22,7 +22,7 @@ class Utilisateur implements UserInterface
     private string $nom ;
 
     #[ORM\Column(length: 30)]
-    #[Assert\NotBlank(message: "Le prenom ne peut pas être vide.")]
+    #[Assert\NotBlank(message: "Le prénom ne peut pas être vide.")]
     private string $prenom ;
 
     #[ORM\Column(length: 255)]
@@ -33,31 +33,36 @@ class Utilisateur implements UserInterface
     private string $email ;
 
     #[ORM\Column(type: Types::BIGINT)]
+    #[Assert\NotBlank(message: "Le numéro de téléphone ne peut pas être vide.")]
     #[Assert\Length(
-        min : 8,
-        max : 15,
-        minMessage: "numero de telephone ne peut pas  {{ limit }} character",
-        maxMessage: "numero de telephone ne peut pas {{ limit }} character"
+        min: 8,
+        max: 15,
+        minMessage: "Le numéro de téléphone doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le numéro de téléphone ne peut pas dépasser {{ limit }} caractères."
     )]
     private string $tel ;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Le mot de passe ne peut pas être vide.")]
+    #[Assert\Length(
+        min: 8,
+        minMessage: "Le mot de passe doit contenir au moins {{ limit }} caractères."
+    )]
     private string $mdp ;
 
     #[ORM\Column(length: 30)]
+    #[Assert\NotBlank(message: "Le genre ne peut pas être vide.")]
     private string $genre ;
 
-    #[ORM\ManyToOne(inversedBy: 'utilisateurs')]
+    #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'utilisateurs')]
     private ?Role $role = null;
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
     #[ORM\Column(length: 30)]
-    #[Assert\NotBlank(message: "Le nom ne peut pas être vide.")]
+    #[Assert\NotBlank(message: "La ville ne peut pas être vide.")]
     private string $ville ;
-
 
     public function getId(): ?int
     {

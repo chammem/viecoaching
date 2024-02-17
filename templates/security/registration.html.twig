@@ -1,25 +1,18 @@
 {% block body %}
 
-
-
-
-
-
 <div class="container-fluid">
 	<div class="row justify-content-center">
 		<div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                <h2 id="heading">Sign Up Your User Account</h2>
-                <p>Fill all form field to go to next step</p>
-
-                {{ form_start(form, {'attr': {'id': 'msform'}}) }}
-                 
+                <h2 id="heading">S’inscrire</h2>
+                <p>C’est rapide et facile.</p>
+{{ form_start(form, {'attr': {'id': 'msform', 'novalidate': 'novalidate'}}) }}
                     <!-- progressbar -->
                     <ul id="progressbar">
-                        <li class="active" id="account"><strong>Account</strong></li>
-                        <li id="personal"><strong>Personal</strong></li>
+                        <li class="active" id="account"><strong>Compte</strong></li>
+                        <li id="personal"><strong>Personnel</strong></li>
                         <li id="payment"><strong>Image</strong></li>
-                        <li id="confirm"><strong>Finish</strong></li>
+                        <li id="confirm"><strong>Terminé</strong></li>
                     </ul>
                     <div class="progress">
                     	<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
@@ -31,27 +24,29 @@
                         <div class="form-card">
                         	<div class="row">
                         		<div class="col-7">
-                            		<h2 class="fs-title">Account Information:</h2>
+                            		<h2 class="fs-title">Information sur le compte:</h2>
                             	</div>
                             	<div class="col-5">
-                            		<h2 class="steps">Step 1 - 4</h2>
+                            		<h2 class="steps">Etape 1 - 4</h2>
                             	</div>
                             </div>
-                            {{ form_row(form.email, {'attr': {'placeholder': 'Email Id'}}) }}
-      {{ form_row(form.mdp.first, {'attr': {'placeholder': 'Password'}}) }}
-{{ form_row(form.mdp.second, {'attr': {'placeholder': 'Confirm Password'}}) }}
+                            {{ form_row(form.email, {'attr': {'placeholder': 'Entrez votre adresse e-mail'}}) }}
+      {{ form_row(form.mdp.first, {'attr': {'placeholder': 'Entrez votre mot de passe'}}) }}
+      
+{{ form_row(form.mdp.second, {'attr': {'placeholder': 'Confirmer votre mot de passe'}}) }}
+
                         </div>
-  <input type="button" name="next" class="next action-button" value="Next"/>
+  <input type="button" name="next" class="next action-button" value="Suivant"/>
                                         </fieldset>
                     
                     <fieldset>
                         <div class="form-card">
                             <div class="row">
                         		<div class="col-7">
-                            		<h2 class="fs-title">Personal Information:</h2>
+                            		<h2 class="fs-title">Informations personnelles :</h2>
                             	</div>
                             	<div class="col-5">
-                            		<h2 class="steps">Step 2 - 4</h2>
+                            		<h2 class="steps">Etape 2 - 4</h2>
                             	</div>
                             </div>
                           
@@ -61,41 +56,41 @@
 {{ form_row(form.tel, {'attr': {'placeholder': 'Entrez votre numéro de téléphone', 'class': 'votre-classe-css'}}) }}
 {{ form_row(form.genre, {'attr': {'class': 'votre-classe-css'}}) }}
                         </div>
-  <input type="button" name="next" class="next action-button" value="Next"/>
-                                         <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+  <input type="button" name="next" class="next action-button" value="Suivant"/>
+                                         <input type="button" name="previous" class="previous action-button-previous" value="Précédent"/>
                     </fieldset>
                     
                     <fieldset>
                         <div class="form-card">
                             <div class="row">
                         		<div class="col-7">
-                            		<h2 class="fs-title">Image Upload:</h2>
+                            		<h2 class="fs-title">Téléchargement d'image:</h2>
                             	</div>
                             	<div class="col-5">
-                            		<h2 class="steps">Step 3 - 4</h2>
+                            		<h2 class="steps">Etape 3 - 4</h2>
                             	</div>
                             </div>
                              {{ form_row(form.image) }}
       
-                            <label class="fieldlabels">Code de validation: *</label>
+                            <label class="fieldlabels">Code de validation</label>
 <input type="text" name="validation_code" placeholder="Entrez votre code de validation">
                         </div>
-{{ form_widget(form.save, {'attr': {'class': 'next action-button'}}) }}
+{{ form_widget(form.Suivant, {'attr': {'class': 'next action-button'}}) }}
 
-                        <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                        <input type="button" name="previous" class="previous action-button-previous" value="Précédent"/>
                     </fieldset>
                     <fieldset>
                         <div class="form-card">
                         	<div class="row">
                         		<div class="col-7">
-                            		<h2 class="fs-title">Finish:</h2>
+                            		<h2 class="fs-title">Terminé:</h2>
                             	</div>
                             	<div class="col-5">
-                            		<h2 class="steps">Step 4 - 4</h2>
+                            		<h2 class="steps">Etape 4 - 4</h2>
                             	</div>
                             </div>
                             <br><br>
-                            <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2>
+                            <h2 class="purple-text text-center"><strong>SUCCÈS !</strong></h2>
                             <br>
                             <div class="row justify-content-center">
                                 <div class="col-3">
@@ -105,7 +100,7 @@
                             <br><br>
                             <div class="row justify-content-center">
                                 <div class="col-7 text-center">
-                                    <h5 class="purple-text text-center">You Have Successfully Signed Up</h5>
+                                    <h5 class="purple-text text-center">Vous vous êtes inscrit avec succès</h5>
                                 </div>
                             </div>
                         </div>
@@ -131,8 +126,11 @@
 {% block javascripts %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="{{asset('base/inscription.js')}}"></script>
+
 {% endblock %}
 
 {% endblock %}

@@ -9,34 +9,45 @@ html {
 }
 
 p {
-	color: grey;
+	color: #b4bfc59f;
+    font-size: 21px;
 }
 
 #heading {
-	text-transform: uppercase;
-	color: #673AB7;
-	font-weight: normal;
+	
+	color: #000000;
+    font-size: 40px;
+	
 }
 
+body {
+    background: linear-gradient(to bottom, #f8f8f8, #f8f8f8); /* Dégradé de gris */
+}
+
+/* Arrière-plan du formulaire */
 #msform {
     text-align: center;
     position: relative;
-    margin-top: 20px;
-    
+    margin: 20px auto; /* Centrer le formulaire horizontalement */
+    width: 100%; /* Définir une largeur pour le formulaire */
+    max-width: 600px; /* Limiter la largeur maximale du formulaire */
+    background: rgba(255, 255, 255, 0.9); /* Blanc avec une transparence légère */
+     /* Ajouter des coins arrondis */
+    padding: 10px; /* Ajouter un espace intérieur */
+    /* Ajouter une ombre légère */
 }
 
 #msform fieldset {
     background: white;
-    border: 0 none;
-    border-radius: 0.5rem;
+    border: 3.5px solid transparent;
+    border-radius: 30px;
     box-sizing: border-box;
     width: 100%;
-    margin: 0;
-    padding-bottom: 20px;
-
-    /*stacking fieldsets above each other*/
-    position: relative;
+    margin: 0 auto;
+    padding: 20px;
 }
+
+
 
 .form-card {
 	text-align: left;
@@ -51,60 +62,67 @@ p {
 
 
 
-/*Next Buttons*/
 #msform .action-button {
-    width: 100px;
-    background: #673AB7;
+    width: 20%; /* Ajuster la largeur selon vos préférences */
+    height: 40px; /* Reprendre la hauteur des boutons de la classe .login_btn */
+    background: #17a2b8; /* Couleur de fond */
     font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 0px;
+    color: white; /* Couleur du texte */
+    border: none;
+    border-radius: 20px; /* Coins arrondis */
     cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 0px 10px 5px;
-    float: right;
+    margin-top: 20px; /* Marge supérieure pour l'espacement */
+    margin-right: 30px; /* Marge droite pour l'espacement */
+    font-size: 18px; /* Taille de la police */
+    transition: all 0.5s; /* Transition fluide */
+    float: right; /* Alignement à droite */
 }
 
 #msform .action-button:hover, #msform .action-button:focus {
-    background-color: #311B92;
+    background-color: #1e525a; /* Couleur de survol */
 }
 
 /*Previous Buttons*/
 #msform .action-button-previous {
-    width: 100px;
-    background: #616161;
+    width: 20%; /* Ajuster la largeur selon vos préférences */
+    height: 40px; /* Reprendre la hauteur des boutons de la classe .login_btn */
+    background: #616161; /* Couleur de fond */
     font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 0px;
+    color: white; /* Couleur du texte */
+    border: none;
+    border-radius: 20px; /* Coins arrondis */
     cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 5px 10px 0px;
-    float: right;
+    margin-top: 20px; /* Marge supérieure pour l'espacement */
+    margin-right: 0px; /* Marge droite pour l'espacement */
+   
+    font-size: 18px; /* Taille de la police */
+    transition: all 0.5s; /* Transition fluide */
+    float: right; /* Alignement à droite */
 }
 
 #msform .action-button-previous:hover, #msform .action-button-previous:focus {
-    background-color: #000000;
+    background-color: #000000; /* Couleur de survol */
 }
 
 /*The background card*/
 .card {
     z-index: 0;
     border: none;
-    position: relative;
+    position: relative;border-radius: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   
 }
 
 /*FieldSet headings*/
 .fs-title {
-    font-size: 25px;
-    color: #673AB7;
+    font-size: 23px;
+    color: #000000;
     margin-bottom: 15px;
     font-weight: normal;
     text-align: left;
 }
 
 .purple-text {
-	color: #673AB7;
+	color: #000000;
     font-weight: normal;
 }
 
@@ -119,19 +137,52 @@ p {
 
 /*Field names*/
 .fieldlabels {
-	color: gray;
+	color: rgb(0, 0, 0);
 	text-align: left;
+}#progressbar li:before {
+    width: 60px; /* Largeur de l'espace réservé à l'icône */
+    height: 60px; /* Hauteur de l'espace réservé à l'icône */
+    line-height: 56px; /* Ajustement de la position verticale */
+    font-size: 30px; /* Taille de l'icône */
+    /* Autres styles */
+    display: block;
+    color: #ffffff;
+    background: #c3c78c; /* Couleur de fond par défaut */
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 4px;
+    /* Dégradé linéaire */
+    background-image: linear-gradient(to bottom right, #c3c78c, #ff8800fd); /* Dégradé de couleur */
 }
 
+/* Styles pour la barre de progression */
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: #c3c78c; /* Couleur de fond par défaut */
+    position: absolute;
+    left: 0;
+    top: 30px; /* Ajustement de la position verticale */
+    z-index: -1;
+    /* Dégradé linéaire */
+    background-image: #c3c78c; /* Dégradé de couleur */
+}
+
+/* Styles pour la couleur active dans la barre de progression */
+#progressbar li.active:before, #progressbar li.active:after {
+    background: #17a2b8; /* Couleur active */
+}
 /*Icon progressbar*/
 #progressbar {
     margin-bottom: 30px;
     overflow: hidden;
-    color: lightgrey;
+    color: rgba(211, 211, 211, 0.74);
 }
 
 #progressbar .active {
-    color: #673AB7;
+    color: #000000;
+    
 }
 
 #progressbar li {
@@ -167,35 +218,10 @@ p {
     content: "\f00c";
     font-weight: 900;
 }
-/*Icon ProgressBar before any progress*/
-#progressbar li:before {
-    width: 50px;
-    height: 50px;
-    line-height: 45px;
-    display: block;
-    font-size: 20px;
-    color: #ffffff;
-    background: lightgray;
-    border-radius: 50%;
-    margin: 0 auto 10px auto;
-    padding: 2px;
-}
-
-/*ProgressBar connectors*/
-#progressbar li:after {
-    content: '';
-    width: 100%;
-    height: 2px;
-    background: lightgray;
-    position: absolute;
-    left: 0;
-    top: 25px;
-    z-index: -1;
-}
 
 /*Color number of the step and the connector before it*/
 #progressbar li.active:before, #progressbar li.active:after {
-    background: #673AB7;
+    background: #17a2b8;
 }
 
 /*Animated Progress Bar*/
@@ -204,7 +230,7 @@ p {
 }
 
 .progress-bar {
-	background-color: #673AB7;
+	background-color: #fcb858;
 }
 
 /*Fit image in bootstrap div*/
@@ -214,7 +240,7 @@ p {
 }
 #msform input[type="text"], #msform input[type="email"], #msform input[type="password"], #msform input[type="file"], #msform textarea {
     padding: 8px 15px 8px 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #e7e7e75e;
     border-radius: 0px;
     margin-bottom: 25px;
     margin-top: 2px;
@@ -222,9 +248,10 @@ p {
     box-sizing: border-box;
     font-family: montserrat;
     color: #2C3E50;
-    background-color: #ECEFF1;
+    background-color: #e7e7e7a4;
     font-size: 16px;
     letter-spacing: 1px;
+    border-radius: 10px;
 }
 
 .radio-option {
@@ -242,7 +269,7 @@ p {
 }
 .msform-text {
     padding: 8px 15px 8px 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #e7e7e7a4;
     border-radius: 0px;
     margin-bottom: 25px;
     margin-top: 2px;
@@ -250,7 +277,7 @@ p {
     box-sizing: border-box;
     font-family: montserrat;
     color: #2C3E50;
-    background-color: #ECEFF1;
+    background-color: #e7e7e7a4;
     font-size: 16px;
     letter-spacing: 1px;
 }

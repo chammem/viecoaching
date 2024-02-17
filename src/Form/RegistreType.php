@@ -20,19 +20,28 @@ class RegistreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
-            ->add('email')
-            ->add('tel', TextType::class, [
+        ->add('nom', TextType::class, [
+            'label' => 'Nom:',
+        ])
+        ->add('prenom', TextType::class, [
+            'label' => 'Prénom:',
+        ])
+        ->add('email',TextType::class, [
+            'label' => 'Adresse email:',
+        ])
+            ->add('tel', TextType::class,  [
+                'label' => 'Numéro de téléphone:',
+            ], [
                 'attr' => [
                     'placeholder' => 'Entrez votre numéro de téléphone',
                     'class' => 'msform'
-                ]
-            ])
+                ]] , 
+               )
             ->add('mdp', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Confirm Password'],
+                'first_options'  => ['label' => 'Mot de passe:'],
+                'second_options' => ['label' => 'Confirmation mot de passe:'],
+                'invalid_message' => 'Les mots de passe ne correspondent pas.'
             ])
             ->add('genre', ChoiceType::class, [
                 'choices'  => [
@@ -42,6 +51,8 @@ class RegistreType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
                 'attr' => ['class' => 'radio-option']
+            ], [
+                'label' => 'Genre:',
             ])
             ->add('image', FileType::class, [
                 'label' => 'Télecharger vote photo:',   
@@ -51,13 +62,16 @@ class RegistreType extends AbstractType
                         'mimeTypes' => [
                             'image/*',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid image file',
+                        
                     ])
                 ],
             ])
-            ->add('ville')
+            ->add('ville', TextType::class , 
+            [
+                'label' => 'Ville',
+            ])
             
-            ->add('save',SubmitType::class)
+            ->add('Suivant',SubmitType::class)
         ;
     }
 
