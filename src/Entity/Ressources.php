@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use PhpParser\Node\Expr\Cast\String_;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RessourcesRepository::class)]
 class Ressources
@@ -17,21 +18,26 @@ class Ressources
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Le titre de ressource ne peut pas être vide ')]
     private ?string $TitreR = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Le type de ressource ne peut pas être vide ')]
     private ?string $TypeR = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'L url de ressource ne peut pas être vide ')]
     private ?string $url = null;
 
-    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'ressources')]
-    private Collection $categorie;
+    #[ORM\OneToMany(targetEntity: Categorie::class, mappedBy: 'ressource',cascade:["all"],orphanRemoval:true)]
+    private Collection $categories;
 
     public function __construct()
     {
-        $this->categorie = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
+
+    
 
     public function getId(): ?int
     {
@@ -67,40 +73,46 @@ class Ressources
         return $this->url;
     }
 
-    public function setUrl(string $url): static
-    {
-        $this->url = $url;
+    public function setUrl(?string $url): self
+{
+    $this->url = $url;
 
-        return $this;
-    }
-
+    return $this;
+}
+   
     /**
      * @return Collection<int, Categorie>
      */
-    public function getCategorie(): Collection
+    public function getCategories(): Collection
     {
-        return $this->categorie;
+        return $this->categories;
     }
 
-    public function addCategorie(Categorie $categorie): static
+    public function addCategory(Categorie $category): static
     {
-        if (!$this->categorie->contains($categorie)) {
-            $this->categorie->add($categorie);
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+            $category->setRessource($this);
         }
 
         return $this;
     }
 
-    public function removeCategorie(Categorie $categorie): static
+    public function removeCategory(Categorie $category): static
     {
-        $this->categorie->removeElement($categorie);
+        if ($this->categories->removeElement($category)) {
+            // set the owning side to null (unless already changed)
+            if ($category->getRessource() === $this) {
+                $category->setRessource(null);
+            }
+        }
 
         return $this;
     }
+      
     public function __toString()
     {
         return(string)$this->getTitreR();
     }
-  
-    
+
 }

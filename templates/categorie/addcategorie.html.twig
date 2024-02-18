@@ -1,24 +1,52 @@
 {% extends 'base-back.html.twig' %}
+
 {% block body %}
-    {% block title %} Add {% endblock %}
-    {{ form_start(form) }}
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Ajouter categorie</h4>
-        </div>
-        <div class="card-body">
-            <div class="basic-form">
-                <div class="form-group">
-                    {{ form_label(form.nomCategorie) }}
-                    {{ form_widget(form.nomCategorie, {'attr': {'class': 'form-control'}}) }}
+{{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Ajouter une autre categorie</h4>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form, {'attr': {'class': 'form'}}) }}
+                            <div class="form-group row">
+                                <label for="TitreR" class="col-md-4 col-form-label text-md-right">Nom categorie</label>
+                                <div class="col-md-6">
+                                    {{ form_widget(form.nomCategorie, {'attr': {'class': 'form-control'}}) }}
+                                    <div style="color:red;" >
+                                    {% if form_errors(form.nomCategorie) is not empty %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ form_errors(form.nomCategorie) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                </div>
+                            </div>
+                              <div class="form-group row">
+                                <label for="categorie" class="col-md-4 col-form-label text-md-right">Ressource :</label>
+                                <div class="col-md-6">
+                                    {{ form_widget(form.ressource, {'attr': {'class': 'form-control'}}) }}
+                                    <div style="color:red;" >
+                                    {% if form_errors(form.ressource) is not empty %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ form_errors(form.ressource) }}
+                                        </div>
+                                    {% endif %}
+                                </div
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    {{ form_widget(form.Ajouter, {'attr': {'class': 'btn btn-primary'}}) }}
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
                 </div>
-                <div class="form-group">
-                    {{ form_label(form.ressources) }}
-                    {{ form_widget(form.ressources, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
             </div>
         </div>
     </div>
-    {{ form_end(form) }}
 {% endblock %}

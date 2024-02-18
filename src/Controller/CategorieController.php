@@ -31,6 +31,16 @@ class CategorieController extends AbstractController
          ]);
              
          }
+         //affiche paritie patient 
+         #[Route('/afficheCatP', name: 'afficheCatP')]
+         public function afficheCatP(CategorieRepository $x): Response
+         {
+             $cat = $x->findAll();
+             return $this->render('categorie/afficheCatP.html.twig', [
+                 'cat'=> $cat
+             ]);
+                 
+             }
         //function ajout categorie
         #[Route('/addcategorie', name: 'addcategorie')]
     public function addcategorie(ManagerRegistry $managerRegistry, Request $req): Response

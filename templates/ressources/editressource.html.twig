@@ -1,35 +1,61 @@
 {% extends 'base-back.html.twig' %}
-{% block body %}
-{% block title %}{% endblock %}
-{{ form_start(form) }}
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Modifier Ressource</h4>
-        </div>
-        <div class="card-body">
-            <div class="basic-form">
-                <form>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            {{ form_row(form.TitreR) }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form_row(form.TypeR) }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form_row(form.url) }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form_row(form.categorie) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_row(form.submit) }}
-                        {{ form_end(form) }}
 
+{% block body %}
+    {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Modifier ressource</h4>
                     </div>
-                </form>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="TitreR" class="col-md-4 col-form-label text-md-right">Titre Ressource :</label>
+                            <div class="col-md-6">
+                                {{ form_widget(form.TitreR) }}
+                                <div style="color:red;" >
+                                    {% if form_errors(form.TitreR) is not empty %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ form_errors(form.TitreR) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="TypeR" class="col-md-4 col-form-label text-md-right">Type Ressource :</label>
+                            <div class="col-md-6">
+                                {{ form_widget(form.TypeR, {'attr': {'class': 'form-control'}}) }}
+                                <div style="color:red;" >
+                                    {% if form_errors(form.TypeR) is not empty %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ form_errors(form.TypeR) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="url" class="col-md-4 col-form-label text-md-right">Choisir un fichier :</label>
+                            <div class="col-md-6">
+                                {{ form_widget(form.url, {'attr': {'class': 'form-control'}}) }}
+                                <div style="color:red;" >
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                {{ form_widget(form.Ajouter, {'attr': {'class': 'btn btn-primary'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    {{ form_end(form) }}
 {% endblock %}

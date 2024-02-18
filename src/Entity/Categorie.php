@@ -6,6 +6,8 @@ use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
 class Categorie
@@ -16,17 +18,14 @@ class Categorie
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: 'Le nom de categorie ne peut pas être vide ')]
     private ?string $nomCategorie = null;
 
-    #[ORM\ManyToMany(targetEntity: Ressources::class, mappedBy: 'categorie')]
-    private Collection $ressources;
+    #[ORM\ManyToOne(inversedBy: 'categories')]
+    #[Assert\NotBlank(message: 'Le  titre de ressource ne peut pas être vide ')]
 
-    public function __construct()
-    {
-        $this->ressources = new ArrayCollection();
-    }
+    private ?Ressources $ressource = null;
 
-   
     public function getId(): ?int
     {
         return $this->id;
@@ -44,44 +43,18 @@ class Categorie
         return $this;
     }
 
-    /** 
-     * @return Collection<int, Ressources>
-     */
-   
+    public function getRessource(): ?Ressources
+    {
+        return $this->ressource;
+    }
 
-   /**
-    * @return Collection<int, Ressources>
-    */
+    public function setRessource(?Ressources $ressource): static
+    {
+        $this->ressource = $ressource;
 
-   /**
-    * @return Collection<int, Ressources>
-    */
-   public function getRessources(): Collection
-   {
-       return $this->ressources;
-   }
+        return $this;
+    }
 
-   public function addRessource(Ressources $ressource): static
-   {
-       if (!$this->ressources->contains($ressource)) {
-           $this->ressources->add($ressource);
-           $ressource->addCategorie($this);
-       }
-
-       return $this;
-   }
-
-   public function removeRessource(Ressources $ressource): static
-   {
-       if ($this->ressources->removeElement($ressource)) {
-           $ressource->removeCategorie($this);
-       }
-
-       return $this;
-   }
-   public function __toString()
-   {
-       return(string)$this->getNomCategorie();
-   }
+    
   
 }

@@ -1,6 +1,28 @@
 {% extends 'base-back.html.twig' %}
 {% block body %}
-{% block title %}{% endblock %}
+<head>
+
+    <style>
+        .button {
+            background-color: #4CAF50; /* couleur de fond */
+            border: none; /* suppression de la bordure */
+            color: white; /* couleur du texte */
+            padding: 15px 32px; /* espace de remplissage */
+            text-align: center; /* alignement du texte */
+            text-decoration: none; /* suppression de la décoration du texte */
+            display: inline-block; /* affichage en ligne */
+            font-size: 16px; /* taille de la police */
+            margin: 4px 2px; /* marge extérieure */
+            cursor: pointer; /* curseur de souris */
+            border-radius: 10px; /* arrondi des coins */
+        }
+    </style>
+</head>
+<body>
+<button class="button"><a href="{{ path('addcategorie')}}">Ajouter Categorie</a></button>
+    {% block title %}{% endblock %}
+</button>
+
 <div class="card">
     <div class="card-header">
         <h4 class="card-title">Liste des Catégories</h4>
@@ -22,11 +44,7 @@
                     <tr>
                         <td>{{ categorie.id }}</td>
                         <td>{{ categorie.nomCategorie }}</td>
-                        <td>
-                            {% for ressource in categorie.ressources %}
-                                {{ ressource.TitreR }}
-                            {% endfor %}
-                        </td>
+                        <td>{{categorie.ressource}}</td>
                         <td><span class="badge badge-primary"><a href="{{ path('editcategorie', {'id': categorie.id}) }}">Modifier</a></span></td>
                         <td><span class="badge badge-danger"><a href="{{ path('deletcategorie', {'id': categorie.id}) }}">Supprimer</a></span></td>
                     </tr>
