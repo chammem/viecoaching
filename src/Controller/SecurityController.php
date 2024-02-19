@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Role;
 use App\Entity\Utilisateur;
 use App\Form\LoginType;
 use App\Form\RegistreType;
@@ -37,12 +38,16 @@ class SecurityController extends AbstractController
         $user = new Utilisateur();
         $form = $this->createForm(RegistreType::class, $user);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('image')->getData() === null) {
                 $user->setImage('default_image.jpg');
             }
-            $user = $form->getData();
+            // Attribuer automatiquement le rôle "patient" à l'utilisateur
+            $roleRepository = $em->getRepository(Role::class);
+            $rolePatient = $roleRepository->findOneBy(['nom_role' => 'Patient']);
+            $user->setRole($rolePatient);
+    
             $this->addFlash(
                 'success',
                 'Votre compte a bien été créé'
@@ -51,7 +56,7 @@ class SecurityController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('security.login');
         }
-
+    
         return $this->render('security/registration.html.twig', [
             'form' => $form->createView(),
         ]);
