@@ -1,26 +1,60 @@
 {% extends 'base-back.html.twig' %}
+
 {% block body %}
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>VieCoaching - {% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="{{ asset('path/to/your/external.css') }}">
-    </head>
-    <body style="display: flex; justify-content: space-between;">
-    
-    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Ajouter à rubrique</h4>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form, {'attr': {'class': 'form'}}) }}
+                            <div class="form-group row">
+                                <label for="titre" class="col-md-4 col-form-label text-md-right">Titre :</label>
+                                <div class="col-md-6">
+                                    {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="contenu" class="col-md-4 col-form-label text-md-right">Contenu :</label>
+                                <div class="col-md-6">
+                                    {{ form_widget(form.contenu, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="dateCreation" class="col-md-4 col-form-label text-md-right">Date de création :</label>
+                                <div class="col-md-6">
+                                    {{ form_widget(form.dateCreation, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="datePublication" class="col-md-4 col-form-label text-md-right">Date de publication :</label>
+                                <div class="col-md-6">
+                                    {{ form_widget(form.datePublication, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                           <div class="form-group row">
+    <label for="etat" class="col-md-4 col-form-label text-md-right">Etat :</label>
+    <div class="col-md-6">
+            {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
+                            <div class="form-group row">
+                                <label for="commentaires" class="col-md-4 col-form-label text-md-right">Commentaire :</label>
+                                <div class="col-md-6">
+                                    {{ form_widget(form.commentaires, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
 
-        <div style="flex: 1; text-align: center;">
-            <h1 class="dancing-script">Ajouter une rubrique</h1>
-            <form>
-                {{ form(form) }}
-            </form>
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
         </div>
-
-
-    </body>
-    </html>
+    </div>
 {% endblock %}

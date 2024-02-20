@@ -17,9 +17,9 @@ class RubriqueType extends AbstractType
             ->add('contenu')
             ->add('dateCreation')
             ->add('datePublication')
+            ->add('commentaires')
             ->add('etat')
-            ->add('auteur')
-            ->add('save', SubmitType::class);
+            ->add('save',SubmitType::class)
         ;
     }
 
