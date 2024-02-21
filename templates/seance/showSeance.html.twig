@@ -1,37 +1,47 @@
-
-{% extends 'base-front.html.twig' %}
-{%block title %} LISTE SEANCES  {% endblock %}
+{% extends 'base-back.html.twig' %}
 {% block body %}
-{% if seances %}
-<table border="3" id="Seance" class="table table-striped">
-    <tr>
-        <td>id</td>
-        <td>titre</td>
-        <td>duree</td>
-        <td>lien</td>
-        <td>mot de passe </td>
-         <td>type seance </td>
-        <td>Modifier</td>
-        <td>Supprimer</td>
+{% block title %}{% endblock %}
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Liste des utilisateurs</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-responsive-sm">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>titre</th>
+                        <th>duree</th>
+                        <th>lien</th>
+                        <th>mot de passe</th>
+                        <th>type seance</th>
+                        <th>Modififier</th>
+                        <th>Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in seances %}
+                    <tr>
+                        <td>{{ i.id }}</td>
+                        <td>{{ i.titre }}</td>
+                        <td>{{ i.duree|date('i:s')  }}</td>
+                        <td>{{ i.lien }}</td>
+                        <td>{{ i.motdepasse }}</td>
+                        <td>{{ i.typeSeance }}</td>
+                
+                        
+                      <td><span class="badge badge-primary"><a href="{{ path('app_editSeance', {'id': i.id}) }}">Modifier</a></span></td>
+
+ <td><span class="badge badge-danger"><a href="{{ path('app_deleteSeance', {'id': i.id}) }}">Supprimer</a></span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+           <span class="badge badge-primary"><a href="{{path('app_AddSeance')}}"class="btn btn-dark">Ajouter</a></span>
 
 
-    </tr>
-    {% for i in seances %}
-    <tr>
-        <td>{{i.id}}</td>
-        <td>{{i.titre}}</td>
-        <td>{{i.duree|date('i:s') }}</td>
-        <td>{{i.lien}}</td>
-        <td>{{i.motdepasse}}</td>
-         <td>{{i.typeSeance}}</td>
-         
-         <td><a href="{{path('app_editSeance',{'id':i.id})}}"class="btn btn-dark">Modifier</a></td>
-          <td><a href="{{path('app_deleteSeance',{'id':i.id})}}"class="btn btn-dark">Supprimer</a></td>
-    </tr>
-    {% endfor %}
-</table>
-{% else %}
-    <p>Aucun Séance</p>
-  {% endif %} 
-<a href="{{path('app_AddSeance')}}"class="btn btn-dark">AJOUTER</a>
 {% endblock %}
