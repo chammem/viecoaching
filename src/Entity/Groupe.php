@@ -5,6 +5,9 @@ namespace App\Entity;
 use App\Repository\GroupeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[ORM\Entity(repositoryClass: GroupeRepository::class)]
 class Groupe
@@ -13,21 +16,28 @@ class Groupe
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+    #[Assert\NotBlank(message: "Le nom ne peut pas être vide")]
 
     #[ORM\Column(length: 20)]
     private ?string $nom = null;
+    #[Assert\NotBlank(message: "La description ne peut pas être vide")]
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
+    #[Assert\NotBlank(message: "Il faut choisi un type pour votre groupe")]
 
     #[ORM\OneToOne(inversedBy: 'groupe', cascade: ['persist', 'remove'])]
     private ?Typegroupe $typegroupe = null;
 
+    #[Assert\NotBlank(message: "La date de creation ne peut pas être vide")]
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $datecreation = null;
 
-    
-    
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
+
 
    
    
@@ -89,8 +99,17 @@ class Groupe
         return(string)$this->getNom();
     }
 
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
 
 
-    
-   
 }

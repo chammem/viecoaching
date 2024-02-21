@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae240b4b8c2e3808ba2cdf105d437e77",
+    "content-hash": "94d513c920010f69e67e0f95cdd970ac",
     "packages": [
         {
             "name": "devture/dbal",

@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TypegroupeRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Asser;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: TypegroupeRepository::class)]
@@ -16,6 +16,8 @@ class Typegroupe
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom ne peut pas être vide")]
+
     private ?string $nomtype = null;
 
     #[ORM\OneToOne(mappedBy: 'typegroupe', cascade: ['persist', 'remove'])]

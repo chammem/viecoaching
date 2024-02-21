@@ -1,0 +1,32 @@
+{% extends 'base-front.html.twig' %}
+
+{% block body %}
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="product__details__img">
+                    <div class="product__details__big__img">
+                        <img class="big_img" src="img/shop/details/product-big-1.jpg" alt="Product Image">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                {% for groupe in groupe %}
+                <div class="product__details__text">
+                    <h4>{{ groupe.nom }}</h4>
+                    <p>{{ groupe.description }}</p>
+                    <ul>
+                        <li><strong>Type de Groupe:</strong> <span>{% if groupe.typegroupe %}
+                            {{ groupe.typegroupe.nomtype }}
+                        {% else %}
+                            Non défini
+                        {% endif %}</span></li>
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

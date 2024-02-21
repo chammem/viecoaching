@@ -7,6 +7,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
+
+
 
 class GroupeType extends AbstractType
 {
@@ -17,6 +21,7 @@ class GroupeType extends AbstractType
             ->add('description')
             ->add('datecreation')
             ->add('typegroupe')
+
             ->add('save',SubmitType::class)
 
         ;
