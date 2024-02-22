@@ -1,5 +1,15 @@
 {% extends 'base-back.html.twig' %}
 {% block body %}
+    <style>
+        body {
+            background-image: url('{{ asset('images/image4.jpg') }}');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.8); /* Adjust the alpha value (fourth parameter) for transparency */
+        }
+    </style>
 {% block title %}{% endblock %}
 <div class="card">
     <div class="card-header">
@@ -15,8 +25,8 @@
                         <th>contenu</th>
                         <th>dateCreation</th>
                         <th>datePublication</th>
-                        <th>commentaires</th>
                         <th>etat</th>
+                        <th>commentaires</th>
                         <th>Modififier</th>
                         <th>Supprimer</th>
                     </tr>
@@ -29,7 +39,6 @@
                         <td>{{ i.contenu }}</td>
                         <td>{{ i.dateCreation | date }}</td>
                         <td>{{ i.datePublication | date }}</td>
-                        <td>{{ i.commentaires }}</td>
                         <td>{{ i.etat }}</td>
                         <td><span class="badge badge-primary"><a href="{{ path('edit_rubrique', {'id': i.id}) }}">Modifier</a></span></td>
                         <td><span class="badge badge-danger"><a href="{{ path('delete_rubrique', {'id': i.id}) }}">Supprimer</a></span></td>

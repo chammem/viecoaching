@@ -1,5 +1,15 @@
 {% extends 'base-back.html.twig' %}
 {% block body %}
+    <style>
+        body {
+            background-image: url('{{ asset('images/image4.jpg') }}');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.8); /* Adjust the alpha value (fourth parameter) for transparency */
+        }
+    </style>
 {% block title %}{% endblock %}
 <div class="card">
     <div class="card-header">
@@ -11,12 +21,9 @@
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>titre</th>
                         <th>contenu</th>
                         <th>dateCreation</th>
-                        <th>datePublication</th>
-                        <th>commentaires</th>
-                        <th>etat</th>
+                        <th>rubrique</th>
                         <th>Modififier</th>
                         <th>Supprimer</th>
                     </tr>

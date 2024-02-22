@@ -20,7 +20,7 @@ class CommentaireController extends AbstractController
             'controller_name' => 'CommentaireController',
         ]);
     }
-    #[Route('/addCommentaire', name: 'add_Commentaire')]
+    #[Route('/addCommentaire', name: 'add_commentaire')]
     public function addCommentaire(ManagerRegistry $managerRegistry, Request $req): Response
     {
         $em = $managerRegistry->getManager();
@@ -30,12 +30,13 @@ class CommentaireController extends AbstractController
         if ($form->isSubmitted() and $form->isValid()) {
             $em->persist($commentaire);
             $em->flush();
+            return $this->redirectToRoute('show_commentaire');
         }
         return $this->renderForm('commentaire/addCommentaire.html.twig', [
-            'form' => $form
+            'form' => $form ,
         ]);
     }
-    #[Route('/showCommentaire', name: 'show_Commentaire')]
+    #[Route('/showCommentaire', name: 'show_commentaire')]
     public function showCommentaire(CommentaireRepository $commentaireRepository): Response
     {
         $commentaire = $commentaireRepository->findAll();
@@ -44,17 +45,17 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/editCommentaire/{id}', name: 'edit_Commentaire')]
-    public function editCommentaire($id, CommentaireRepository $rubriqueRepository, Request $req, ManagerRegistry $managerRegistry): Response
+    #[Route('/editCommentaire/{id}', name: 'edit_commentaire')]
+    public function editCommentaire($id, CommentaireRepository $commentaireRepository, Request $req, ManagerRegistry $managerRegistry): Response
     {
         $em = $managerRegistry->getManager();
-        $commentaire = $CommentaireRepository->find($id);
+        $commentaire = $commentaireRepository->find($id);
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($req);
         if ($form->isSubmitted() and $form->isValid()) {
             $em->persist($commentaire);
             $em->flush();
-            return $this->redirectToRoute('showCommentaire');
+            return $this->redirectToRoute('show_commentaire');
         }
 
         return $this->renderForm('commentaire/editCommentaire.html.twig', [
@@ -62,12 +63,12 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/deleteCommentaire/{id}', name: 'delete_Commentaire')]
+    #[Route('/deleteCommentaire/{id}', name: 'delete_commentaire')]
     public function deleteCommentaire($id, CommentaireRepository $commentaireRepository, ManagerRegistry $managerRegistry): Response {
         $em = $managerRegistry->getManager();
         $commentaire = $commentaireRepository->find($id);
         $em->remove($commentaire);
         $em->flush();
-        return $this->redirectToRoute('showCommentaire');
+        return $this->redirectToRoute('show_commentaire');
     }
 }

@@ -30,9 +30,10 @@ class RubriqueController extends AbstractController
         if ($form->isSubmitted() and $form->isValid()) {
             $em->persist($rubrique);
             $em->flush();
+            return $this->redirectToRoute('show_rubrique');
         }
         return $this->renderForm('rubrique/addRubrique.html.twig', [
-            'form' => $form
+            'form' => $form ,
         ]);
     }
     #[Route('/showRubrique', name: 'show_rubrique')]
@@ -48,13 +49,13 @@ class RubriqueController extends AbstractController
     public function editRubrique($id, RubriqueRepository $rubriqueRepository, Request $req, ManagerRegistry $managerRegistry): Response
     {
         $em = $managerRegistry->getManager();
-        $rubrique = $RubriqueRepository->find($id);
+        $rubrique = $rubriqueRepository->find($id);
         $form = $this->createForm(RubriqueType::class, $rubrique);
         $form->handleRequest($req);
         if ($form->isSubmitted() and $form->isValid()) {
             $em->persist($rubrique);
             $em->flush();
-            return $this->redirectToRoute('showRubrique');
+            return $this->redirectToRoute('show_rubrique');
         }
 
         return $this->renderForm('rubrique/editRubrique.html.twig', [
@@ -68,6 +69,6 @@ class RubriqueController extends AbstractController
         $rubrique = $rubriqueRepository->find($id);
         $em->remove($rubrique);
         $em->flush();
-        return $this->redirectToRoute('showRubrique');
+        return $this->redirectToRoute('show_rubrique');
     }
 }

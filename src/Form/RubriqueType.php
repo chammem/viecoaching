@@ -17,8 +17,8 @@ class RubriqueType extends AbstractType
             ->add('contenu')
             ->add('dateCreation')
             ->add('datePublication')
-            ->add('commentaires')
             ->add('etat')
+            ->add('commentaires')
             ->add('save',SubmitType::class)
         ;
     }
@@ -30,3 +30,4 @@ class RubriqueType extends AbstractType
         ]);
     }
 }
+
