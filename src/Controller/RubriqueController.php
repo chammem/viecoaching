@@ -25,6 +25,7 @@ class RubriqueController extends AbstractController
     {
         $em = $managerRegistry->getManager();
         $rubrique = new Rubrique();
+        $rubrique->setDateCreation(new \DateTime());
         $form = $this->createForm(RubriqueType::class, $rubrique);
         $form->handleRequest($req);
         if ($form->isSubmitted() and $form->isValid()) {
@@ -71,4 +72,5 @@ class RubriqueController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('show_rubrique');
     }
+
 }

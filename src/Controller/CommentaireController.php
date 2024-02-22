@@ -25,6 +25,7 @@ class CommentaireController extends AbstractController
     {
         $em = $managerRegistry->getManager();
         $commentaire = new Commentaire();
+        $commentaire->setDateCreation(new \DateTime());
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($req);
         if ($form->isSubmitted() and $form->isValid()) {

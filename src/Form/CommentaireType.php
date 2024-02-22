@@ -14,7 +14,7 @@ class CommentaireType extends AbstractType
     {
         $builder
             ->add('contenu')
-            ->add('dateCreation')
+            /*->add('dateCreation')*/
             ->add('rubrique')
             ->add('save',SubmitType::class)
         ;

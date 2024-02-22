@@ -8,7 +8,7 @@
             background-size: cover;
         }
         .card {
-            background-color: rgba(255, 255, 255, 0.8); /* Adjust the alpha value (fourth parameter) for transparency */
+            background-color: rgba(255, 255, 255, 0.8); 
         }
     </style>
     <div class="container">
@@ -32,22 +32,17 @@
                                     {{ form_widget(form.contenu, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="dateCreation" class="col-md-4 col-form-label text-md-right">Date de création :</label>
-                                <div class="col-md-6">
-                                    {{ form_widget(form.dateCreation, {'attr': {'class': 'form-control'}}) }}
-                                </div>
-                            </div>
+ 
                             <div class="form-group row">
                                 <label for="datePublication" class="col-md-4 col-form-label text-md-right">Date de publication :</label>
                                 <div class="col-md-6">
                                     {{ form_widget(form.datePublication, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
-                           <div class="form-group row">
-    <label for="etat" class="col-md-4 col-form-label text-md-right">Etat :</label>
-    <div class="col-md-6">
-            {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
+                            <div class="form-group row">
+                                <label for="etat" class="col-md-4 col-form-label text-md-right">Etat :</label>
+                                <div class="col-md-6">
+                                    {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
                             <div class="form-group row">
                                 <label for="commentaires" class="col-md-4 col-form-label text-md-right">Commentaire :</label>
                                 <div class="col-md-6">

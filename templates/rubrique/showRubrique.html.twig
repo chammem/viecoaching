@@ -2,12 +2,13 @@
 {% block body %}
     <style>
         body {
-            background-image: url('{{ asset('images/image4.jpg') }}');
+            background-image: url('{{ asset('images/image3.jpg') }}');
             background-repeat: no-repeat;
             background-size: cover;
         }
         .card {
-            background-color: rgba(255, 255, 255, 0.8); /* Adjust the alpha value (fourth parameter) for transparency */
+            background-color: rgba(255, 255, 255, 0.8);
+            align-items: center;
         }
     </style>
 {% block title %}{% endblock %}
@@ -26,7 +27,6 @@
                         <th>dateCreation</th>
                         <th>datePublication</th>
                         <th>etat</th>
-                        <th>commentaires</th>
                         <th>Modififier</th>
                         <th>Supprimer</th>
                     </tr>
@@ -46,6 +46,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+             <a href="{{ path('add_rubrique') }}" class="btn btn-primary">Ajouter une rubrique</a>
         </div>
     </div>
 </div>

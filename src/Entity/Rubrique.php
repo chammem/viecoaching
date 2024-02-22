@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert; 
 
 
 #[ORM\Entity(repositoryClass: RubriqueRepository::class)]
@@ -18,18 +19,23 @@ class Rubrique
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"titre est obligatoire")]
     private ?string $titre = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message:"text est obligatoire")]
     private ?string $contenu = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message:"dateCreation est obligatoire")]
     private ?\DateTimeInterface $dateCreation = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message:"datePublication est obligatoire")]
     private ?\DateTimeInterface $datePublication = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\NotBlank(message:"etat est obligatoire")]
     private ?string $etat = null;
 
     #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'rubrique')]
@@ -43,6 +49,12 @@ class Rubrique
     public function getId(): ?int
     {
         return $this->id;
+    }
+    public function setId(int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getTitre(): ?string

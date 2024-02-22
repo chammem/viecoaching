@@ -1,48 +1,54 @@
 {% extends 'base-back.html.twig' %}
+
 {% block body %}
     <style>
         body {
-            background-image: url('{{ asset('images/image4.jpg') }}');
+            background-image: url('{{ asset('images/image3.jpg') }}');
             background-repeat: no-repeat;
             background-size: cover;
         }
         .card {
-            background-color: rgba(255, 255, 255, 0.8); /* Adjust the alpha value (fourth parameter) for transparency */
+            background-color: rgba(255, 255, 255, 0.8);
+            align-items: center;
         }
     </style>
-{% block title %}{% endblock %}
-<div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Liste des commentaires</h4>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-responsive-sm">
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>contenu</th>
-                        <th>dateCreation</th>
-                        <th>rubrique</th>
-                        <th>Modififier</th>
-                        <th>Supprimer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for i in commentaire %}
-                    <tr>
-                        <td>{{ i.id }}</td>
-                        <td>{{ i.contenu }}</td>
-                        <td>{{ i.dateCreation | date }}</td>
-                        <td>{{ i.rubrique }}</td>
-                        <td><span class="badge badge-primary"><a href="{{ path('edit_commentaire', {'id': i.id}) }}">Modifier</a></span></td>
-                        <td><span class="badge badge-danger"><a href="{{ path('delete_commentaire', {'id': i.id}) }}">Supprimer</a></span></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+
+    {% block title %}{% endblock %}
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Liste des commentaires</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Contenu</th>
+                            <th>Date de création</th>
+                            <th>Rubrique</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in commentaire %}
+                            <tr>
+                                <td>{{ i.id }}</td>
+                                <td>{{ i.contenu }}</td>
+                                <td>{{ i.DateCreation | date }}</td>
+                                <td>{{ i.rubrique is not empty ? i.rubrique : '' }}</td>
+                                <td>
+                                <span class="badge badge-primary"><a href="{{ path('edit_commentaire', {'id': i.id}) }}">Modifier</a></span>
+                                <td><span class="badge badge-danger"><a href="{{ path('delete_commentaire', {'id': i.id}) }}">Supprimer</a></span></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{{ path('add_commentaire') }}" class="btn btn-primary">Ajouter un commentaire</a>
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock %}
