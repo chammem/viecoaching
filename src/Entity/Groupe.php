@@ -75,6 +75,7 @@ class Groupe
     {
         return $this->typegroupe;
     }
+    
 
     public function setTypegroupe(?Typegroupe $typegroupe): static
     {

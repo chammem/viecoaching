@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
 class GroupeController extends AbstractController
 {
     #[Route('/groupe', name:'app_groupe')]
@@ -40,16 +42,34 @@ class GroupeController extends AbstractController
             'groupe'=> $groupe,
         ]);
 }
+
 #[Route('/creategroupe', name: 'creategroupe')]
 
- public function createtypegroupe(ManagerRegistry $m ,Request $req): Response
+ public function createtypegroupe(ManagerRegistry $m ,Request $req,SluggerInterface $slugger): Response
 {
     $em=$m->getManager();
    $groupe = new groupe();
    $form = $this->createForm(groupeType::class, $groupe);
    $form->handleRequest($req);
 
-   if ($form->isSubmitted() && $form->isValid()) {
+   if ($form->isSubmitted() && $form->isValid()) 
+    {  
+        $file = $form->get('image')->getData();
+        if($file){
+            $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $slugger->slug($originalFilename);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+            try {
+                $file->move(
+                    $this->getParameter('uploads_directory'),
+                    $newFilename
+                );
+            } catch (FileException $e) {
+            }
+
+            $groupe->setImage($newFilename);
+
+        } 
        $em->persist($groupe);
        $em->flush();
        return $this->redirectToRoute('showgroupe');
@@ -102,25 +122,45 @@ public function creategroupe(ManagerRegistry $m ,Request $req): Response
    //     'form' =>$form
    // ]);
 
+    
 
 
-
-#[Route('/editgroupep/{id}', name: 'editgroupep')]
-    public function editgroupep($id,ManagerRegistry $m,GroupeRepository $groupeRepository ,Request $req): Response
-    {
-        $em=$m->getManager();
-        $dataid=$groupeRepository->find($id);
-        $form=$this->createForm(GroupeType::class,$dataid);
-        $form->handleRequest($req);
-        if ($form->isSubmitted() and $form->isValid()){
-            $em->persist($dataid);
-            $em->flush();
-            return $this->redirectToRoute('showgroupe');
-        }
-
-        return $this->renderForm('groupe/editgroupep.html.twig', [
-        'form' =>$form  ]);
-    }
+   #[Route('/editgroupep/{id}', name: 'editgroupep')]
+   public function editgroupep($id, ManagerRegistry $m, GroupeRepository $groupeRepository, Request $req, SluggerInterface $slugger): Response
+   {
+       $em = $m->getManager();
+       $dataid = $groupeRepository->find($id);
+       $form = $this->createForm(GroupeType::class, $dataid);
+       $form->handleRequest($req);
+   
+       if ($form->isSubmitted() && $form->isValid()) {
+           $file = $form->get('image')->getData();
+           if ($file) {
+               $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+               $safeFilename = $slugger->slug($originalFilename);
+               $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+               try {
+                   $file->move(
+                       $this->getParameter('uploads_directory'),
+                       $newFilename
+                   );
+               } catch (FileException $e) {
+               }
+   
+               $dataid->setImage($newFilename);
+           }
+   
+           $em->persist($dataid);
+           $em->flush();
+   
+           return $this->redirectToRoute('showgroupe');
+       }
+   
+       return $this->renderForm('groupe/editgroupep.html.twig', [
+           'form' => $form
+       ]);
+   }
+   
 
     
     #[Route('/deletegroupe/{id}', name: 'deletegroupe')]
