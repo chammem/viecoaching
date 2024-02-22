@@ -1,27 +1,14 @@
 {% extends 'base-front.html.twig' %}
 
 {% block body %}
-{% block title %}{% endblock %}
- <link href="./vendor/fullcalendar/css/fullcalendar.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
 
-    <div class="content-body">
-            <div class="container-fluid">
-                <div class="row page-titles mx-0">
-                    <div class="col-sm-6 p-md-0">
-                        <div class="welcome-text">
-                            <h4>Hi, welcome back!</h4>
-                            <p class="mb-0">Your business dashboard template</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">App</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Calerdar</a></li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- row -->
+
+{% block title %}{% endblock %}
+    <link href="{{asset('back-office/./vendor/fullcalendar/css/fullcalendar.min.css')}}" rel="stylesheet">
+   
+
+    
+                    
 
 
                 <div class="row">
@@ -32,20 +19,15 @@
 
                                 <div class="">
                                     <div id="external-events" class="my-3">
-                                        <p>Drag and drop your event or click in the calendar</p>
-                                        <div class="external-event" data-class="bg-primary"><i class="fa fa-move"></i>New Theme Release</div>
-                                        <div class="external-event" data-class="bg-success"><i class="fa fa-move"></i>My Event
+                                        <p>Glissez et déposez votre séance ou cliquez dans le calendrier</p>
+                                        <div class="external-event" data-class="bg-primary"><i class="fa fa-move"></i>Réserver une séance individuelle</div>
+                                        <div class="external-event" data-class="bg-success"><i class="fa fa-move"></i>Rencontrez le coash
                                         </div>
-                                        <div class="external-event" data-class="bg-warning"><i class="fa fa-move"></i>Meet manager</div>
-                                        <div class="external-event" data-class="bg-dark"><i class="fa fa-move"></i>Create New theme</div>
+                                        
                                     </div>
-                                    <!-- checkbox -->
-                                    <div class="checkbox checkbox-event pt-3 pb-5">
-                                        <input id="drop-remove" class="styled-checkbox" type="checkbox">
-                                        <label class="ml-2 mb-0" for="drop-remove">Remove After Drop</label>
-                                    </div>
+                                    
                                     <a href="javascript:void()" data-toggle="modal" data-target="#add-category" class="btn btn-primary btn-event w-100">
-                                        <span class="align-middle"><i class="ti-plus"></i></span> Create New
+                                        <span class="align-middle"><i class="ti-plus"></i></span> Créer 
                                     </a>
                                 </div>
                             </div>
@@ -120,18 +102,6 @@
         ***********************************-->
 
 
-        <!--**********************************
-            Footer start
-        ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-            </div>
-        </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
-
         
 
 
@@ -144,19 +114,19 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="./vendor/global/global.min.js"></script>
-    <script src="./js/quixnav-init.js"></script>
-    <script src="./js/custom.min.js"></script>
+    <script src="{{asset('back-office/./vendor/global/global.min.js')}}" ></script>
+    <script src="{{asset('back-office/./js/quixnav-init.js')}}" ></script>
+    <script src="{{asset('back-office/./js/custom.min.js')}}" ></script>
     <!--removeIf(production)-->
     <!-- Demo scripts -->
-    <script src="./js/styleSwitcher.js"></script>
+    <script src="{{asset('back-office/./js/styleSwitcher.js')}} "></script>
 
 
 
-    <script src="./vendor/jqueryui/js/jquery-ui.min.js"></script>
-    <script src="./vendor/moment/moment.min.js"></script>
+    <script src="{{asset('back-office/./vendor/jqueryui/js/jquery-ui.min.js')}} "></script>
+    <script src="{{asset('back-office/./vendor/moment/moment.min.js')}}" ></script>
 
-    <script src="./vendor/fullcalendar/js/fullcalendar.min.js"></script>
-    <script src="./js/plugins-init/fullcalendar-init.js"></script>
+    <script src="{{asset('back-office/./vendor/fullcalendar/js/fullcalendar.min.js')}}" ></script>
+    <script src="{{asset('back-office/./js/plugins-init/fullcalendar-init.js')}}" ></script>
 
 {% endblock %}
