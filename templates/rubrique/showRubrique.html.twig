@@ -27,6 +27,7 @@
                         <th>dateCreation</th>
                         <th>datePublication</th>
                         <th>etat</th>
+                        <th>Commentaires</th>
                         <th>Modififier</th>
                         <th>Supprimer</th>
                     </tr>
@@ -40,6 +41,7 @@
                         <td>{{ i.dateCreation | date }}</td>
                         <td>{{ i.datePublication | date }}</td>
                         <td>{{ i.etat }}</td>
+                        <td><span class="badge badge-primary"><a href="{{ path('show_commentaire', {'id': i.id}) }}">Commentaires</a></span></td>
                         <td><span class="badge badge-primary"><a href="{{ path('edit_rubrique', {'id': i.id}) }}">Modifier</a></span></td>
                         <td><span class="badge badge-danger"><a href="{{ path('delete_rubrique', {'id': i.id}) }}">Supprimer</a></span></td>
                     </tr>

@@ -10,6 +10,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Rubrique;
 use App\Form\RubriqueType;
+use App\Entity\Commentaire;
+use App\Repository\CommentaireRepository;
 
 class RubriqueController extends AbstractController
 {
@@ -27,6 +29,10 @@ class RubriqueController extends AbstractController
         $rubrique = new Rubrique();
         $rubrique->setDateCreation(new \DateTime());
         $form = $this->createForm(RubriqueType::class, $rubrique);
+        $latestCommentaire = $em->getRepository(Commentaire::class)->findOneBy([], ['dateCreation' => 'DESC']);
+        if ($latestCommentaire instanceof Commentaire) {
+            $rubrique->setDatePublication($latestCommentaire->getDateCreation());
+        }
         $form->handleRequest($req);
         if ($form->isSubmitted() and $form->isValid()) {
             $em->persist($rubrique);
@@ -72,5 +78,17 @@ class RubriqueController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('show_rubrique');
     }
+    #[Route('/showCommentaire/{id}', name: 'show_commentaire')]
+public function showCommentaire($id, RubriqueRepository $rubriqueRepository, CommentaireRepository $commentaireRepository): Response
+{
+    $rubrique = $rubriqueRepository->find($id);
+    $commentaire = $commentaireRepository->findBy(['rubrique' => $rubrique]);
+
+    return $this->render('commentaire/showCommentaire.html.twig', [
+        'rubrique' => $rubrique,
+        'commentaire' => $commentaire,
+    ]);
+}
+
 
 }

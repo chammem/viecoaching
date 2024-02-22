@@ -37,15 +37,6 @@ class CommentaireController extends AbstractController
             'form' => $form ,
         ]);
     }
-    #[Route('/showCommentaire', name: 'show_commentaire')]
-    public function showCommentaire(CommentaireRepository $commentaireRepository): Response
-    {
-        $commentaire = $commentaireRepository->findAll();
-        return $this->render('commentaire/showCommentaire.html.twig', [
-            'commentaire' => $commentaire
-        ]);
-    }
-
     #[Route('/editCommentaire/{id}', name: 'edit_commentaire')]
     public function editCommentaire($id, CommentaireRepository $commentaireRepository, Request $req, ManagerRegistry $managerRegistry): Response
     {
