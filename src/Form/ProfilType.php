@@ -5,18 +5,15 @@ namespace App\Form;
 use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
-class RegistreType extends AbstractType
+class ProfilType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -27,10 +24,7 @@ class RegistreType extends AbstractType
         ->add('prenom', TextType::class, [
             'label' => 'Prénom:',
         ])
-        ->add('email',TextType::class, [
-            'label' => 'Adresse email:',
-        ])
-            ->add('tel', TextType::class,  [
+       ->add('tel', TextType::class,  [
                 'label' => 'Numéro de téléphone:',
             ], [
                 'attr' => [
@@ -38,13 +32,8 @@ class RegistreType extends AbstractType
                     'class' => 'msform'
                 ]] , 
                )
-            ->add('mdp', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'first_options'  => ['label' => 'Mot de passe:'],
-                'second_options' => ['label' => 'Confirmation mot de passe:'],
-                'invalid_message' => 'Les mots de passe ne correspondent pas.'
-            ])
-            ->add('genre', ChoiceType::class, [
+        
+        ->add('genre', ChoiceType::class, [
                 'choices'  => [
                     'Femme' => 'femme',
                     'Homme' => 'homme',
@@ -55,13 +44,16 @@ class RegistreType extends AbstractType
             ], [
                 'label' => 'Genre:',
             ])
-            ->add('imageFile', VichImageType::class,['label' => false])
-            ->add('ville', TextType::class , 
+        
+        ->add('ville', TextType::class , 
             [
                 'label' => 'Ville',
             ])
-            
-            ->add('Suivant',SubmitType::class)
+            ->add('imageFile', VichImageType::class, [
+                'label' => false,
+                'required' => false, // Rendre le champ facultatif
+            ])
+        ->add('Modifier',SubmitType::class)
         ;
     }
 

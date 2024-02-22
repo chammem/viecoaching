@@ -6,12 +6,16 @@ use App\Repository\UtilisateurRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 #[UniqueEntity(fields: ['email'], message: 'Cette adresse e-mail est déjà utilisée.')]
+#[Vich\Uploadable]
 class Utilisateur implements UserInterface
 {
     #[ORM\Id]
@@ -58,9 +62,13 @@ class Utilisateur implements UserInterface
 
     #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'utilisateurs')]
     private ?Role $role = null;
+    #[Vich\UploadableField(mapping:'user_images',fileNameProperty:'image')]
+    private ?File $imageFile = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable : true)]
     private ?string $image = null;
+    
+    
 
     #[ORM\Column(length: 30)]
     #[Assert\NotBlank(message: "La ville ne peut pas être vide.")]
@@ -190,17 +198,30 @@ public function getUsername(): string
     return $this->email;
 }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
+public function getImageFile(): ?File
+{
+    return $this->imageFile;
+}
 
-    public function setImage(string $image): static
-    {
-        $this->image = $image;
+public function setImageFile(?File $imageFile=null): self
 
-        return $this;
-    }
+{
+    $this->imageFile = $imageFile;
+
+    return $this;
+}
+
+public function getImage(): ?string
+{
+    return $this->image;
+}
+
+public function setImage(?string $image): self
+{
+    $this->image = $image;
+
+    return $this;
+}
 
     public function getVille(): ?string
     {

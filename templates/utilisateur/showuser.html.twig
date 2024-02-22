@@ -10,6 +10,7 @@
             <table class="table table-responsive-sm">
                 <thead>
                     <tr>
+                        <th>Image</th>
                         <th>Email</th>
                         <th>Nom</th>
                         <th>Prenom</th>
@@ -24,6 +25,13 @@
                 <tbody>
                     {% for u in user %}
                     <tr>
+             <td>
+    {% if u.image %}
+        <img src="{{ vich_uploader_asset(u, 'imageFile') }}" alt="Image de l'utilisateur" class="rounded-circle" style="width: 60px; height: 60px;">
+    {% else %}
+        <span>Aucune image disponible</span>
+    {% endif %}
+</td>
                         <td>{{ u.email }}</td>
                         <td>{{ u.nom }}</td>
                         <td>{{ u.prenom }}</td>
@@ -32,7 +40,7 @@
                         <td>{{ u.genre }}</td>
                         <td>{% if u.role %}{{ u.role.NomRole }}{% else %}No Role{% endif %}</td>
                         
-                      <td><span class="badge badge-primary"><a href="{{ path('editUtilisateur', {'id': u.id}) }}">Modifier</a></span></td>
+                      <td><span class="badge badge-primary"><a href="{{ path('editMdp', {'id': u.id}) }}">Modifier</a></span></td>
 
  <td><span class="badge badge-danger"><a href="{{ path('deleteUtilisateur', {'id': u.id}) }}">Supprimer</a></span></td>
                     </tr>

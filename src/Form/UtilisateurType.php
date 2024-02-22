@@ -18,6 +18,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class UtilisateurType extends AbstractType
 {
@@ -45,19 +46,7 @@ class UtilisateurType extends AbstractType
             'attr' => ['class' => 'radio-option']
         ],)
         ->add('ville',TextType::class,['label' => false])
-        ->add('imageFile', FileType::class, [
-            'label' => False,
-            'mapped' => false,
-            'constraints' => [
-                new Assert\File([
-                    'maxSize' => '1024k',
-                    'mimeTypes' => [
-                        'image/*',
-                    ],
-                    'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide',
-                ])
-            ],
-        ])
+        ->add('imageFile', VichImageType::class,['label' => false])
         ->add('role', EntityType::class, [
             'class' => Role::class,
             'choice_label' => 'Nomrole',

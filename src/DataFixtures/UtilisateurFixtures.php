@@ -10,21 +10,16 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-
 class UtilisateurFixtures extends Fixture
-
-
 {
    
     private $mailer;
-    private $passwordHasher;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher , MailerInterface $mailer)
+    public function __construct(MailerInterface $mailer)
     {
-        $this->passwordHasher = $passwordHasher;
+        
         $this->mailer = $mailer;
     }
-    
 
     public function load(ObjectManager $manager): void
     {
@@ -35,40 +30,42 @@ class UtilisateurFixtures extends Fixture
         $admin = new Utilisateur();
         $admin->setNom('Admin');
         $admin->setPrenom('Admin');
-        $admin->setEmail('chammemcinda@gmail.com');
+        $admin->setEmail('mahdi@gmail.com');
         $admin->setTel('0123456789');
         $admin->setImage('default.jpg');
-        $temporaryPassword = $this->generateTemporaryPassword();
-        $admin->setMdp($this->passwordHasher->hashPassword(
-            $admin,
-            $temporaryPassword
-        ));
-        $admin->setGenre('genre');
-        $admin->setVille('ville');
-        $admin->setRole($roleAdmin);
+       // Générer un mot de passe temporaire pour le premier administrateur
+       $temporaryPassword = $this->generateTemporaryPassword();
 
-        // Envoyer l'e-mail avec le mot de passe temporaire
-        $this->sendTemporaryPasswordByEmail($admin->getEmail(), $temporaryPassword);
+       // Définir le mot de passe en clair sur l'entité Admin
+       $admin->setMdp($temporaryPassword);
+       $admin->setRole($roleAdmin);
+       $admin->setGenre('genre');
+       $admin->setVille('ville');
 
-        $manager->persist($admin);
-        $manager->flush();
-    }
+       // Envoyer l'e-mail avec le mot de passe temporaire
+       $this->sendTemporaryPasswordByEmail($admin->getEmail(), $temporaryPassword);
 
-    private function generateTemporaryPassword(): string
-    {
-        // Génération d'un mot de passe temporaire aléatoire
-        return bin2hex(random_bytes(8)); // Génère une chaîne hexadécimale de 16 caractères
-    }
-    private function sendTemporaryPasswordByEmail(string $recipient, string $temporaryPassword): void
-    {
-        $email = (new Email())
-            ->from('chammemsinda4@gmail.com')
-            ->to($recipient)
-            ->subject('Votre mot de passe temporaire')
-            ->text(sprintf(
-                "Votre mot de passe temporaire est : %s. Veuillez vous connecter avec ce mot de passe et le changer dès que possible.",
-                $temporaryPassword
-            ));
-    
-        $this->mailer->send($email);
-}}
+       $manager->persist($admin);
+       $manager->flush();
+   }
+
+
+private function generateTemporaryPassword(): string
+{
+   return bin2hex(random_bytes(4)); // Génère une chaîne hexadécimale de 16 caractères
+}
+
+private function sendTemporaryPasswordByEmail(string $recipient, string $temporaryPassword): void
+{
+   $email = (new Email())
+       ->from('votre_email@example.com') // Remplacez par votre adresse e-mail
+       ->to($recipient)
+       ->subject('Votre mot de passe temporaire')
+       ->text(sprintf(
+           "Votre mot de passe temporaire est : %s. Veuillez vous connecter avec ce mot de passe et le changer dès que possible.",
+           $temporaryPassword
+       ));
+
+   $this->mailer->send($email);
+}
+}
