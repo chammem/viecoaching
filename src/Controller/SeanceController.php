@@ -27,13 +27,14 @@ class SeanceController extends AbstractController
     public function showSeance(SeanceRepository $seanceRepository): Response
     {
         $seance=$seanceRepository->findAll();
+      
+            return $this->render('seance/showSeance.html.twig', [
+                'seances' => $seance,
+            ]);
         
-        
-        return $this->render('seance/showSeance.html.twig', [
-            'seances' => $seance,
-        ]);
+      
     }
-
+      
     #[Route('/AddSeance', name: 'app_AddSeance')]
     public function AddSeance(ManagerRegistry $managerRegistry , HttpFoundationRequest $req): Response
     {
