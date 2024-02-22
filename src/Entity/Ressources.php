@@ -32,6 +32,10 @@ class Ressources
     #[ORM\OneToMany(targetEntity: Categorie::class, mappedBy: 'ressource',cascade:["all"],orphanRemoval:true)]
     private Collection $categories;
 
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'La description ne peut pas être vide ')]
+    private ?string $description = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -113,6 +117,18 @@ class Ressources
     public function __toString()
     {
         return(string)$this->getTitreR();
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
     }
 
 }

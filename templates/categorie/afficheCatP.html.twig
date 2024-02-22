@@ -5,7 +5,8 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="breadcrumb__text">
-                        <h2>bibliothèque des Ressources</h2>
+                        <h2>Bibliothèque des différent Catégorie</h2>
+
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
@@ -25,7 +26,7 @@
     {% for categorie in cat %}
         <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="product__item">
-                <div class="product__item__pic set-bg" data-setbg="img/shop/product-1.jpg">
+                <div class="product__item__pic set-bg" data-setbg="{{ asset('uploads/' ~ categorie.image) }}">
                     <div class="product__label">
                         <span>{{ categorie.nomCategorie }}</span>
                     </div>
@@ -39,9 +40,8 @@
             </div>
         </div>
     {% endfor %}
+
 </div>
-
-
     <div class="blog__item">
         <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-1.jpg">
             <div class="blog__pic__inner">

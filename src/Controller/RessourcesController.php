@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\Entity\Ressources;
 use App\Form\RessourcesType;
@@ -48,39 +49,82 @@ class RessourcesController extends AbstractController
                 
             }
         //Ajout ressource 
-       //function ajout ressource
-       #[Route('/addressource', name: 'addressource')]
-       public function addressource(ManagerRegistry $managerRegistry, Request $req): Response
-       {
-           $em=$managerRegistry->getManager();
-           $ressource=new Ressources;
-           $form=$this->createForm(RessourcesType::class,$ressource);
-           $form->handleRequest($req);
-           if($form->isSubmitted() && $form->isValid())
-           {  
-               $file = $form->get('url')->getData();
-               $file->move(
-                   $this->getParameter('upload_directory'),
-                   $file->getClientOriginalName()
-               );
-               
-               $em->persist($ressource);
-               $em->flush();
-               return $this->redirectToRoute('afficheRessource');
-           }
-           return $this->renderForm('ressources/addressource.html.twig', [
-               'form' => $form ,
-           ]);
-       }
-   
-        //
-        #[Route('/download/{id}', name:'download')]
-        public function download(Ressources $ressource): Response
+        #[Route('/addressource', name: 'addressource')]
+        public function addressource(ManagerRegistry $managerRegistry, Request $req,SluggerInterface $slugger): Response
         {
-        $file = new File($this->getParameter('upload_directory').'/'.$ressource->getTypeR());
-        return $this->file($file);
+            $em=$managerRegistry->getManager();
+            $ressource=new Ressources;
+            $form=$this->createForm(RessourcesType::class,$ressource);
+            $form->handleRequest($req);
+            if($form->isSubmitted() && $form->isValid())
+            {  
+                $file = $form->get('url')->getData();
+                if($file){
+                    $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+                    try {
+                        $file->move(
+                            $this->getParameter('uploads_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                    }
+    
+                    $ressource->setUrl($newFilename);
+
+                } 
+                $em->persist($ressource);
+                $em->flush();
+                return $this->redirectToRoute('afficheRessource');
+            }
+            return $this->renderForm('ressources/addressource.html.twig', [
+                'form' => $form ,
+            ]);
+        } 
+
+         
+ //ferr       
+/* #[Route('/addressource', name: 'addressource')]
+public function addressource(ManagerRegistry $managerRegistry, Request $req, SluggerInterface $slugger): Response
+{
+    $em = $managerRegistry->getManager();
+    $ressource = new Ressources;
+    $form = $this->createForm(RessourcesType::class, $ressource);
+    $form->handleRequest($req);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $file = $form->get('url')->getData();
+        if ($file) {
+            $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $slugger->slug($originalFilename);
+            $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+            try {
+                $file->move(
+                    $this->getParameter('uploads_directory'),
+                    $newFilename
+                );
+            } catch (FileException $e) {
+                // Handle file upload error
+                return new JsonResponse(['error' => 'Error uploading file'], 500);
+            }
+
+            $ressource->setUrl($newFilename);
+        }
+
+        $em->persist($ressource);
+        $em->flush();
+
+        // Return success message
+        return new JsonResponse(['message' => 'Resource added successfully'], 200);
     }
-     //modifier un ressource
+
+    // Return validation errors if form is invalid
+    return new JsonResponse(['error' => 'Form validation failed'], 422);
+} */
+
+    
+        //modifier un ressource
      #[Route('/editressource/{id}', name: 'editressource')]
      public function editressource($id,RessourcesRepository $ressourcesRepository,ManagerRegistry $managerRegistry,Request $req): Response
      {
@@ -98,6 +142,7 @@ class RessourcesController extends AbstractController
              'form' => $form 
          ]);
      }
+        
      //supprimer ressource
      #[Route('/deletressource/{id}', name: 'deletressource')]
     public function deletressource($id,RessourcesRepository $ressourcesRepository ,ManagerRegistry $managerRegistry): Response

@@ -7,9 +7,11 @@ use App\Form\CategorieType;
 use App\Repository\CategorieRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class CategorieController extends AbstractController
 {
@@ -41,35 +43,68 @@ class CategorieController extends AbstractController
              ]);
                  
              }
-        //function ajout categorie
-        #[Route('/addcategorie', name: 'addcategorie')]
-    public function addcategorie(ManagerRegistry $managerRegistry, Request $req): Response
-    {
-        $em=$managerRegistry->getManager();
-        $cat=new Categorie;
-        $form=$this->createForm(CategorieType::class,$cat);
-        $form->handleRequest($req);
-        if($form->isSubmitted() && $form->isValid())
-        
-        {   $em->persist($cat);
-            $em->flush();
-            return $this->redirectToRoute('affichecategorie');
-        }
-        return $this->renderForm('categorie/addcategorie.html.twig', [
-            'form' => $form ,
-        ]);
-    }
+         //Ajout ressource 
+         #[Route('/addcategorie', name: 'addcategorie')]
+         public function addressource(ManagerRegistry $managerRegistry, Request $req,SluggerInterface $slugger): Response
+         {
+             $em=$managerRegistry->getManager();
+             $categorie=new Categorie;
+             $form=$this->createForm(CategorieType::class,$categorie);
+             $form->handleRequest($req);
+             if($form->isSubmitted() && $form->isValid())
+             {  
+                 $file = $form->get('image')->getData();
+                 if($file){
+                     $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                     $safeFilename = $slugger->slug($originalFilename);
+                     $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+                     try {
+                         $file->move(
+                             $this->getParameter('uploads_directory'),
+                             $newFilename
+                         );
+                     } catch (FileException $e) {
+                     }
+     
+                     $categorie->setImage($newFilename);
+ 
+                 } 
+                 $em->persist($categorie);
+                 $em->flush();
+                 return $this->redirectToRoute('affichecategorie');
+             }
+             return $this->renderForm('categorie/addcategorie.html.twig', [
+                 'form' => $form ,
+             ]);
+         }
+         
     //modifier categorie
     #[Route('/editcategorie/{id}', name: 'editcategorie')]
-    public function editcategorie($id,CategorieRepository $categorieRepository,ManagerRegistry $managerRegistry,Request $req): Response
+    public function editcategorie($id,CategorieRepository $categorieRepository,ManagerRegistry $managerRegistry,Request $req,SluggerInterface $slugger): Response
     {
         
         $em=$managerRegistry->getManager();
-        $dataid=$categorieRepository->find($id);
-        $form= $this->createForm(CategorieType::class,$dataid);
+        $e=$categorieRepository->find($id);
+        $form= $this->createForm(CategorieType::class,$e);
         $form->handleRequest($req);
         if($form->isSubmitted() and $form->isValid()){
-            $em->persist($dataid);
+            $file = $form->get('image')->getData();
+            if ($file) {
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+                try {
+                    $file->move(
+                        $this->getParameter('uploads_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+    
+                $e->setImage($newFilename);
+            }
+
+            $em->persist($e);
             $em->flush();
             return $this->redirectToRoute('affichecategorie');
         }

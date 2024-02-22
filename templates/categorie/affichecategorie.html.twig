@@ -35,6 +35,10 @@
                         <th>idC</th>
                         <th>Nom de la categorie</th>
                         <th>Nom de la ressource</th>
+                                                <th>Nom description</th>
+
+                        <th>image</th>
+
                         <th>Modification</th>
                         <th>Supprision</th>
                     </tr>
@@ -45,6 +49,8 @@
                         <td>{{ categorie.id }}</td>
                         <td>{{ categorie.nomCategorie }}</td>
                         <td>{{categorie.ressource}}</td>
+                        <td>{{ categorie.description }}</td>
+                        <td>{{categorie.image}}</td>
                         <td><span class="badge badge-primary"><a href="{{ path('editcategorie', {'id': categorie.id}) }}">Modifier</a></span></td>
                         <td><span class="badge badge-danger"><a href="{{ path('deletcategorie', {'id': categorie.id}) }}">Supprimer</a></span></td>
                     </tr>

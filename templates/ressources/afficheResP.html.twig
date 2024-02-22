@@ -1,64 +1,69 @@
 {% extends 'base-front.html.twig' %}
+
 {% block body %}
+<style>.blog__item {
+    margin-bottom: 30px;
+}
+
+.blog__item__pic {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.blog__pic__inner {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    border-radius: 0 0 10px 10px;
+}
+
+.blog__pic__inner h2.label {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.blog__pic__inner p.description {
+    font-size: 14px;
+    line-height: 1.6;
+}
+</style>
 <div class="breadcrumb-option">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="breadcrumb__text">
-                        <h2>Blog</h2>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="breadcrumb__links">
-                        <a href="./index.html">Accueil</a>
-                        <span>Blog</span>
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__text">
+                    <h2>Blog Des Ressources</h2>
                 </div>
             </div>
-        </div>
-    </div>
-
-<body>
-    {% block title %}{% endblock %}
-</button>
-
-{% for ressource in ressource %}
-    <div>
-        <a href="{{ path('download', {'id': ressource.id}) }}">View File</a>
-    </div>
-{% endfor %}
-    <div class="blog__item">
-        <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-1.jpg">
-            <div class="blog__pic__inner">
-                <div class="label">Recipes</div>
-                <ul>
-                    <li>By <span>James Myers</span></li>
-                    <li>13 Nov 2020</li>
-                    <li>112 Views</li>
-                </ul>
-            </div>
-        </div>
-        <div class="blog__item__text">
-            <h2>Delivering Kisses And Miracles</h2>
-            <p>Herbs are fun and easy to grow. When harvested they make even the simplest meal seem like
-                a gourmet delight. By using herbs in your cooking you can easily change the flavors of
-            your recipes in many different ways, according to which herbs you add...</p>
-            <a href="#">READ MORE</a>
-        </div>
-    </div>
-    <div class="blog__item">
-        <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-2.jpg">
-            <div class="blog__pic__inner">
-                <div class="label">Recipes</div>
-                <ul>
-                    <li>By <span>James Myers</span></li>
-                    <li>13 Nov 2020</li>
-                    <li>112 Views</li>
-                </ul>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__links">
+                    <a href="./index.html">Accueil</a>
+                    <span>Blog Des Ressources</span>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        {% for ressource in ressource %}
+        <div class="col-md-4">
+            <div class="blog__item">
+                <div class="blog__item__pic set-bg" data-setbg="{{ asset('uploads/' ~ ressource.url) }}">
+                    <div class="blog__pic__inner">
+                        <h2 class="label">{{ ressource.TitreR }}</h2>
+                        <p class="description">{{ ressource.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
-

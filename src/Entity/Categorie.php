@@ -26,6 +26,15 @@ class Categorie
 
     private ?Ressources $ressource = null;
 
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'La description ne peut pas être vide ')]
+    private ?string $description = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Limage ne peut pas être vide ')]
+
+    private ?string $image = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +60,30 @@ class Categorie
     public function setRessource(?Ressources $ressource): static
     {
         $this->ressource = $ressource;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

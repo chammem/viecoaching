@@ -35,6 +35,8 @@
                         <th>identifiant Ressource</th>
                         <th>Titre</th>
                         <th>Type</th>
+                                                <th>Description</th>
+
                         <th>Url</th>
                         <th>Modification</th>
                         <th>Supprision</th>
@@ -46,8 +48,8 @@
                         <td>{{ ressource.id }}</td>
                         <td>{{ ressource.TitreR }}</td>
                         <td>{{ ressource.TypeR }}</td>
+                        <td>{{ ressource.description }}</td>
                         <td>{{ ressource.url }}</td>
-                        <td><a href="{{ ressource.url }}" target="_blank">Voir le PDF</a></td>
                         <td><span class="badge badge-primary"><a href="{{ path('editressource', {'id': ressource.id}) }}">Modifier</a></span></td>
                         <td><span class="badge badge-danger"><a href="{{ path('deletressource', {'id': ressource.id}) }}">Supprimer</a></span></td>
                     </tr>
