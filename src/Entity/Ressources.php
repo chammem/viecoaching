@@ -26,7 +26,6 @@ class Ressources
     private ?string $TypeR = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'L url de ressource ne peut pas être vide ')]
     private ?string $url = null;
 
     #[ORM\OneToMany(targetEntity: Categorie::class, mappedBy: 'ressource',cascade:["all"],orphanRemoval:true)]

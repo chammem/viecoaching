@@ -31,7 +31,7 @@ class Categorie
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Limage ne peut pas être vide ')]
+   // #[Assert\NotBlank(message: 'Limage ne peut pas être vide ')]
 
     private ?string $image = null;
 

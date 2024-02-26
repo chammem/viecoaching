@@ -35,8 +35,7 @@
                         <th>identifiant Ressource</th>
                         <th>Titre</th>
                         <th>Type</th>
-                                                <th>Description</th>
-
+                        <th>Description</th>
                         <th>Url</th>
                         <th>Modification</th>
                         <th>Supprision</th>
@@ -50,8 +49,20 @@
                         <td>{{ ressource.TypeR }}</td>
                         <td>{{ ressource.description }}</td>
                         <td>{{ ressource.url }}</td>
-                        <td><span class="badge badge-primary"><a href="{{ path('editressource', {'id': ressource.id}) }}">Modifier</a></span></td>
-                        <td><span class="badge badge-danger"><a href="{{ path('deletressource', {'id': ressource.id}) }}">Supprimer</a></span></td>
+                        <td style="text-align: center;">
+                            <span>
+                               <a href="{{ path('editressource', {'id': ressource.id}) }}">
+                               <img src="{{ asset('images/modifie.png') }}" style="width: 22px; height: 22px;">
+                               </a>
+                            </span>
+                           </td>
+                           <td style="text-align: center;">
+                            <span>
+                               <a href="{{ path('deletressource', {'id': ressource.id}) }}">
+                               <img src="{{ asset('images/supprimer.png') }}" style="width: 22px; height: 22px;">
+                               </a>
+                            </span>
+                           </td>
                     </tr>
                     {% endfor %}
                 </tbody>

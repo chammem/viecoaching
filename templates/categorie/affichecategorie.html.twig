@@ -51,8 +51,22 @@
                         <td>{{categorie.ressource}}</td>
                         <td>{{ categorie.description }}</td>
                         <td>{{categorie.image}}</td>
-                        <td><span class="badge badge-primary"><a href="{{ path('editcategorie', {'id': categorie.id}) }}">Modifier</a></span></td>
-                        <td><span class="badge badge-danger"><a href="{{ path('deletcategorie', {'id': categorie.id}) }}">Supprimer</a></span></td>
+                          <td style="text-align: center;">
+                            <span>
+                               <a href="{{ path('editcategorie', {'id': categorie.id}) }}">
+                               <img src="{{ asset('images/modifie.png') }}" style="width: 22px; height: 22px;">
+                               </a>
+                            </span>
+                           </td>
+
+                        <td style="text-align: center;">
+                            <span>
+                                <a href="{{ path('deletcategorie', {'id': categorie.id}) }}">
+                                    <img src="{{ asset('images/supprimer.png') }}" style="width: 22px; height: 22px;">
+                                </a>
+                            </span>
+                        </td>
+
                     </tr>
                     {% endfor %}
                 </tbody>

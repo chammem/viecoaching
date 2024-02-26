@@ -37,7 +37,7 @@ class RessourcesType extends AbstractType
                 // Champ facultatif
                 'required' => false,
                 // Champ non lié à une propriété de l'entité Groupe
-               // 'mapped' => false,
+             'mapped' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
