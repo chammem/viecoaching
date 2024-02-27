@@ -21,7 +21,10 @@
 <body>
     {% block title %}{% endblock %}
 </button>
-
+ {{ form_start(form) }}
+        {{ form_row(form.nomCategorie) }}
+        {{ form_row(form.rechercher) }}
+    {{ form_end(form) }}
 <div class="row">
     {% for categorie in cat %}
         <div class="col-lg-3 col-md-6 col-sm-6">
@@ -34,45 +37,13 @@
                 <div class="product__item__text">
                     <div class="cart_add">
                         <h6><a href="{{ categorie.ressource }}"></a></h6>
-                        <a href="{{ path('afficheResP')}}">Voir ressource</a>
+                   <a href="{{ path('afficheResP', {'id': categorie.id}) }}">Voir ressources</a>
                     </div>
                 </div>
             </div>
         </div>
     {% endfor %}
 
-</div>
-    <div class="blog__item">
-        <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-1.jpg">
-            <div class="blog__pic__inner">
-                <div class="label">Recipes</div>
-                <ul>
-                    <li>By <span>James Myers</span></li>
-                    <li>13 Nov 2020</li>
-                    <li>112 Views</li>
-                </ul>
-            </div>
-        </div>
-        <div class="blog__item__text">
-            <h2>Delivering Kisses And Miracles</h2>
-            <p>Herbs are fun and easy to grow. When harvested they make even the simplest meal seem like
-                a gourmet delight. By using herbs in your cooking you can easily change the flavors of
-            your recipes in many different ways, according to which herbs you add...</p>
-            <a href="#">READ MORE</a>
-        </div>
-    </div>
-    <div class="blog__item">
-        <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-2.jpg">
-            <div class="blog__pic__inner">
-                <div class="label">Recipes</div>
-                <ul>
-                    <li>By <span>James Myers</span></li>
-                    <li>13 Nov 2020</li>
-                    <li>112 Views</li>
-                </ul>
-            </div>
-        </div>
-    </div>
 </div>
 
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Form\CategorieType;
+use App\Form\RechercheType;
 use App\Repository\CategorieRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,7 +28,8 @@ class CategorieController extends AbstractController
      #[Route('/affichecategorie', name: 'affichecategorie')]
      public function affichecategorie(CategorieRepository $x): Response
      {
-         $cat = $x->findAll();
+        $cat = $x->trie();
+       //  $cat = $x->findAll();
          return $this->render('categorie/affichecategorie.html.twig', [
              'cat'=> $cat
          ]);
@@ -35,14 +37,26 @@ class CategorieController extends AbstractController
          }
          //affiche paritie patient 
          #[Route('/afficheCatP', name: 'afficheCatP')]
-         public function afficheCatP(CategorieRepository $x): Response
+         public function afficheCatP(CategorieRepository $x, Request $req): Response
          {
              $cat = $x->findAll();
-             return $this->render('categorie/afficheCatP.html.twig', [
-                 'cat'=> $cat
-             ]);
+             $form = $this->createForm(RechercheType::class);
+             $form->handleRequest($req);
+           if ($form->isSubmitted() && $form->isValid()) {
+                 $data = $form->get('nomCategorie')->getData();
+                 $cate= $x->recherche($data);
                  
+                 return $this->renderForm('categorie/afficheCatP.html.twig', [
+                     'cat' => $cate,
+                 ]);
              }
+             
+             return $this->renderForm('categorie/afficheCatP.html.twig', [
+                 'cat' => $cat,
+                 'form' => $form 
+
+             ]);
+         }
          //Ajout ressource 
          #[Route('/addcategorie', name: 'addcategorie')]
          public function addressource(ManagerRegistry $managerRegistry, Request $req,SluggerInterface $slugger): Response

@@ -28,6 +28,14 @@ class RessourcesRepository extends ServiceEntityRepository
          ->getQuery()
          ->getResult();
     }
+     //trie
+     public function trie()
+     {
+         return $this->createQueryBuilder('c')
+             ->orderBy('c.id', 'DESC') 
+             ->getQuery()
+             ->getResult();
+     }
 
 //    /**
 //     * @return Ressources[] Returns an array of Ressources objects

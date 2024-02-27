@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controller;
+
+use App\Entity\Categorie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\Entity\Ressources;
@@ -26,12 +28,35 @@ class RessourcesController extends AbstractController
             'controller_name' => 'RessourcesController',
         ]);
     }
+/*resbycat
+    #[Route('/resources/{categorySlug}', name:'resourcesbycategory')]
+    public function resourcesbycategory($categorySlug): Response
+    {
+        $category = $this->getDoctrine()->getRepository(Categorie::class)->findOneBy(['slug' => $categorySlug]);
+
+        if (!$category) {
+            throw $this->createNotFoundException('Catégorie non trouvée');
+        }
+
+        // Récupérez les ressources liées à cette catégorie
+        $resources = $category->getResources();
+
+        return $this->render('afficheCatP.html.twig', [
+            'category' => $category,
+            'resources' => $resources,
+        ]);
+    }*/
+
+
+    
     //function affiche ressources
     
     #[Route('/afficheRessource', name: 'afficheRessource')]
     public function afficheRessource(RessourcesRepository $x): Response
     {
-        $ressource = $x->findAll();
+       // $ressource = $x->findAll();
+       $ressource = $x->trie();
+
         return $this->render('ressources/afficheRessource.html.twig', [
             'ressource'=> $ressource
         ]);
