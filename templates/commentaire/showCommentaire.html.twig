@@ -28,7 +28,6 @@
                             <th>Contenu</th>
                             <th>Date de création</th>
                             <th>Rubrique</th>
-                            <th>Modifier</th>
                             <th>Supprimer</th>
                         </tr>
                     </thead>
@@ -39,14 +38,12 @@
                                 <td>{{ i.contenu }}</td>
                                 <td>{{ i.DateCreation | date }}</td>
                                 <td>{{ i.rubrique is not empty ? i.rubrique : '' }}</td>
-                                <td>
-                                <span class="badge badge-primary"><a href="{{ path('edit_commentaire', {'id': i.id}) }}">Modifier</a></span>
                                 <td><span class="badge badge-danger"><a href="{{ path('delete_commentaire', {'id': i.id}) }}">Supprimer</a></span></td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-                <a href="{{ path('add_commentaire') }}" class="btn btn-primary">Ajouter un commentaire</a>
+                <a href="{{ path('add_commentaire',{'id': rubrique.id}) }}" class="btn btn-primary">Ajouter un commentaire</a>
             </div>
         </div>
     </div>
