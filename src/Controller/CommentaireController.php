@@ -80,4 +80,36 @@ $form = $this->createForm(CommentaireType::class, $commentaire);
         $em->flush();
         return $this->redirectToRoute('show_commentaire');
     }
+    #[Route('/showCommentaireUtilisateur/{id}', name: 'show_commentaire_utilisateur')]
+    public function showCommentaireUtilisateur($id, RubriqueRepository $rubriqueRepository, CommentaireRepository $commentaireRepository): Response
+    {
+        $rubrique = $rubriqueRepository->find($id);
+        $commentaire = $commentaireRepository->findBy(['rubrique' => $rubrique]);
+    
+        return $this->render('commentaire/showCommentaireUtilisateur.html.twig', [
+            'rubrique' => $rubrique,
+            'commentaire' => $commentaire,
+        ]);
+    } 
+    #[Route('/addCommentaireUtilisateur/{id}', name: 'add_commentaire_utilisateur')]
+    public function addCommentaireUtilisateur($id,ManagerRegistry $managerRegistry, Request $req): Response
+    {
+        $em = $managerRegistry->getManager();
+        $commentaire = new Commentaire();
+        $commentaire->setDateCreation(new \DateTime());
+        $rubrique = $em->getRepository(Rubrique::class)->find($id);
+$commentaire->setRubrique($rubrique);
+
+$form = $this->createForm(CommentaireType::class, $commentaire);
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($req);
+        if ($form->isSubmitted() and $form->isValid()) {
+            $em->persist($commentaire);
+            $em->flush();
+            return $this->redirectToRoute('show_commentaire_utilisateur', ['id' => $commentaire->getRubrique()->getId()]);
+        }
+        return $this->renderForm('commentaire/addCommentaireUtilisateur.html.twig', [
+            'form' => $form 
+        ]);
+    }
 }

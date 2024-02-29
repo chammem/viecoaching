@@ -1,0 +1,47 @@
+{% extends 'commentaire/base-back.html.twig' %}
+
+{% block body %}
+    <style>
+        body {
+            background-image: url('{{ asset('images/image3.jpg') }}');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.8);
+            align-items: center;
+        }
+    </style>
+
+    {% block title %}{% endblock %}
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Liste des commentaires</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Contenu</th>
+                            <th>Date de création</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in commentaire %}
+                            <tr>
+                                <td>{{ i.id }}</td>
+                                <td>{{ i.contenu }}</td>
+                                <td>{{ i.DateCreation | date }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{{ path('add_commentaire_utilisateur',{'id': rubrique.id}) }}" class="btn btn-primary">Ajouter un commentaire</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

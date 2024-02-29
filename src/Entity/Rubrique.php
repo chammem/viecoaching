@@ -7,8 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert; 
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RubriqueRepository::class)]
 class Rubrique
@@ -26,6 +25,9 @@ class Rubrique
     #[Assert\NotBlank(message:"text est obligatoire")]
     private ?string $contenu = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(message:"dateCreation est obligatoire")]
     private ?\DateTimeInterface $dateCreation = null;
@@ -38,7 +40,7 @@ class Rubrique
     #[Assert\NotBlank(message:"etat est obligatoire")]
     private ?string $etat = null;
 
-    #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'rubrique')]
+    #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'rubrique',cascade:["all"],orphanRemoval:true)]
     private Collection $commentaires;
 
     public function __construct()
@@ -50,6 +52,7 @@ class Rubrique
     {
         return $this->id;
     }
+
     public function setId(int $id): static
     {
         $this->id = $id;
@@ -146,8 +149,24 @@ class Rubrique
 
         return $this;
     }
-    public function __toString():string
+
+    public function __toString(): string
     {
         return $this->titre;
+        return $this->dateCreation;
+        return $this->datePublication;
+    }
+
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }

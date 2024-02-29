@@ -1,0 +1,62 @@
+{% extends 'commentaire/base-back.html.twig' %}
+
+{% block body %}
+    <style>
+        body {
+            background-image: url('{{ asset('images/image3.jpg') }}');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .center-cadre {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* height: 100vh; /* You can adjust this value based on your needs */
+        }
+
+        /* Adjust height and width for the card */
+        .card {
+            width: 400px; /* Adjust the width as needed */
+            height: auto; /* or set a specific height if you prefer */
+        }
+
+        /* Additional styles for the form and button if needed */
+        .form-control {
+            /* Your form control styles here */
+        }
+
+        .btn-primary {
+            /* Your button styles here */
+        }
+    </style>
+
+    <div class="center-cadre">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Ajouter un commentaire</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                                <div class="form-group row">
+                                    <label for="contenu" class="col-md-4 col-form-label text-md-right">Contenu :</label>
+                                    <div class="col-md-6">
+                                        {{ form_widget(form.contenu, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.contenu)}}
+                                    </div>
+                                <div class="form-group row mb-0">
+                                    <div class="col-md-6 offset-md-4">
+                                        {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                                    </div>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
