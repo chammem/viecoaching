@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class UtilisateurController extends AbstractController
@@ -84,9 +85,11 @@ public function deleteUtilisateur(ManagerRegistry $managerRegistry , $id, Utilis
 }
 
 #[Route('/editProfil/{id}', name: 'editProfil', methods:['GET','POST'])]
-public function editProfil(ManagerRegistry $managerRegistry , Request $req, $id,
+public function editProfil(ManagerRegistry $managerRegistry ,Security $security, Request $req, $id,
  UtilisateurRepository $utilisateurRepository)
 {
+    $user = $security->getUser();
+    $id = $user->getId();
     $em = $managerRegistry->getManager();
     $dataid=$utilisateurRepository->find($id);
 
@@ -95,10 +98,7 @@ public function editProfil(ManagerRegistry $managerRegistry , Request $req, $id,
         return $this->redirectToRoute('security.login');
     }
 
-    if ($this->getUser() !== $dataid)
-    {
-        return $this->redirectToRoute('addUtilisateur');
-    }
+    
     
     $form=$this->createForm(ProfilType::class,$dataid);
  
@@ -113,21 +113,20 @@ public function editProfil(ManagerRegistry $managerRegistry , Request $req, $id,
     
     return $this->renderForm('utilisateur/editProfil.html.twig', [
         'form' => $form,
-        'dataid' => $dataid,
+        'u' => $dataid,
     ]);
 }
 
 #[Route('/editMdp/{id}', name: 'editMdp')]
-public function editMdp(ManagerRegistry $managerRegistry, Request $request, UserPasswordHasherInterface $passwordHasher, $id, UtilisateurRepository $utilisateurRepository): Response {
-    $user = $this->getUser();
+public function editMdp(ManagerRegistry $managerRegistry, Request $request, Security $security, UtilisateurRepository $utilisateurRepository): Response 
+{
+    $user = $security->getUser();
+    $id = $user->getId();
     $dataid = $utilisateurRepository->find($id);
     $em = $managerRegistry->getManager();
 
     if (!$user) {
         return $this->redirectToRoute('security.login');
-    }
-    if ($user !== $dataid) {
-        return $this->redirectToRoute('addUtilisateur');
     }
 
     $form = $this->createForm(EditMdpType::class, $dataid);
@@ -141,15 +140,35 @@ public function editMdp(ManagerRegistry $managerRegistry, Request $request, User
         $em->persist($dataid);
         $em->flush();
 
-        // Redirect to a success page or wherever appropriate
         return $this->redirectToRoute('showuser');
     }
 
-    // Render the form template if not submitted or invalid
     return $this->renderForm('utilisateur/editMdp.html.twig', [
         'form' => $form,
-        'dataid' => $dataid,
+        'mot' => $dataid,
        
     ]);
+}
+
+#[Route('/etatCompte/{id}/{action}', name: 'etatCompte')]
+public function etatCompte(ManagerRegistry $managerRegistry,$id, $action, UtilisateurRepository $utilisateurRepository): Response
+{
+   
+    $utilisateur = $utilisateurRepository->find($id);
+    $em = $managerRegistry->getManager();
+
+    if (!$utilisateur) {
+        throw $this->createNotFoundException('Utilisateur non trouvé');
+    }
+
+    if ($action === 'disable') {
+        $utilisateur->setActive(false);
+    } elseif ($action === 'enable') {
+        $utilisateur->setActive(true);
+    }
+
+    $em->flush();
+
+    return $this->redirectToRoute('showuser');
 }
 }

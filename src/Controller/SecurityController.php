@@ -40,7 +40,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('image')->getData() === null) {
+            if ($form->get('imageFile')->getData() === null) {
                 $user->setImage('default_image.jpg');
             }
             // Attribuer automatiquement le rôle "patient" à l'utilisateur
@@ -48,17 +48,14 @@ class SecurityController extends AbstractController
             $rolePatient = $roleRepository->findOneBy(['nom_role' => 'Patient']);
             $user->setRole($rolePatient);
     
-            $this->addFlash(
-                'success',
-                'Votre compte a bien été créé'
-            );
+           
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('security.login');
         }
     
-        return $this->render('security/registration.html.twig', [
-            'form' => $form->createView(),
+        return $this->renderForm('security/registration.html.twig', [
+            'form' => $form,
         ]);
     }
 

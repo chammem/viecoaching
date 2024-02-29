@@ -69,10 +69,17 @@ class Utilisateur implements UserInterface
     private ?string $image = null;
     
     
-
     #[ORM\Column(length: 30)]
     #[Assert\NotBlank(message: "La ville ne peut pas être vide.")]
     private string $ville ;
+
+    #[ORM\Column(length: 30)]
+    private $active;
+
+    public function __construct()
+    {
+        $this->active = true; // Initialisation à true par défaut
+    }
 
     public function getId(): ?int
     {
@@ -231,6 +238,18 @@ public function setImage(?string $image): self
     public function setVille(string $ville): static
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

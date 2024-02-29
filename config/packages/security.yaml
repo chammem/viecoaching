@@ -21,7 +21,7 @@ security:
                password_parameter: mdp
                login_path: security.login
                check_path: security.login
-               default_target_path: addUtilisateur
+               default_target_path: showuser
             logout:
                path: security.logout
 

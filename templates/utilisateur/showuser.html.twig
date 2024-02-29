@@ -6,6 +6,8 @@
         <h4 class="card-title">Liste des utilisateurs</h4>
     </div>
     <div class="card-body">
+            <a href="{{ path('addUtilisateur') }}" class="btn btn-primary">Ajouter un utilisateur</a>
+
         <div class="table-responsive">
             <table class="table table-responsive-sm">
                 <thead>
@@ -18,8 +20,8 @@
                         <th>Numero telephone</th>
                         <th>Genre</th>
                         <th>Role</th>
-                        <th>Modififier</th>
-                        <th>Supprimer</th>
+                        <th>Etat compte</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -39,10 +41,16 @@
                         <td>{{ u.tel }}</td>
                         <td>{{ u.genre }}</td>
                         <td>{% if u.role %}{{ u.role.NomRole }}{% else %}No Role{% endif %}</td>
-                        
-                      <td><span class="badge badge-primary"><a href="{{ path('editMdp', {'id': u.id}) }}">Modifier</a></span></td>
 
- <td><span class="badge badge-danger"><a href="{{ path('deleteUtilisateur', {'id': u.id}) }}">Supprimer</a></span></td>
+    <!-- Autres colonnes de la table -->
+    <td>
+        {% if u.isActive() %}
+            <a href="{{ path('etatCompte', {'id': u.id, 'action': 'disable'}) }}" class="btn btn-danger">Désactiver</a>
+        {% else %}
+            <a href="{{ path('etatCompte', {'id': u.id, 'action': 'enable'}) }}" class="btn btn-success">Activer</a>
+        {% endif %}
+    </td>
+
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -51,4 +59,6 @@
     </div>
 </div>
 
-{% endblock %}
+
+
+  {% endblock %}

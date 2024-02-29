@@ -17,11 +17,14 @@
             
                             <div class="cover-photo"></div>
                           <div class="profile-photo" style="width: 240px; height: 200px; overflow: hidden; border-radius: 50%;">
-                            <img src="{{ vich_uploader_asset(dataid, 'imageFile') }}" class="img-fluid rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" alt="Photo de profil">
+                            <img src="{{ vich_uploader_asset(u
+                            , 'imageFile') }}" class="img-fluid rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" alt="Photo de profil">
                         </div>
-                        <div style="position: absolute; bottom: 0; right: 0;">
-                            <button id="editButton">edit</button>
-                        </div>
+                        <div style="position: absolute; bottom: -30%; right: 80%;">
+    <button id="editButton" style=" background-color:transparent;color: black; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
+        <i class="fas fa-edit" style="margin-right: 5px;"></i> 
+    </button>
+</div>
                         
                     </div>
                     </div>
@@ -58,7 +61,7 @@
                                 <div id="profile-settings" class="tab-pane fade show active">
                                     <div class="pt-3">
                                         <div class="settings-form">
-                                            <h4 class="text-primary">Account Setting</h4>
+                                            <h4 class="text-primary">Paramètre du compte</h4>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
@@ -94,7 +97,10 @@
             </div>
         </div>
     </div>
+ {% block stylesheets %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+ {% endblock %}
     {% block javascripts %}
     <script>
        document.getElementById('editButton').addEventListener('click', function(event) {

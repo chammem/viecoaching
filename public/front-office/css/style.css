@@ -244,6 +244,18 @@ ol {
   right: 0;
   z-index: 999;
 }
+.hiddenMenu {
+  display: none;
+}
+
+#userLinks {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
 
 .spacial-controls .search-switch {
   display: block;
@@ -437,14 +449,34 @@ ol {
   left: 7px;
   top: 4px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 .header__top__right__cart .cart__price {
-  display: inline-block;
-  color: #888888;
-  font-size: 15px;
-  font-weight: 600;
-  position: relative;
-  top: 4px;
+  
+    display: none;
+
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
 }
+
+
+
+
+
 .header__top__right__cart .cart__price span {
   color: #111111;
 }
@@ -4024,4 +4056,54 @@ ol {
   .checkout__order__products span {
     display: none;
   }
+}
+.user-links {
+  background: #111111;
+  padding: 2px 0;
+  position: absolute;
+  left: 0;
+  top: 44px;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 3;
+  transition: all 0.3s;
+}
+
+.user-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-links ul li {
+  font-size: 13px;
+  color: #ffffff;
+  padding: 2px 15px;
+  cursor: pointer;
+}
+
+.user-links ul li:after {
+  display: none;
+}
+
+.user-icon:after {
+  position: absolute;
+  right: -19px;
+  top: 1px;
+  content: "|";
+  color: #bbbbbb;
+}
+
+.user-links a {
+  color: #ffffff;
+}
+
+.user-links a:hover {
+  color: #ffffff;
+}
+
+.user-icon:hover .user-links {
+  top: 24px;
+  opacity: 1;
+  visibility: visible;
 }
