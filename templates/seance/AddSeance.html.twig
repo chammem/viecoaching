@@ -1,38 +1,58 @@
 {% extends 'base-back.html.twig' %}
-{%block title %} AJOUTER SEANCE  {% endblock %}
+
 {% block body %}
+   <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Ajouter une séance</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form, {'attr': {'class': 'form', 'novalidate': 'novalidate'}}) }}
+                    <div class="form-group row">
+                        <label for="nom" class="col-md-4 col-form-label text-md-right">Titre :</label>
+                        <div class="col-md-6">
+                            {{ form_row(form.titre, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="prenom" class="col-md-4 col-form-label text-md-right">Durée :</label>
+                        <div class="col-md-6">
+                            {{ form_row(form.duree, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-md-4 col-form-label text-md-right">Lien :</label>
+                        <div class="col-md-6">
+                            {{ form_row(form.lien, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="tel" class="col-md-4 col-form-label text-md-right">Mot de passe :</label>
+                        <div class="col-md-6">
+                            {{ form_row(form.mot_de_passe, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="mdp" class="col-md-4 col-form-label text-md-right">Type de séance :</label>
+                        <div class="col-md-6">
+                            {{ form_row(form.typeSeance, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                   
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            {{ form_row(form.Ajouter, {'attr': {'class': 'btn btn-primary'}}) }}
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h2>Ajouter une séance</h2>
-
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-<table>
-    <tr>
-        <td>{{ form_label(form.titre, "Titre") }}</td>
-        <td>{{ form_widget(form.titre) }}</td>
-        <td>{{ form_errors(form.titre) }}</td>
-    </tr>
-    <tr>
-        <td>{{ form_label(form.duree, "Durée") }}</td>
-        <td>{{ form_widget(form.duree) }}</td>
-        <td>{{ form_errors(form.duree) }}</td>
-    </tr>
-    <tr>
-        <td>{{ form_label(form.lien, "Lien") }}</td>
-        <td>{{ form_widget(form.lien) }}</td>
-        <td>{{ form_errors(form.lien) }}</td>
-    </tr>
-    <tr>
-        <td>{{ form_label(form.mot_de_passe, "Mot de passe") }}</td>
-        <td>{{ form_widget(form.mot_de_passe) }}</td>
-        <td>{{ form_errors(form.mot_de_passe) }}</td>
-    </tr>
-    <tr>
-        <td>{{ form_label(form.typeSeance, "Type de séance") }}</td>
-        <td>{{ form_widget(form.typeSeance) }}</td>
-        <td>{{ form_errors(form.typeSeance) }}</td>
-    </tr>
-</table>
-
-{{ form_widget(form.save) }}
-{{ form_end(form) }}
 {% endblock %}
+
+

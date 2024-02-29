@@ -18,7 +18,7 @@ class SeanceType extends AbstractType
             ->add('lien')
             ->add('mot_de_passe')
             ->add('typeSeance')
-            ->add('save',SubmitType::class)
+            ->add('Ajouter',SubmitType::class)
         ;
     }
 

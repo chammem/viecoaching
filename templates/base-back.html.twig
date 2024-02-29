@@ -182,19 +182,21 @@
                             <li><a href="./index2.html">Dashboard 2</a></li>
                         </ul>
                     </li>
-                    <li class="nav-label">Apps</li>
+                    <li class="nav-label">Gestions</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-app-store"></i><span class="nav-text">Apps</span></a>
+                                class="icon icon-app-store"></i><span class="nav-text">Gestion séances</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="./app-profile.html">Profile</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="./email-compose.html">Compose</a></li>
-                                    <li><a href="./email-inbox.html">Inbox</a></li>
-                                    <li><a href="./email-read.html">Read</a></li>
-                                </ul>
+                            <li><a href="{{ path('app_showSeance') }}">Liste séances</a></li>
                             </li>
                             <li><a href="./app-calender.html">Calendar</a></li>
+                        </ul>
+                    </li>
+                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                class="icon icon-app-store"></i><span class="nav-text">Gestion Type séances</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ path('app_showTypeSeance') }}">Liste de Types</a></li>
+                            </li>
+                           
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
