@@ -82,6 +82,18 @@ class GroupeController extends AbstractController
    ]);
 
 } 
+#[Route('/show', name: 'show')]
+
+public function show(): Response
+{
+    return $this->render('showgroupe.html.twig');
+}
+#[Route('/create', name: 'create')]
+
+public function create(): Response
+{
+    return $this->render('creategroupe.html.twig');
+}
 
 /*
 #[Route('/creategroupe', name: 'creategroupe')]
