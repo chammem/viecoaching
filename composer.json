@@ -28,7 +28,6 @@
         "symfony/framework-bundle": "5.4.*",
         "symfony/http-client": "5.4.*",
         "symfony/http-foundation": "5.4.*",
-        "symfony/http-foundation": "5.4.*",
         "symfony/intl": "5.4.*",
         "symfony/mailer": "5.4.*",
         "symfony/mailgun-mailer": "5.4.*",
@@ -50,8 +49,6 @@
         "symfony/web-link": "5.4.*",
         "symfony/yaml": "5.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0",
-        "vich/uploader-bundle": "^2.3"
         "twig/twig": "^2.12|^3.0",
         "vich/uploader-bundle": "^2.3"
     },
@@ -105,7 +102,6 @@
         }
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^3.5",
         "doctrine/doctrine-fixtures-bundle": "^3.5",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "5.4.*",
