@@ -6,6 +6,7 @@ use App\Entity\Role;
 use App\Entity\Utilisateur;
 use App\Form\LoginType;
 use App\Form\RegistreType;
+use App\Repository\UtilisateurRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,14 +20,22 @@ class SecurityController extends AbstractController
    
 
     #[Route('/connexion', name: 'security.login', methods:['GET','POST'])]
-    public function connexion(AuthenticationUtils $authenticationUtils,Request $req): Response
-   {  
+    public function connexion(AuthenticationUtils $authenticationUtils, UtilisateurRepository $utilisateurRepository): Response
+    {
+        $lastEmail = $authenticationUtils->getLastUsername();
     
-   
+        $user = $utilisateurRepository->findOneBy(['email' => $lastEmail]);
+        if (!$user) {
+            return $this->redirectToRoute('security.registration');
+        }
+    
+        if (!$user->isActive()) {
+            return $this->redirectToRoute('showuser');
+        }
+    
         return $this->render('security/login.html.twig', [
             'last_email' => $authenticationUtils->getLastUsername(),
-            'error'=> $authenticationUtils->getLastAuthenticationError(),
-            
+            'error' => $authenticationUtils->getLastAuthenticationError(),
         ]);
     }
 

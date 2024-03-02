@@ -154,17 +154,17 @@ public function editMdp(ManagerRegistry $managerRegistry, Request $request, Secu
 public function etatCompte(ManagerRegistry $managerRegistry,$id, $action, UtilisateurRepository $utilisateurRepository): Response
 {
    
-    $utilisateur = $utilisateurRepository->find($id);
+    $dataid=$utilisateurRepository->find($id);
     $em = $managerRegistry->getManager();
 
-    if (!$utilisateur) {
+    if (!$dataid) {
         throw $this->createNotFoundException('Utilisateur non trouvé');
     }
 
     if ($action === 'disable') {
-        $utilisateur->setActive(false);
+        $dataid->setActive(false);
     } elseif ($action === 'enable') {
-        $utilisateur->setActive(true);
+        $dataid->setActive(true);
     }
 
     $em->flush();
