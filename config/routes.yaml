@@ -4,3 +4,15 @@
 homepage:
     path: /
     controller: App\Controller\HomeController::index
+# config/routes.yaml
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+
+show_groupe:
+    path: /showgroupe
+    controller: App\Controller\GroupeController::show
+
+create_groupe:
+    path: /creategroupe
+    controller: App\Controller\GroupeController::create
