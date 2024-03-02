@@ -4,7 +4,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=5.3.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "devture/dbal": "^1.1",
@@ -15,6 +15,7 @@
         "doctrine/orm": "^3.0",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.25",
+        "sensio/framework-extra-bundle": "^6.2",
         "swiftmailer/swiftmailer": "*",
         "symfony/asset": "5.4.*",
         "symfony/asset-mapper": "6.3.*",
@@ -26,6 +27,7 @@
         "symfony/form": "5.4.*",
         "symfony/framework-bundle": "5.4.*",
         "symfony/http-client": "5.4.*",
+        "symfony/http-foundation": "5.4.*",
         "symfony/http-foundation": "5.4.*",
         "symfony/intl": "5.4.*",
         "symfony/mailer": "5.4.*",
@@ -48,6 +50,8 @@
         "symfony/web-link": "5.4.*",
         "symfony/yaml": "5.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0",
+        "vich/uploader-bundle": "^2.3"
         "twig/twig": "^2.12|^3.0",
         "vich/uploader-bundle": "^2.3"
     },
@@ -101,6 +105,7 @@
         }
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.5",
         "doctrine/doctrine-fixtures-bundle": "^3.5",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "5.4.*",
