@@ -1,0 +1,88 @@
+{% extends 'base-back.html.twig' %}
+
+{% block body %}
+    {{ form_start(form, {attr: {'novalidate': 'novalidate', 'class': 'form'}}) }}
+<style>/* CSS pour la mise en forme du formulaire */
+.error-message {
+    color: red;
+}
+
+.form-control {
+    width: 100%;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+</style>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Ajouter une ressource</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="TitreR" class="col-md-4 col-form-label text-md-right">Titre Ressource :</label>
+                            <div class="col-md-6">
+                                {{ form_widget(form.TitreR, {'attr': {'class': 'form-control'}}) }}
+                                <div class="error-message">
+                                    {% if form_errors(form.TitreR) is not empty %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ form_errors(form.TitreR) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="description" class="col-md-4 col-form-label text-md-right">Description :</label>
+                            <div class="col-md-6">
+                                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                                <div class="error-message">
+                                    {% if form_errors(form.description) is not empty %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ form_errors(form.description) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="TypeR" class="col-md-4 col-form-label text-md-right">Type Ressource :</label>
+                            <div class="col-md-6">
+                                {{ form_widget(form.TypeR, {'attr': {'class': 'form-control'}}) }}
+                                <div class="error-message">
+                                    {% if form_errors(form.TypeR) is not empty %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ form_errors(form.TypeR) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="url" class="col-md-4 col-form-label text-md-right">Choisir un fichier :</label>
+                            <div class="col-md-6">
+                                {{ form_widget(form.url, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                {{ form_widget(form.Ajouter, {'attr': {'class': 'btn btn-primary'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

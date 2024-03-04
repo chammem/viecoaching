@@ -1,0 +1,104 @@
+{% extends 'base-back.html.twig' %}
+{% block body %}
+<head>
+
+    <style>
+     .button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.card {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.card-header {
+    background-color: #f5f5f5;
+    padding: 10px;
+}
+
+.card-title {
+    margin: 0;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #f5f5f5;
+}
+
+        
+</style>
+</head>
+<body>
+    {% block title %}{% endblock %}
+
+ <div class="container">
+        <a href="{{ path('addressource') }}" class="button">Ajouter Ressource</a>
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Liste des Ressources</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Identifiant</th>
+                                <th>Titre</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Url</th>
+                                <th>Modification</th>
+                                <th>Suppression</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ressource in ressource %}
+                                <tr>
+                                    <td>{{ ressource.id }}</td>
+                                    <td>{{ ressource.TitreR }}</td>
+                                    <td>{{ ressource.TypeR }}</td>
+                                    <td>{{ ressource.description }}</td>
+                                    <td>{{ ressource.url }}</td>
+                                    <td style="text-align: center;">
+                                        <a href="{{ path('editressource', {'id': ressource.id}) }}">
+                                            <img src="{{ asset('images/modifie.png') }}" style="width: 22px; height: 22px;">
+                                        </a>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <a href="{{ path('deletressource', {'id': ressource.id}) }}">
+                                            <img src="{{ asset('images/supprimer.png') }}" style="width: 22px; height: 22px;">
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

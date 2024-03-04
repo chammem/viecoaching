@@ -1,0 +1,32 @@
+{% extends 'base-front.html.twig' %}
+
+{% block body %}
+    <section class="product-details spad">
+        <div class="container">
+            <div class="row">
+                {% for groupe in groupe %}
+                    <div class="col-lg-6 mb-4"> {# Ajoutez la classe mb-4 pour ajouter de la marge en bas #}
+                        <div class="product__details__img">
+                            <div class="product__details__big__img">
+                                <img class="big_img" src="{{ asset('uploads/' ~ groupe.image) }}" alt="{{ groupe.nom }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4"> {# Ajoutez la classe mb-4 pour ajouter de la marge en bas #}
+                        <div class="product__details__text">
+                            <h4>{{ groupe.nom }}</h4>
+                            <p>{{ groupe.description }}</p>
+                            <ul>
+                                <li><strong>Description:</strong> {{ groupe.description }}</li>
+                                <li><strong>Type de groupe:</strong> {{ groupe.typegroupe }}</li>
+                            </ul>
+                            <div class="product__details__option">
+                                <!-- Ajoutez ici d'autres options ou actions -->
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

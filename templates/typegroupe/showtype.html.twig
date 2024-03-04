@@ -1,0 +1,107 @@
+{% extends 'base-back.html.twig' %}
+
+{% block body %}
+
+
+
+    <style>
+    .button {
+            background-color: #4CAF50; /* couleur de fond */
+            border: none; /* suppression de la bordure */
+            color: white; /* couleur du texte */
+            padding: 15px 32px; /* espace de remplissage */
+            text-align: center; /* alignement du texte */
+            text-decoration: none; /* suppression de la décoration du texte */
+            display: inline-block; /* affichage en ligne */
+            font-size: 16px; /* taille de la police */
+            margin: 4px 2px; /* marge extérieure */
+            cursor: pointer; /* curseur de souris */
+            border-radius: 10px; /* arrondi des coins */
+        }
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
+
+        .action-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        .action-links .btn {
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 3px;
+        }
+
+        .badge-primary a {
+            background-color: #007bff;
+        }
+
+        .badge-danger a {
+            background-color: #dc3545;
+        }
+    </style>
+    <button class="button" onclick="window.location.href='createtypegroupe'">
+    {% block title %}Ajout Type Groupe{% endblock %}
+</button>
+
+
+       
+       <div class="container d-flex justify-content-center align-items-center vh-10">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Liste des Types de Groupes</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Identifiant</th>
+                                        <th>Nom du Type</th>
+                                        <th>Action</th>
+                                        <th>Supprimer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for type in typegroupe %}
+                                        <tr>
+                                            <td>{{ type.id }}</td>
+                                            <td>{{ type.nomtype }}</td>
+                                            <td class="action-links">
+                                                <span class="badge badge-prima">
+                                                    <a href="{{ path('editgroupe', {'id': type.id}) }}"class="btn btn-primary">Modifier</a>
+                                                </span>
+                                            </td>
+                                            <td class="action-links">
+                                                <span class="badge badge-danr">
+                                                    <a href="{{ path('deletetypeg', {'id': type.id}) }}"class="btn btn-danger">Supprimer</a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
