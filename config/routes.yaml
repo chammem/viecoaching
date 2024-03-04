@@ -4,3 +4,8 @@
 homepage:
     path: /
     controller: App\Controller\HomeController::index
+
+security_logout:
+    path: /deconnexion
+    controller: App\Controller\SecurityController::deconnexion
+
