@@ -9,6 +9,7 @@ use App\Entity\Ressources;
 use App\Form\RessourcesType;
 use App\Repository\RessourcesRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use PHPUnit\TextUI\XmlConfiguration\File;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -62,17 +63,22 @@ class RessourcesController extends AbstractController
         ]);
             
         }
-        //
+    
         //affiche partie patient
         #[Route('/afficheResP', name: 'afficheResP')]
-        public function afficheResP(RessourcesRepository $x): Response
+        public function afficheResP(Request $request, RessourcesRepository $x, PaginatorInterface $paginator): Response
         {
-            $ressource = $x->findAll();
+    
+            $resources=$x->findAll();
+            $pagination = $paginator->paginate(
+                $resources, 
+                $request->query->getInt('page',1),
+                2
+            );
             return $this->render('ressources/afficheResP.html.twig', [
-                'ressource'=> $ressource
+                'ressources' => $pagination 
             ]);
-                
-            }
+        }
         //Ajout ressource 
         #[Route('/addressource', name: 'addressource')]
         public function addressource(ManagerRegistry $managerRegistry, Request $req,SluggerInterface $slugger): Response
@@ -198,4 +204,14 @@ public function addressource(ManagerRegistry $managerRegistry, Request $req, Slu
             'form' => $form->createView(),
         ]);
     }*/
+
+   
+    #[Route('/statistic', name: 'statistic')]
+    public function statistic(RessourcesRepository $r): Response
+    {
+        $nombreR = $r->count([]);
+        return $this->render('ressources/statistic.html.twig', [
+            'nbr' => $nombreR,
+        ]);
+    }
 }

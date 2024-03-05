@@ -36,6 +36,16 @@ class RessourcesRepository extends ServiceEntityRepository
              ->getQuery()
              ->getResult();
      }
+     //
+     public function findPaginated($page, $limit)
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.id', 'DESC')
+            ->getQuery()
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getResult();
+    }
 
 //    /**
 //     * @return Ressources[] Returns an array of Ressources objects

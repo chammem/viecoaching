@@ -54,6 +54,10 @@
 <body>
     {% block title %}{% endblock %}
 
+{{ form_start(form) }}
+        {{ form_row(form.nomCategorie) }}
+        {{ form_row(form.rechercher) }}
+{{ form_end(form) }}
     <div class="container">
         <a href="{{ path('addcategorie') }}" class="button">Ajouter Catégorie</a>
 

@@ -19,12 +19,7 @@
         </div>
     </div>
 <body>
-    {% block title %}{% endblock %}
-</button>
- {{ form_start(form) }}
-        {{ form_row(form.nomCategorie) }}
-        {{ form_row(form.rechercher) }}
-    {{ form_end(form) }}
+ 
 <div class="row">
     {% for categorie in cat %}
         <div class="col-lg-3 col-md-6 col-sm-6">
@@ -45,6 +40,13 @@
     {% endfor %}
 
 </div>
-
+<div class="pagination-container">
+    <div class="bootstrap-badge">
+        <a href="javascript:void()" >{{ knp_pagination_render(cat) }}</a>
+    </div>
+    <div class="pagination justify-content-center mt-4">
+        <!-- Autres éléments de pagination vont ici -->
+    </div>
+</div>
 {% endblock %}
 

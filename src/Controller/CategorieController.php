@@ -7,6 +7,7 @@ use App\Form\CategorieType;
 use App\Form\RechercheType;
 use App\Repository\CategorieRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,34 +27,40 @@ class CategorieController extends AbstractController
      //function affiche categorie
     
      #[Route('/affichecategorie', name: 'affichecategorie')]
-     public function affichecategorie(CategorieRepository $x): Response
+     public function affichecategorie(CategorieRepository $x,  Request $req): Response
      {
         $cat = $x->trie();
        //  $cat = $x->findAll();
-         return $this->render('categorie/affichecategorie.html.twig', [
-             'cat'=> $cat
+       $form=$this->createForm(RechercheType::class);
+        $form->handleRequest($req);
+        if($form->isSubmitted()){
+            $data=$form->get('nomCategorie')->getData();
+            $Ref=$x->recherche($data);
+            return $this->renderForm('categorie/affichecategorie.html.twig', [
+                'cat'=> $Ref,
+                'form'=> $form,
+            ]);
+        }
+         return $this->renderForm('categorie/affichecategorie.html.twig', [
+             'cat'=> $cat,
+             'form'=> $form,
+
+             
          ]);
              
          }
          //affiche paritie patient 
          #[Route('/afficheCatP', name: 'afficheCatP')]
-         public function afficheCatP(CategorieRepository $x, Request $req): Response
+         public function afficheCatP(CategorieRepository $x, Request $req,PaginatorInterface $paginator): Response
          {
              $cat = $x->findAll();
-             $form = $this->createForm(RechercheType::class);
-             $form->handleRequest($req);
-           if ($form->isSubmitted() && $form->isValid()) {
-                 $data = $form->get('nomCategorie')->getData();
-                 $cate= $x->recherche($data);
-                 
-                 return $this->renderForm('categorie/afficheCatP.html.twig', [
-                     'cat' => $cate,
-                 ]);
-             }
-             
-             return $this->renderForm('categorie/afficheCatP.html.twig', [
-                 'cat' => $cat,
-                 'form' => $form 
+             $pagination = $paginator->paginate(
+                $cat, 
+                $req->query->getInt('page',1),
+                2
+            );
+             return $this->render('categorie/afficheCatP.html.twig', [
+                 'cat' => $pagination ,
 
              ]);
          }
@@ -136,5 +143,13 @@ class CategorieController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('affichecategorie');
         
+    }
+    #[Route('/stats', name: 'stats')]
+    public function stats(CategorieRepository $c): Response
+    {
+        $statisticsByCategory = $c->getStatisticsByCategory();
+        return $this->render('categorie/stats.html.twig', [
+            'statisticsByCategory' => $statisticsByCategory,
+        ]);
     }
 }
