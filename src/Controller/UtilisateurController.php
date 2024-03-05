@@ -6,11 +6,14 @@ use App\Entity\Role;
 use App\Entity\Utilisateur;
 use App\Form\EditMdpType;
 use App\Form\ProfilType;
+use App\Form\SearchUserType;
 use App\Form\UtilisateurType;
 use App\Repository\RoleRepository;
 use App\Repository\UtilisateurRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -21,14 +24,29 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 class UtilisateurController extends AbstractController
 {
     #[Route('/showuser', name: 'showuser')]
-    public function showuser(UtilisateurRepository $utilisateurRepository): Response
-    {
-        $user=$utilisateurRepository->findAll();
-        return $this->render('utilisateur/showuser.html.twig', [
-            'user' =>  $user,
-        ]);
-    }
+   // #[IsGranted("ROLE_ADMIN", statusCode:403)]
+   public function showuser(UtilisateurRepository $utilisateurRepository, Request $request): Response
+{
+    $form = $this->createForm(SearchUserType::class);
+    $form->handleRequest($request);
 
+    $users = [];
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $searchTerm = $form->getData()['searchTerm'];
+        $users = $utilisateurRepository->findByNom($searchTerm);
+    } else {
+        $users = $utilisateurRepository->findAll();
+    }
+    
+    
+
+    return $this->renderForm('utilisateur/showuser.html.twig', [
+        'form' => $form,
+        'users' => $users,
+    ]);
+}
+  
     #[Route('/addUtilisateur', name: 'addUtilisateur')]
     public function addUtilisateur(ManagerRegistry $managerRegistry , Request $req, RoleRepository $roleRepository ): Response
     {

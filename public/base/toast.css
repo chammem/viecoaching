@@ -78,3 +78,33 @@ body{
     cursor: pointer;
     margin-right:-30px;
 } 
+
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px; /* Réglez la position du container pour le toaster */
+    z-index: 1000;
+    width: auto; /* Ajustez la largeur en fonction du contenu */
+    max-width: 300px; /* Définissez une largeur maximale */
+}
+
+.toast {
+    width: 100%; /* Ajustez la largeur du toaster */
+    height: auto; /* Ajustez la hauteur automatiquement */
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 7px;
+    display: grid;
+    grid-template-columns: 1.3fr 6fr 0.5fr;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+.toast .inner-container {
+    display: flex;
+    align-items: center;
+}
+
+.toast .inner-container p:first-child {
+    margin-right: 10px;
+    font-weight: bold;
+}

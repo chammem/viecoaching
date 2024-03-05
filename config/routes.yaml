@@ -9,11 +9,6 @@ security_logout:
     path: /deconnexion
     controller: App\Controller\SecurityController::deconnexion
 
-# config/routes.yaml
-index:
-    path: /
-    controller: App\Controller\DefaultController::index
-
 show_groupe:
     path: /showgroupe
     controller: App\Controller\GroupeController::show

@@ -2,28 +2,13 @@
 
 <div class="container"> <div class="card"> <div class="form"> <div class="left-side"> <span></span> 
 <span></span> <span></span> <span></span> </div> <div class="right-side">
-
-{% if error %}
-<div class="wrapper">
-    <div class="toast error">
-        <div class="outer-container">
-            <i class="fas fa-times-circle"></i>
-        </div>
-        <div class="inner-container">
-            <p>Error</p>
-            <p>Error has occured while saving changes.</p>
-        </div>
-        <button class="close-toast">&times;</button> <!-- Add the class here -->
-    </div>
-</div>
-{% endif %}
-<form action="{{ path('security.login') }}" method="post">
+<form action="{{ path('security.login') }}" method="POST">
     <div class="signin_form s_form ">
         <div class="login">
             <h2>Connexion</h2>
         </div>
         <div class="input_text">
-            <input type="email" placeholder="Adresse email" id="email" name="email" value="{{ last_email }}">
+            <input type="email" placeholder="Adresse email" id="email" name="email" >
             <i class="fa fa-user"></i>
         </div>
         <div class="input_text">
@@ -44,7 +29,8 @@
 </div>
 </form>
 
-
+<!-- Structure HTML pour le toaster -->
+<div id="toast-container" class="toast-container"></div>
 
 {% block stylesheets %}
    <link href="{{asset('base/toast.css')}}" rel="stylesheet">
@@ -54,13 +40,38 @@
 
 
 {% block javascripts %}
-<script src="{{asset('base/toast.js')}}"></script>
 <script src="{{asset('base/connexion.js')}}"></script>
-<script>
+    <script>
+document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Empêcher la soumission par défaut du formulaire
+    var formData = new FormData(this); // Capturer les données du formulaire
+
+    fetch('{{ path('security.login') }}', {
+        method: 'POST',
+        body: formData // Envoyer les données du formulaire
+    })
+    .then(response => {
+        if (!response.ok) {
+            // Si la réponse n'est pas OK, afficher une notification d'erreur
+            showToast('Erreur', 'Email ou mot de passe incorrect', 'error');
+        } else {
+            // Si la réponse est OK, afficher une notification de succès
+            showToast('Succès', 'Connexion réussie', 'success');
+            return response.json().then(data => {
+                localStorage.setItem('token', data.token);
+                var userDataJSON = JSON.stringify(data.user);
+                localStorage.setItem('user', userDataJSON);
+                window.location.href = '/showuser';
+            });
+        }
+    })
+    .catch(error => console.error('Erreur lors de la connexion :', error));
+});
+
 document.getElementById('signin_eye_click').addEventListener('click', function() {
     var signin_type = document.getElementById('signin_type');
     var signin_eye = document.getElementById('signin_eye_click');
-    
+
     if (signin_type.type === "password") {
         signin_type.type = "text";
         signin_eye.classList.remove('fa-eye-slash');
@@ -71,12 +82,49 @@ document.getElementById('signin_eye_click').addEventListener('click', function()
         signin_eye.classList.remove('fa-eye');
     }
 });
+
+document.getElementById('registration_button').addEventListener('click', function() {
+    window.location.href = "{{ path('security.registration') }}";
+});
+
+function showToast(title, message, type) {
+    var toastContainer = document.getElementById('toast-container');
+    var toast = document.createElement('div');
+    toast.className = 'toast ' + type;
+    toast.innerHTML = `
+        <div class="outer-container">
+            <i class="fa fa-exclamation-circle"></i>
+        </div>
+        <div class="inner-container">
+            <p>${title}</p>
+            <p>${message}</p>
+        </div>
+        <button class="close-toast">&times;</button>
+    `;
+    toastContainer.appendChild(toast);
+    
+    // Ajout de l'événement pour fermer le toaster lorsqu'on clique sur le bouton
+    var closeToastButton = toast.querySelector('.close-toast');
+    closeToastButton.addEventListener('click', function() {
+        toast.style.display = 'none';
+    });
+    
+    setTimeout(function() {
+        toast.style.right = '110%'; // Animate the toaster from right to left
+    }, 8000);
+    setTimeout(function() {
+        toast.style.right = '-110%'; // Hide the toaster after a delay
+    }, 200);
+}
 </script>
+
+
 <script>
     document.getElementById('registration_button').addEventListener('click', function() {
         window.location.href = "{{ path('security.registration') }}";
     });
 </script>
+
 
 {% endblock %}
 

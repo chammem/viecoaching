@@ -24,7 +24,7 @@ class UtilisateurFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         // Récupération du rôle Admin
-        $roleAdmin = $manager->getRepository(Role::class)->findOneBy(['nom_role' => 'Admin']);
+        $roleAdmin = $manager->getRepository(Role::class)->findOneBy(['nom_role' => 'ROLE_ADMIN']);
 
         // Création d'un utilisateur admin
         $admin = new Utilisateur();

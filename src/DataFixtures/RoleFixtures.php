@@ -12,9 +12,9 @@ class RoleFixtures extends Fixture
     {
        // Créer et configurer les rôles par défaut
         $rolesData = [
-            ['nom_role' => 'Patient'],
-            ['nom_role' => 'Coach'],
-            ['nom_role' => 'Admin'],
+            ['nom_role' => 'ROLE_PATIENT'],
+            ['nom_role' => 'ROLE_COACH'],
+            ['nom_role' => 'ROLE_ADMIN'],
         ];
 
         foreach ($rolesData as $roleData) {

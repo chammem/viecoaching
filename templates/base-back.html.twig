@@ -153,10 +153,10 @@
                                         <i class="icon-envelope-open"></i>
                                         <span class="ml-2">Modifier mot de passe </span>
                                     </a>
-                                    <a href="{{path('security.logout')}}" class="dropdown-item">
-                                        <i class="icon-key"></i>
-                                        <span class="ml-2">Logout </span>
-                                    </a>
+<a href="{{ path('security.logout') }}" id="logout-link" class="dropdown-item" onclick="deconnexion()">
+    <i class="icon-key"></i>
+    <span class="ml-2">Logout </span>
+</a>
                                 </div>
                             </li>
                         </ul>
@@ -338,7 +338,24 @@
 
 
     <script src="{{asset('back-office/js/dashboard/dashboard-1.js')}}"></script>
+ {% block javascripts %}
+<script>
+// Fonction pour la gestion de la déconnexion
+function deconnexion() {
+    // Supprimer le token de la local storage
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    // Rediriger vers la page de déconnexion
+    window.location.href = '/deconnexion';
+}
 
+// Ajouter l'écouteur d'événements au lien de déconnexion
+document.getElementById('logout-link').addEventListener('click', function(event) {
+    event.preventDefault(); // Empêcher le comportement par défaut du lien
+    deconnexion();
+});
+</script>
+{% endblock %}
 </body>
 
 </html>

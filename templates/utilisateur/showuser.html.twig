@@ -1,64 +1,111 @@
 {% extends 'base-back.html.twig' %}
+{% block title %}Liste des utilisateurs{% endblock %}
 {% block body %}
-{% block title %}{% endblock %}
+   {{ form_start(form, {'attr': {'id': 'searchForm'}}) }}
+                {{ form_widget(form) }}
+            {{ form_end(form) }}
 <div class="card">
     <div class="card-header">
         <h4 class="card-title">Liste des utilisateurs</h4>
     </div>
     <div class="card-body">
-            <a href="{{ path('addUtilisateur') }}" class="btn btn-primary">Ajouter un utilisateur</a>
+        <a href="{{ path('addUtilisateur') }}" class="btn btn-primary">Ajouter un utilisateur</a>
 
         <div class="table-responsive">
+         
+
+            <div id="userList"></div> <!-- Où afficher les résultats de la recherche -->
+
             <table class="table table-responsive-sm">
                 <thead>
                     <tr>
                         <th>Image</th>
                         <th>Email</th>
                         <th>Nom</th>
-                        <th>Prenom</th>
+                        <th>Prénom</th>
                         <th>Ville</th>
-                        <th>Numero telephone</th>
+                        <th>Numéro de téléphone</th>
                         <th>Genre</th>
-                        <th>Role</th>
-                        <th>Etat compte</th>
-                        
+                        <th>Rôle</th>
+                        <th>État du compte</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for u in user %}
-                    <tr>
-             <td>
-    {% if u.image %}
-        <img src="{{ vich_uploader_asset(u, 'imageFile') }}" alt="Image de l'utilisateur" class="rounded-circle" style="width: 60px; height: 60px;">
-    {% else %}
-        <span>Aucune image disponible</span>
-    {% endif %}
-</td>
-                        <td>{{ u.email }}</td>
-                        <td>{{ u.nom }}</td>
-                        <td>{{ u.prenom }}</td>
-                        <td>{{ u.ville }}</td>
-                        <td>{{ u.tel }}</td>
-                        <td>{{ u.genre }}</td>
-                        <td>{% if u.role %}{{ u.role.NomRole }}{% else %}No Role{% endif %}</td>
-
-    <!-- Autres colonnes de la table -->
-    <td>
-        {% if u.isActive() %}
-            <a href="{{ path('etatCompte', {'id': u.id, 'action': 'disable'}) }}" class="btn btn-danger">Désactiver</a>
-        {% else %}
-            <a href="{{ path('etatCompte', {'id': u.id, 'action': 'enable'}) }}" class="btn btn-success">Activer</a>
-        {% endif %}
-    </td>
-
-                    </tr>
+                    {% for u in users %}
+                        <tr>
+                            <td>
+                                {% if u.image %}
+                                    <img src="{{ vich_uploader_asset(u, 'imageFile') }}" alt="Image de l'utilisateur" class="rounded-circle" style="width: 60px; height: 60px;">
+                                {% else %}
+                                    <span>Aucune image disponible</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ u.email }}</td>
+                            <td>{{ u.nom }}</td>
+                            <td>{{ u.prenom }}</td>
+                            <td>{{ u.ville }}</td>
+                            <td>{{ u.tel }}</td>
+                            <td>{{ u.genre }}</td>
+                            <td>{% if u.role %}{{ u.role.NomRole }}{% else %}No Role{% endif %}</td>
+                            <td>
+                                {% if u.isActive() %}
+                                    <a href="{{ path('etatCompte', {'id': u.id, 'action': 'disable'}) }}" class="btn btn-danger">Désactiver</a>
+                                {% else %}
+                                    <a href="{{ path('etatCompte', {'id': u.id, 'action': 'enable'}) }}" class="btn btn-success">Activer</a>
+                                {% endif %}
+                            </td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+{% endblock %}
 
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#searchForm').on('submit', function(e) {
+        e.preventDefault();
+        var searchTerm = $('#searchTerm').val();
+        var userList = $('#userList'); // Déplacer la déclaration de la variable userList
 
+        $.ajax({
+            url: "{{ path('showuser') }}",
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ searchTerm: searchTerm }),
+            
+            success: function(response) {
+                if (response.error) {
+                    alert(response.error);
+                } else if (response.users && Array.isArray(response.users)) {
+                    userList.empty();
 
-  {% endblock %}
+                    if (response.users.length > 0) {
+                        var html = '<table class="table table-responsive-sm"><thead><tr><th>Nom</th><th>Email</th><th>Ville</th></tr></thead><tbody>';
+
+                        response.users.forEach(function(user) {
+                            html += '<tr><td>' + user.nom + '</td><td>' + user.email + '</td><td>' + user.ville + '</td></tr>';
+                        });
+
+                        html += '</tbody></table>';
+                        userList.append(html);
+                    } else {
+                        console.log("Aucun utilisateur trouvé.");
+                        userList.append('<p>Aucun utilisateur trouvé.</p>');
+                    }
+                } else {
+                    console.log("Aucun utilisateur trouvé.");
+                    userList.append('<p>Aucun utilisateur trouvé.</p>');
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("Une erreur s'est produite lors de la recherche d'utilisateurs.");
+            }
+        });
+    });
+});
+{% endblock %}

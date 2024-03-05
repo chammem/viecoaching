@@ -1,0 +1,172 @@
+{% extends 'base-back.html.twig' %}
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-3 col-sm-6 mb-4">
+            <div class="card border-success">
+                <div class="card-body">
+                    <div class="stat-widget-one">
+                        <div class="stat-icon d-inline-block">
+                            <i class="ti-user text-success"></i>
+                        </div>
+                        <div class="stat-content d-inline-block">
+                            <div class="stat-text text-dark font-weight-bold">Nombre d'utilisateurs</div>
+                            <div class="stat-digit">{{ nbUser }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 mb-4">
+            <div class="card border-pink">
+                <div class="card-body">
+                    <div class="stat-widget-one">
+                        <div class="stat-icon d-inline-block">
+                            <i class="ti-thought text-pink"></i>
+                        </div>
+                        <div class="stat-content d-inline-block">
+                            <div class="stat-text text-dark font-weight-bold">Nombre de coachs</div>
+                            <div class="stat-digit">{{ nbCoaches }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 mb-4">
+            <div class="card border-danger">
+                <div class="card-body">
+                    <div class="stat-widget-one">
+                        <div class="stat-icon d-inline-block">
+<i class="ti-comments-smiley text-warning" style="color: orange;"></i>
+                        </div>
+                        <div class="stat-content d-inline-block">
+                            <div class="stat-text text-dark font-weight-bold">Nombre de patients</div>
+                            <div class="stat-digit">{{ nbPatients }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <div class="row">
+        <div class="col-lg-8 mb-4">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h4 class="card-title mb-0 text-dark">Nombre d'utilisateurs par ville</h4>
+                </div>
+                <div class="card-body">
+                    <canvas id="userChart"></canvas>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h4 class="card-title mb-0 text-dark">Répartition des genres</h4>
+                </div>
+                <div class="card-body">
+                    <canvas id="genderPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    {% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const userData = {{ userData|json_encode|raw }};
+        const cities = userData.map(data => data.ville);
+        const userCounts = userData.map(data => data.userCount);
+
+        // Définir les couleurs
+        const colors = ['#1e525a', '#17a2b8', '#B8B0B1', '#fcb858', '#c3c78c', '#17a2b8'];
+
+        // Créer un dégradé de couleurs pour les barres
+        const gradient = document.getElementById('userChart').getContext('2d').createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, '#ff9c11'); // Couleur de départ du dégradé
+        gradient.addColorStop(1, '#17a2b8'); // Couleur de fin du dégradé
+
+        var ctx = document.getElementById('userChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: cities,
+                datasets: [{
+                    label: 'Nombre d\'utilisateurs',
+                    data: userCounts,
+                    backgroundColor: colors.map(color => gradient), // Utiliser le dégradé de couleurs
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            suggestedMax: Math.max(...userCounts) * 1.1
+                        }
+                    }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return tooltipItem.yLabel + ' utilisateurs';
+                        }
+                    }
+                },
+                
+                // Ajuster les marges intérieures
+                layout: {
+                    padding: {
+                        left: 10,
+                        right: 10,
+                        top: 0,
+                        bottom: 0
+                    }
+                }
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const nbFemmes = {{ nbFemmes }};
+        const nbHommes = {{ nbHommes }};
+
+        var ctx = document.getElementById('genderPieChart').getContext('2d');
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Femmes', 'Hommes'],
+                datasets: [{
+                    data: [nbFemmes, nbHommes],
+                    backgroundColor: ['#fcb858', '#17a2b8'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var dataset = data.datasets[tooltipItem.datasetIndex];
+                            var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                                return previousValue + currentValue;
+                            });
+                            var currentValue = dataset.data[tooltipItem.index];
+                            var percentage = Math.round((currentValue / total) * 100);
+                            return data.labels[tooltipItem.index] + ": " + currentValue + " utilisateurs (" + percentage + "%)";
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+    {% endblock %}
+        {% endblock %}
