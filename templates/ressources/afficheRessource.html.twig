@@ -90,7 +90,14 @@
                                     <td>{{ ressource.TitreR }}</td>
                                     <td>{{ ressource.TypeR }}</td>
                                     <td>{{ ressource.description }}</td>
-                                    <td>{{ ressource.url }}</td>
+                                    
+                                      <td>
+    {% if ressource.url is not null %}
+        <img src="{{ asset('uploads/' ~ ressource.url) }}" style="width: 100px; height: auto;">
+     {% else %}
+        Aucune image
+    {% endif %}
+</td>
                                     <td style="text-align: center;">
                                         <a href="{{ path('editressource', {'id': ressource.id}) }}">
                                             <img src="{{ asset('images/modifie.png') }}" style="width: 22px; height: 22px;">
