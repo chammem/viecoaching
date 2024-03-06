@@ -1,0 +1,26 @@
+{% extends 'base-back.html.twig' %}
+
+{% block body %}
+{% block title %}{% endblock %}
+
+<h1>Liste des séances</h1>
+<div class="card-deck">
+    {% for r in reservations %}
+    <div class="card mb-3" style="border-color: #fd7e14;">
+        <div class="card-body text-success text-center">
+            <h5 class="card-title text-center">{{ r.sujet }}</h5>
+            <p class="card-text">ID: {{ r.id }}</p>
+            <p class="card-text">Date début: {{ r.date|date }}</p>
+            <p class="card-text">Date fin: {{ r.datefin|date  }}</p>
+             <p class="card-text">description: {{ r.description}}</p>
+            <p class="card-text">backgroundColor: {{ r.backgroundColor }}</p>
+             <p class="card-text">borderColor: {{ r.borderColor }}</p>
+              <p class="card-text">textColor: {{ r.textColor }}</p>
+              <td><span class="badge badge-primary"><a href="{{ path('', {'id': i.id}) }}">Accepter</a></span></td>
+              <td><span class="badge badge-primary"><a href="{{ path('', {'id': i.id}) }}">Refuser</a></span></td>
+
+       </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

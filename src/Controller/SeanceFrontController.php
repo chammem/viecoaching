@@ -31,7 +31,7 @@ class SeanceFrontController extends AbstractController
     #[Route('/reserverseance', name: 'app_reserverseance')]
     public function index1(): Response
     {
-        return $this->render('seance/ReserverSeance.html.twig', [
+        return $this->render('reservation/ReserverSeance.html.twig', [
             'controller_name' => 'SeanceFrontController',
         ]);
     }

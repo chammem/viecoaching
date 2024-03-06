@@ -1,0 +1,71 @@
+
+
+{% extends 'base-front.html.twig' %}
+
+{% block title %}Add Reservation{% endblock %}
+
+{% block body %}
+   <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Ajouter Reservation</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form, {'attr': {'class': 'form', 'novalidate': 'novalidate'}}) }}
+                    <div class="form-group row">
+                        <label for="nom" class="col-md-4 col-form-label text-md-right">Sujet :</label>
+                        <div class="col-md-6">
+                            {{ form_row(form.sujet, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="prenom" class="col-md-4 col-form-label text-md-right">date :</label>
+                        <div class="col-md-6">
+                            {{ form_row(form.date, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-md-4 col-form-label text-md-right">date fin :</label>
+                        <div class="col-md-6">
+                            {{ form_row(form.datefin, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="tel" class="col-md-4 col-form-label text-md-right">description :</label>
+                        <div class="col-md-6">
+                            {{ form_row(form.description, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="mdp" class="col-md-4 col-form-label text-md-right">background color :</label>
+                        <div class="col-md-6">
+                            {{ form_row(form.backgroundColor, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                     <div class="form-group row">
+                        <label for="mdp" class="col-md-4 col-form-label text-md-right">border color :</label>
+                        <div class="col-md-6">
+                            {{ form_row(form.borderColor, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                     <div class="form-group row">
+                        <label for="mdp" class="col-md-4 col-form-label text-md-right">text color :</label>
+                        <div class="col-md-6">
+                            {{ form_row(form.textColor, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                   
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            {{ form_row(form.Ajouter, {'attr': {'class': 'btn btn-primary'}}) }}
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

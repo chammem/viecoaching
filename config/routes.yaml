@@ -4,3 +4,4 @@
 show_seance_front:
     path: /showSeancefront , /showSeance
     controller: App\Controller\SeanceController::showSeance
+
