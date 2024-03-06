@@ -45,6 +45,8 @@ class CategorieController extends AbstractController
             return $this->renderForm('categorie/affichecategorie.html.twig', [
                 'cat'=> $Ref,
                 'form'=> $form,
+                'cat' => $pagination ,
+
             ]);
         }
          return $this->renderForm('categorie/affichecategorie.html.twig', [
