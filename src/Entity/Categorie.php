@@ -35,8 +35,6 @@ class Categorie
 
     private ?string $image = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $rate = null;
 
     public function getId(): ?int
     {
@@ -91,18 +89,7 @@ class Categorie
         return $this;
     }
 
-    public function getRate(): ?string
-    {
-        return $this->rate;
-    }
-
-    public function setRate(string $rate): static
-    {
-        $this->rate = $rate;
-
-        return $this;
-    }
-
+   
     
   
 }

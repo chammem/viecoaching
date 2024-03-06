@@ -2,30 +2,31 @@
 
 namespace App\Form;
 
-use App\Entity\Categorie;
-use blackknight467\StarRatingBundle\Form\RatingType as StarRatingType;
+use App\Entity\Ressources;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RatingType extends AbstractType
+class RechercheResourceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nomCategorie', TextType::class)
-            // Ajoutez le champ de notation ici
-            ->add('rating', StarRatingType::class, [
-                'label' => 'Rating', // Optionnel : étiquette du champ de notation
-            ]);
+        ->add('TitreR', TextType::class, [
+            'required' => false,
+            'attr' => ['class' => 'form-control', 'placeholder' => 'Entrez un titre']
+        ])
+        ->add('rechercher', SubmitType::class, [
+            'attr' => ['class' => 'btn btn-primary']
+        ]);
     }
-
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Categorie::class,
+            'data_class' => Ressources::class,
         ]);
     }
 }

@@ -15,12 +15,12 @@ class RechercheType extends AbstractType
     {
         $builder
         ->add('nomCategorie', TextType::class, [
-            'label' => 'Nom de la catégorie',
             'required' => false,
+            'attr' => ['class' => 'form-control', 'placeholder' => 'Entrez un titre']
         ])
-        ->add('rechercher', SubmitType::class);
-            
-        ;
+        ->add('rechercher', SubmitType::class, [
+            'attr' => ['class' => 'btn btn-primary']
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

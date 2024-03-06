@@ -6,8 +6,10 @@ use App\Entity\Categorie;
 use App\Form\CategorieType;
 use App\Form\RechercheType;
 use App\Repository\CategorieRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,11 +29,15 @@ class CategorieController extends AbstractController
      //function affiche categorie
     
      #[Route('/affichecategorie', name: 'affichecategorie')]
-     public function affichecategorie(CategorieRepository $x,  Request $req): Response
+     public function affichecategorie(CategorieRepository $x,  Request $req,PaginatorInterface $paginator): Response
      {
         $cat = $x->trie();
-       //  $cat = $x->findAll();
-       $form=$this->createForm(RechercheType::class);
+        $pagination = $paginator->paginate(
+        $cat, 
+        $req->query->getInt('page',1),
+        2
+    );
+        $form=$this->createForm(RechercheType::class);
         $form->handleRequest($req);
         if($form->isSubmitted()){
             $data=$form->get('nomCategorie')->getData();
@@ -43,6 +49,7 @@ class CategorieController extends AbstractController
         }
          return $this->renderForm('categorie/affichecategorie.html.twig', [
              'cat'=> $cat,
+             'cat' => $pagination ,
              'form'=> $form,
 
              
@@ -64,9 +71,10 @@ class CategorieController extends AbstractController
 
              ]);
          }
-         //Ajout ressource 
+        
+         //Ajout categorie
          #[Route('/addcategorie', name: 'addcategorie')]
-         public function addressource(ManagerRegistry $managerRegistry, Request $req,SluggerInterface $slugger): Response
+         public function addressource(ManagerRegistry $managerRegistry,FlashyNotifier $flashy, Request $req,SluggerInterface $slugger): Response
          {
              $em=$managerRegistry->getManager();
              $categorie=new Categorie;
@@ -92,13 +100,15 @@ class CategorieController extends AbstractController
                  } 
                  $em->persist($categorie);
                  $em->flush();
+                // $this->$flashy->success('Event created!', 'http://your-awesome-link.com');
+
                  return $this->redirectToRoute('affichecategorie');
              }
              return $this->renderForm('categorie/addcategorie.html.twig', [
                  'form' => $form ,
              ]);
          }
-         
+          
     //modifier categorie
     #[Route('/editcategorie/{id}', name: 'editcategorie')]
     public function editcategorie($id,CategorieRepository $categorieRepository,ManagerRegistry $managerRegistry,Request $req,SluggerInterface $slugger): Response

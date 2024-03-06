@@ -21,12 +21,12 @@ class RessourcesRepository extends ServiceEntityRepository
         parent::__construct($registry, Ressources::class);
     }
     //recherche ressource par typeR
-    public function recherBookbyref($TypeR){
-        return $this->createQueryBuilder('r')
-         ->where('r.Type=:Type')
-         ->setParameter('Type',$TypeR)
-         ->getQuery()
-         ->getResult();
+    public function recherche($nom){
+        return $this->createQueryBuilder('c')
+            ->where('c.TitreR LIKE :TitreR')
+            ->setParameter('TitreR', '%'.$nom.'%')
+            ->getQuery()
+            ->getResult();
     }
      //trie
      public function trie()

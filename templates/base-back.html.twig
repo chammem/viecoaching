@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title> VieCoaching |{% block title %} Admin Dashboard{% endblock %}  </title>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>
+       {% block stylesheet %} <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">{% endblock %}
+
     <!-- Favicon icon -->
     <link rel="icon" type="{{asset('back-office/image/png')}}" sizes="16x16" href="{{asset('back-office/images/favicon.png')}}">
     <link rel="stylesheet" href="{{asset('back-office/vendor/owl-carousel/css/owl.carousel.min.css')}}">
@@ -18,6 +22,11 @@
 </head>
 
 <body>
+{% block javascripts %}  
+<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+    <script src="//code.jquery.com/jquery.js"></script>
+ {% endblock %}
+     {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 
     <!--*******************
         Preloader start
@@ -66,18 +75,7 @@
             <div class="header-content">
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-between">
-                        <div class="header-left">
-                            <div class="search_bar dropdown">
-                                <span class="search_icon p-3 c-pointer" data-toggle="dropdown">
-                                    <i class="mdi mdi-magnify"></i>
-                                </span>
-                                <div class="dropdown-menu p-0 m-0">
-                                    <form>
-                                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                       
 
                         <ul class="navbar-nav header-right">
                             <li class="nav-item dropdown notification_dropdown">

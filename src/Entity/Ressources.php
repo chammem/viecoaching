@@ -35,10 +35,9 @@ class Ressources
     #[Assert\NotBlank(message: 'La description ne peut pas être vide ')]
     private ?string $description = null;
 
-    public function __construct()
-    {
-        $this->categories = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'ressources')]
+    private ?Utilisateur $utilisateur = null;
+
 
     
 
@@ -129,5 +128,19 @@ class Ressources
 
         return $this;
     }
+
+    public function getUtilisateur(): ?Utilisateur
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?Utilisateur $utilisateur): static
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+   
 
 }
