@@ -46,6 +46,8 @@ class Utilisateur
         $this->commentaires = new ArrayCollection();
     }
 
+   
+
     public function getId(): ?int
     {
         return $this->id;
@@ -182,4 +184,7 @@ class Utilisateur
 
         return $this;
     }
-}
+
+  
+    }
+

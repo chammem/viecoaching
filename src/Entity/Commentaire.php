@@ -27,6 +27,9 @@ class Commentaire
     #[Assert\NotBlank(message:"date est obligatoire")]
     private ?\DateTimeInterface $dateCreation = null;
 
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    private ?Utilisateur $auteur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -77,6 +80,18 @@ class Commentaire
     public function __toString()
     {
         return $this->contenu;
+    }
+
+    public function getAuteur(): ?Utilisateur
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?Utilisateur $auteur): static
+    {
+        $this->auteur = $auteur;
+
+        return $this;
     }
 }
 

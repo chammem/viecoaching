@@ -43,6 +43,9 @@ class Rubrique
     #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'rubrique',cascade:["all"],orphanRemoval:true)]
     private Collection $commentaires;
 
+    #[ORM\ManyToOne(inversedBy: 'rubriques')]
+    private ?Utilisateur $auteur = null;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -166,6 +169,18 @@ class Rubrique
     public function setImage(string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getAuteur(): ?Utilisateur
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?Utilisateur $auteur): static
+    {
+        $this->auteur = $auteur;
 
         return $this;
     }
