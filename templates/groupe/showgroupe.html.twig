@@ -1,31 +1,46 @@
 {% extends 'base-back.html.twig' %}
+
 {% block body %}
-<head>
+    <head>
+        <style>
+            .button {
+                background-color: #4CAF50; /* couleur de fond */
+                border: none; /* suppression de la bordure */
+                color: white; /* couleur du texte */
+                padding: 15px 32px; /* espace de remplissage */
+                text-align: center; /* alignement du texte */
+                text-decoration: none; /* suppression de la décoration du texte */
+                display: inline-block; /* affichage en ligne */
+                font-size: 16px; /* taille de la police */
+                margin: 4px 2px; /* marge extérieure */
+                cursor: pointer; /* curseur de souris */
+                border-radius: 10px; /* arrondi des coins */
+            }
+        </style>
+    </head>
+    <body>
+    
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="{{ form.nom.vars.id }}">Nom de Groupe:</label>
+        <div class="col-sm-10">
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            {{ form_widget(form.rechercher, {'attr': {'class': 'btn btn-primary'}}) }}
+        </div>
+    </div>
+{{ form_end(form) }}
+    
+    <!-- Bouton d'ajout de groupe -->
+    <button class="button" onclick="window.location.href='{{ path('creategroupe') }}'">
+        {% block title %}Ajout Groupe{% endblock %}
+    </button>
 
-    <style>
-        .button {
-            background-color: #4CAF50; /* couleur de fond */
-            border: none; /* suppression de la bordure */
-            color: white; /* couleur du texte */
-            padding: 15px 32px; /* espace de remplissage */
-            text-align: center; /* alignement du texte */
-            text-decoration: none; /* suppression de la décoration du texte */
-            display: inline-block; /* affichage en ligne */
-            font-size: 16px; /* taille de la police */
-            margin: 4px 2px; /* marge extérieure */
-            cursor: pointer; /* curseur de souris */
-            border-radius: 10px; /* arrondi des coins */
-        }
-    </style>
-</head>
-<body>
-
-<button class="button" onclick="window.location.href='creategroupe'">
-    {% block title %}Ajout Groupe{% endblock %}
-</button>
- 
-           
     <div class="container">
+        <!-- Tableau des groupes -->
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -37,43 +52,50 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-
                                         <th>Identifiant</th>
-
                                         <th>Nom de Groupe</th>
                                         <th>Description</th>
                                         <th>Type De Groupe</th>
                                         <th>Date de Creation</th>
-
                                         <th>Image</th>
-
+                                        <th>Utilisateurs</th>
                                         <th>Action</th>
                                         <th>Supprimer</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for groupe in groupe %}
+                                    {% for unGroupe in groupe %}
                                         <tr>
-                                            <td>{{ groupe.id }}</td>
-
-                                            <td>{{ groupe.nom }}</td>
-                                            <td>{{ groupe.description }}</td>
-
+                                            <td>{{ unGroupe.id }}</td>
+                                            <td>{{ unGroupe.nom }}</td>
+                                            <td>{{ unGroupe.description }}</td>
                                             <td>
-                                                {% if groupe.typegroupe is not null %}
-                                                    {{ groupe.typegroupe.nomtype }}
+                                                {% if unGroupe.typegroupe is not null %}
+                                                    {{ unGroupe.typegroupe.nomtype }}
                                                 {% else %}
                                                     Type de groupe non défini
                                                 {% endif %}
                                             </td>
-                                            <td>{{ groupe.datecreation ? groupe.datecreation.format('Y-M-D') : 'Date de création non définie' }}</td>
-                                                                                                                                    <td>{{ groupe.image }}</td>
-
+                                            <td>{{ unGroupe.datecreation ? unGroupe.datecreation.format('Y-M-D') : 'Date de création non définie' }}</td>
+<td>
+    {% if unGroupe.image is not null %}
+        <img src="{{ asset('uploads/' ~ unGroupe.image) }}" alt="{{ unGroupe.nom }}" style="max-width: 100px; max-height: 100px;">
+    {% else %}
+        Aucune image
+    {% endif %}
+</td>
                                             <td>
-                                                <a href="{{ path('editgroupep', {'id': groupe.id}) }}" class="btn btn-primary">Modifier</a>
+                                                {% for utilisateur in unGroupe.utilisateur %}
+                                                    {{ utilisateur.nom }} {{ utilisateur.prenom }}
+                                                    {# Tu peux ajouter d'autres informations sur l'utilisateur si nécessaire #}
+                                                    <br>
+                                                {% endfor %}
                                             </td>
                                             <td>
-                                                <a href="{{ path('deletegroupe', {'id': groupe.id}) }}" class="btn btn-danger">Supprimer</a>
+                                                <a href="{{ path('editgroupep', {'id': unGroupe.id}) }}" class="btn btn-primary">Modifier</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ path('deletegroupe', {'id': unGroupe.id}) }}" class="btn btn-danger">Supprimer</a>
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -85,4 +107,14 @@
             </div>
         </div>
     </div>
+    </body>
+    <div class="container"> <!-- Nouvelle div container pour centrer le contenu -->
+    <div class="row justify-content-center"> <!-- Utilisation de justify-content-center pour centrer horizontalement -->
+        <div class="pagination-container">
+            <div class="bootstrap-badge">
+                <a href="javascript:void()" >{{ knp_pagination_render(groupe) }}</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -20,7 +20,20 @@ class TypegroupeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Typegroupe::class);
     }
-
+    public function trie()
+    {
+        return $this->createQueryBuilder('g')
+            ->orderBy('g.id', 'DESC') 
+            ->getQuery()
+            ->getResult();
+    }
+    public function recherche($x){
+       return $this->createQueryBuilder('c')
+           ->where('c.nomtype LIKE :nomtype')
+           ->setParameter('nomtype', '%'.$x.'%')
+           ->getQuery()
+           ->getResult();
+   }
 //    /**
 //     * @return Typegroupe[] Returns an array of Typegroupe objects
 //     */

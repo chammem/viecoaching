@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Added to Group</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bonjour {{ utilisateur.nom }},</h1>
+        <p>Vous avez été ajouté au groupe "{{ groupe.nom }}".</p>
+        <p>Merci,</p>
+        <p>L'équipe de votre application <h4>VieCoaching</h4></p>
+    </div>
+    <div class="footer">
+        <p>Vous recevez cet e-mail car vous avez été ajouté à un groupe sur notre application.</p>
+        <p>&copy; 2024 Votre Application</p>
+    </div>
+</body>
+</html>
