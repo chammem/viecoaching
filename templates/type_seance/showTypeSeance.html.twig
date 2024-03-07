@@ -1,0 +1,48 @@
+{% extends 'base-back.html.twig' %}
+{% block body %}
+{% block title %}{% endblock %}
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Liste des utilisateurs</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-responsive-sm">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Nom type</th>
+                        <th>Modififier</th>
+                        <th>Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in typeS %}
+                    <tr>
+                        <td>{{ i.id }}</td>
+                        <td>{{ i.nomtype }}</td>
+                        
+                
+                        
+                      <td><span class="badge badge-primary"><a href="{{ path('app_editTypeSeance', {'id': i.id}) }}">Modifier</a></span></td>
+
+ <td><span class="badge badge-danger"><a href="{{ path('app_deleteTypeSeance', {'id': i.id}) }}">Supprimer</a></span></td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+                
+            </table>
+            
+        </div>
+
+    </div>
+
+</div>
+           <span class="badge badge-primary"><a href="{{path('app_AddTypeSeance')}}"class="btn btn-dark">Ajouter</a></span>
+
+
+
+{% endblock %}
+
+

@@ -1,0 +1,23 @@
+{% extends 'base-front.html.twig' %}
+
+{% block body %}
+{% block title %}{% endblock %}
+
+<h1>Liste des séances</h1>
+<div class="card-deck">
+    {% for seance in seances %}
+    <div class="card mb-3" style="border-color: #fd7e14;">
+        <div class="card-body text-success text-center">
+            <h5 class="card-title text-center">{{ seance.titre }}</h5>
+            <p class="card-text">ID: {{ seance.id }}</p>
+            <p class="card-text">Lien: {{ seance.lien }}</p>
+            <p class="card-text">Durée: {{ seance.duree|date('i:s') }}</p>
+            <p class="card-text">Mot de passe: {{ seance.motdepasse }}</p>
+            <p class="card-text">Type Séance: {{ seance.typeseance }}</p>
+              <a href="#" class="btn btn-warning  " style="background-color: #fd7e14;">Participer</a>
+       </div>
+    </div>
+    {% endfor %}
+</div>
+ <a href="{{ path('app_reserverseance') }}"  class="btn btn-warning  " style="background-color: #fd7e14;">Réserver ma séance</a>
+{% endblock %}

@@ -15,3 +15,6 @@ show_groupe:
 create_groupe:
     path: /creategroupe
     controller: App\Controller\GroupeController::create
+show_seance_front:
+    path: /showSeancefront , /showSeance
+    controller: App\Controller\SeanceController::showSeance
