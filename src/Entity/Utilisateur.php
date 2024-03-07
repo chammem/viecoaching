@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -76,6 +78,9 @@ class Utilisateur implements UserInterface
     #[ORM\Column(length: 30)]
     private $active;
 
+    #[ORM\ManyToMany(targetEntity: Groupe::class, mappedBy: 'utilisateur')]
+    private Collection $groupes;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $reset_token = null;
 
@@ -87,6 +92,7 @@ class Utilisateur implements UserInterface
     public function __construct()
     {
         $this->active = true; // Initialisation à true par défaut
+        $this->groupes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -258,6 +264,33 @@ public function setImage(?string $image): self
     public function setActive(bool $active): self
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Groupe>
+     */
+    public function getGroupes(): Collection
+    {
+        return $this->groupes;
+    }
+
+    public function addGroupe(Groupe $groupe): static
+    {
+        if (!$this->groupes->contains($groupe)) {
+            $this->groupes->add($groupe);
+            $groupe->addUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupe(Groupe $groupe): static
+    {
+        if ($this->groupes->removeElement($groupe)) {
+            $groupe->removeUtilisateur($this);
+        }
 
         return $this;
     }

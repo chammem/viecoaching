@@ -3,13 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Groupe;
+use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class GroupeType extends AbstractType
 {
@@ -20,7 +21,13 @@ class GroupeType extends AbstractType
             ->add('description')
             ->add('datecreation')
             ->add('typegroupe')
-                       ->add('image', FileType::class, [
+            ->add('utilisateur', EntityType::class, [
+                'class' => Utilisateur::class,
+                'choice_label' => 'nom', // Le champ utilisé comme libellé des options
+                'multiple' => true, // Permettre la sélection de plusieurs utilisateurs
+                'expanded' => true, // Afficher les options sous forme de cases à cocher
+            ])
+            ->add('image', FileType::class, [
                 'label' => 'Image (JPEG, PNG, GIF)',
                 // Champ facultatif
                 'required' => false,

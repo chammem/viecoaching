@@ -7,9 +7,10 @@
 parameters:
     uploads_directory: '%kernel.project_dir%/public/uploads'
 
-  #  app.path.user_images: /images/user
-
 services:
+    # Configuration du service symfony_session_store pour FlashyNotifier
+    
+
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -27,9 +28,6 @@ services:
         
         
     App\EntityListener\:
-                resource: '../src/EntityListener/'
-                tags:
-                    - { name: doctrine.orm.entity_listener, event: prePersist, entity: App\\Entity\\Utilisateur }
-
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+        resource: '../src/EntityListener/'
+        tags:
+            - { name: doctrine.orm.entity_listener, event: prePersist, entity: App\\Entity\\Utilisateur }

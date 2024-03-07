@@ -20,6 +20,30 @@ class GroupeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Groupe::class);
     }
+    public function nombreGroupes(GroupeRepository $groupeRepository)
+    {
+        // Récupérez le nombre total de groupes
+        $nombreGroupes = $groupeRepository->count([]);
+    
+        // Passez le nombre de groupes à votre modèle Twig
+        return $this->render('votre_template.twig', [
+            'nombre_groupes' => $nombreGroupes,
+        ]);
+    }
+    public function trie()
+     {
+         return $this->createQueryBuilder('g')
+             ->orderBy('g.id', 'DESC') 
+             ->getQuery()
+             ->getResult();
+     }
+     public function recherche($x){
+        return $this->createQueryBuilder('c')
+            ->where('c.nom LIKE :nom')
+            ->setParameter('nom', '%'.$x.'%')
+            ->getQuery()
+            ->getResult();
+    }
 
 //    /**
 //     * @return Groupe[] Returns an array of Groupe objects

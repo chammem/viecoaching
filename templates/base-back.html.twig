@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title> VieCoaching |{% block title %} Admin Dashboard{% endblock %}  </title>
+        <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>
+     {% block stylesheets %}
+                <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+ {% endblock %}
     <!-- Favicon icon -->
     <link rel="icon" type="{{asset('back-office/image/png')}}" sizes="16x16" href="{{asset('back-office/images/favicon.png')}}">
     <link rel="stylesheet" href="{{asset('back-office/vendor/owl-carousel/css/owl.carousel.min.css')}}">
@@ -18,6 +23,12 @@
 </head>
 
 <body>
+ {% block javascripts %}
+     <script src="//code.jquery.com/jquery.js"></script>
+
+    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+        {% endblock %}
+            {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 
     <!--*******************
         Preloader start
@@ -188,7 +199,9 @@
                                 class="icon icon-app-store"></i><span class="nav-text">Les Groupe</span></a>
                                 class="icon icon-app-store"></i><span class="nav-text">Gestion séances</span></a>
                         <ul aria-expanded="false">
-<li><a href="{{ path('showgroupe') }}">Lise Groupe</a></li>
+<li><a href="{{ path('showgroupe') }}">Liste Groupe</a></li>
+<li><a href="{{ path('showtype') }}">Liste TypeGroupe</a></li>
+
                            
 <li><a href="{{ path('creategroupe') }}">Ajouter Groupe</a></li>                        </ul>
                             <li><a href="{{ path('app_showSeance') }}">Liste séances</a></li>

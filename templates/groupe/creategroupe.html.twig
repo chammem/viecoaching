@@ -5,10 +5,24 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Création d'un nouveau groupe</h4>
-                </div>
+              <div class="card">
+   <div class="card">
+    <div class="card-header">
+        <h4 class="card-title mb-0">Création d'un nouveau groupe</h4>
+    </div>
+</div>
+
+</div>
+
                 <div class="card-body">
+                    {# Ajout des messages flash de succès #}
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+                    {# Affichage du formulaire de création de groupe #}
                     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                     <div class="form-group row">
                         <label for="nom" class="col-md-4 col-form-label text-md-right">Nom :</label>
@@ -18,7 +32,6 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                    
                         <label for="description" class="col-md-4 col-form-label text-md-right">Description :</label>
                         <div class="col-md-6">
                             {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
@@ -39,18 +52,31 @@
                             <div style="color:red;">{{ form_errors(form.datecreation) }}</div>
                         </div>
                     </div>
-                <div class="form-group row">
-                        <label for="datecreation" class="col-md-4 col-form-label text-md-right">Image:</label>
+                   <div class="container">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <div class="form-group row">
+                <label for="utilisateur" class="col-md-4 col-form-label text-md-right">Utilisateur:</label>
+                <div class="col-md-6">
+                    {{ form_widget(form.utilisateur, {'attr': {'class': 'form-control'}}) }}
+                    <div style="color:red;">{{ form_errors(form.utilisateur) }}</div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+                    <div class="form-group row">
+                        <label for="image" class="col-md-4 col-form-label text-md-right">Image :</label>
                         <div class="col-md-6">
                             {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
                         </div>
                     </div>
                     <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
-                                </div>
-                            </div>
-                    
+                        <div class="col-md-6 offset-md-4">
+                            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                        </div>
+                    </div>
                     {{ form_end(form) }}
                 </div>
             </div>

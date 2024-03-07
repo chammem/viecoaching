@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Form\TypegroupeType;
 use App\Entity\Typegroupe;
+use App\Form\SearchType;
 use App\Repository\GroupeRepository;
 use App\Repository\TypegroupeRepository;
 
@@ -25,13 +26,30 @@ class TypegroupeController extends AbstractController
         ]);
     }
     #[Route('/showtype', name: 'showtype')]
-    public function showtype(TypegroupeRepository $x): Response
+    public function showtype(TypegroupeRepository $x,Request $req): Response
     {
-        $type=$x->findAll();
-        return $this->renderForm('typegroupe/showtype.html.twig', [
-            'typegroupe'=> $type,
-        ]);
-}
+        $type = $x->trie();
+        //  $cat = $x->findAll();
+        $form=$this->createForm(SearchType::class);
+        $form->handleRequest($req);
+        if($form->isSubmitted()){
+            $data=$form->get('nomtype')->getData();
+            $Ref=$x->recherche($data);
+          return $this->renderForm('typegroupe/showtype.html.twig', [
+              'type'=> $Ref,
+              'form'=> $form,
+
+
+          ]);
+              
+          }  return $this->renderForm('typegroupe/showtype.html.twig', [
+            'type'=> $type,
+            'form'=> $form,
+
+            
+        ]);}
+            
+         
 #[Route('/createtypegroupe', name: 'createtypegroupe')]
 
  public function createtypegroupe(ManagerRegistry $m ,Request $req): Response

@@ -1,0 +1,45 @@
+{% extends 'base-back.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-xxl-6 col-xl-4 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Nombre de Groupes</h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="groupes-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('groupes-chart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'doughnut', // Utilisez 'doughnut' pour un graphique en forme de rond (camembert)
+            data: {
+                labels: ['Groupes', 'Reste'], // Libellés du graphique
+                datasets: [{
+                    label: 'Nombre de Groupes',
+                    data: [{{ nombre_groupes }}, {% if nombre_groupes < 100 %}{{ 100 - nombre_groupes }}{% else %}0{% endif %}], // Données du graphique
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)', // Couleur du graphique
+                        'rgba(54, 162, 235, 0.2)', // Couleur de fond du graphique
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)', // Couleur de la bordure du graphique
+                        'rgba(54, 162, 235, 1)', // Couleur de la bordure de fond du graphique
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                // Options de personnalisation du graphique
+            }
+        });
+    </script>
+{% endblock %}
