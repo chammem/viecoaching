@@ -61,7 +61,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
                 localStorage.setItem('token', data.token);
                 var userDataJSON = JSON.stringify(data.user);
                 localStorage.setItem('user', userDataJSON);
-                window.location.href = '/showuser';
+                window.location.href = '/dashboard';
             });
         }
     })

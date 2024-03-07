@@ -12,7 +12,7 @@ security:
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+            security: false    
         main:
             lazy: true
             provider: app_user_provider
@@ -21,7 +21,7 @@ security:
                 password_parameter: mdp
                 login_path: security.login
                 check_path: security.login
-                default_target_path: showuser
+                default_target_path: app_dashboard
                 success_handler: App\Security\LoginSuccessHandler
                 failure_handler: App\Security\LoginFailureHandler
             logout:
