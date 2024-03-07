@@ -16,7 +16,11 @@
             
                             <div class="cover-photo"></div>
                           <div class="profile-photo" style="width: 240px; height: 200px; overflow: hidden; border-radius: 50%;">
-                            <img src="{{ vich_uploader_asset(mot, 'imageFile') }}" class="img-fluid rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" alt="Photo de profil">
+                            {% if mot is not null %}
+    <img src="{{ vich_uploader_asset(mot, 'imageFile') }}" class="img-fluid rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" alt="Photo de profil">
+{% else %}
+    <!-- Gérer le cas où mot est null -->
+{% endif %}
                         </div>
                        
                         

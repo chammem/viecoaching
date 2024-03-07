@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Repository;
-
+use App\Entity\Role;
 use App\Entity\Utilisateur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -92,6 +92,16 @@ public function findByNom($searchTerm)
 
     return $query->getResult();
 }
+
+public function findByRole(string $role): array
+{
+    return $this->createQueryBuilder('u')
+        ->andWhere('u.role IN (SELECT r.id FROM App\Entity\Role r WHERE r.nom_role = :role)')
+        ->setParameter('role', $role)
+        ->getQuery()
+        ->getResult();
+}
+
 //    /**
 //     * @return Utilisateur[] Returns an array of Utilisateur objects
 //     */

@@ -1,0 +1,55 @@
+{% extends 'base-front.html.twig' %}
+{% block body %}
+<link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
+
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__text">
+                    <h2>Les coachs</h2>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+</br>
+</br>
+</br>
+
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="row justify-content-center"> <!-- Utilisation de justify-content-center pour centrer les éléments -->
+            {% for coach in coachs %}
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg text-center"> <!-- Utilisation de text-center pour centrer le contenu -->
+                            {% if coach.image %}
+                                <img src="{{ vich_uploader_asset(coach, 'imageFile') }}" alt="Coach Image">
+                            {% else %}
+                                <span class="no-image">Aucune image disponible</span>
+                            {% endif %}
+                            <div class="product__label">
+                                <span>{{ coach.nom }} {{ coach.prenom }}</span>
+                            </div>
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a href="#">{{ coach.email }}</a></h6>
+                            <div class="product__item__price">$32.00</div>
+                            <div class="cart_add">
+                                <a href="#">Réserver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% block stylesheets %}
+    
+{% endblock %}
+{% endblock %}

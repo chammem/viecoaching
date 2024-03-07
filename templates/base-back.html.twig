@@ -1,47 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title> VieCoaching |{% block title %} Admin Dashboard{% endblock %}  </title>
-        <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>
-     {% block stylesheets %}
-                <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
- {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VieCoaching |{% block title %} Admin Dashboard{% endblock %}</title>
     <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>
-       {% block stylesheet %} <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">{% endblock %}
-
-    <!-- Favicon icon -->
-    <link rel="icon" type="{{asset('back-office/image/png')}}" sizes="16x16" href="{{asset('back-office/images/favicon.png')}}">
-    <link rel="stylesheet" href="{{asset('back-office/vendor/owl-carousel/css/owl.carousel.min.css')}}">
-    <link rel="stylesheet" href="{{asset('back-office/vendor/owl-carousel/css/owl.theme.default.min.css')}}">
-    <link href="{{asset('back-office/vendor/jqvmap/css/jqvmap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('back-office/css/style.css')}}" rel="stylesheet">
-
-
-
+    {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+    {% endblock %}
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('back-office/images/favicon.png') }}">
+    <link rel="stylesheet" href="{{ asset('back-office/vendor/owl-carousel/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('back-office/vendor/owl-carousel/css/owl.theme.default.min.css') }}">
+    <link href="{{ asset('back-office/vendor/jqvmap/css/jqvmap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back-office/css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
- {% block javascripts %}
-     <script src="//code.jquery.com/jquery.js"></script>
 
-    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
-        {% endblock %}
-            {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
-{% block javascripts %}  
-<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
-    <script src="//code.jquery.com/jquery.js"></script>
- {% endblock %}
-     {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 
-    <!--*******************
-        Preloader start
-    ********************-->
     <div id="preloader">
         <div class="sk-three-bounce">
             <div class="sk-child sk-bounce1"></div>
@@ -49,19 +30,9 @@
             <div class="sk-child sk-bounce3"></div>
         </div>
     </div>
-    <!--*******************
-        Preloader end
-    ********************-->
 
-
-    <!--**********************************
-        Main wrapper start
-    ***********************************-->
     <div id="main-wrapper">
 
-        <!--**********************************
-            Nav header start
-        ***********************************-->
         <div class="nav-header">
             <a href="index.html" class="brand-logo">
                 <img class="logo-abbr" src="{{asset('back-office/images/logo.png')}}" alt="">
@@ -176,117 +147,79 @@
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
-
-        <!--**********************************
-            Sidebar start
-        ***********************************-->
-        <div class="quixnav">
-            <div class="quixnav-scroll">
-                <ul class="metismenu" id="menu">
-                    <li class="nav-label first">Main Menu</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="./index.html">Dashboard 1</a></li>
-                            <li><a href="./index2.html">Dashboard 2</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-label">Groupe</li>
-                    <li class="nav-label">Gestions</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-app-store"></i><span class="nav-text">Les Groupe</span></a>
-                                class="icon icon-app-store"></i><span class="nav-text">Gestion séances</span></a>
-                        <ul aria-expanded="false">
-<li><a href="{{ path('showgroupe') }}">Liste Groupe</a></li>
-<li><a href="{{ path('showtype') }}">Liste TypeGroupe</a></li>
-
-                           
-<li><a href="{{ path('creategroupe') }}">Ajouter Groupe</a></li>                        </ul>
-                            <li><a href="{{ path('app_showSeance') }}">Liste séances</a></li>
-                            </li>
-                            <li><a href="./app-calender.html">Calendar</a></li>
-                        </ul>
-                    </li>
-                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-app-store"></i><span class="nav-text">Gestion Type séances</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="{{ path('app_showTypeSeance') }}">Liste de Types</a></li>
-                            </li>
-                           
-                        </ul>
-                    </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-chart-bar-33"></i><span class="nav-text">Blog personnel</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="{{path('afficheRessource')}}">Liste des Ressources</a></li>
-                            <li><a href="{{path('affichecategorie')}}">Liste des Ctégories</a></li>
-
-                           
-                        </ul>
-                    </li>
-                    <li class="nav-label">Utilasteur</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-world-2"></i><span class="nav-text">Liste Utilisateur</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="./ui-accordion.html">Liste Utilisateur</a></li>
-                            <li><a href="./ui-alert.html">Coach</a></li>
-                            <li><a href="./ui-badge.html">Patient</a></li>
-                            <li><a href="./ui-button.html">Admin</a></li>
-                            
-
-                        </ul>
-                    </li>
-
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-plug"></i><span class="nav-text">Seance</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="./uc-select2.html">Liste Seance</a></li>
-                            <li><a href="./uc-nestable.html">Nestedable</a></li>
-                            
-                        </ul>
-                    </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-form"></i><span class="nav-text">Rebrique</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="./form-element.html">Liste rebrique</a></li>
-                            <li><a href="./form-wizard.html">Wizard</a></li>
-                            
-                        </ul>
-                    </li>
-                    <li class="nav-label">Table</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-layout-25"></i><span class="nav-text">Table</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="table-bootstrap-basic.html">Bootstrap</a></li>
-                            <li><a href="table-datatable-basic.html">Datatable</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-label">Extra</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-single-copy-06"></i><span class="nav-text">Pages</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="./page-register.html">Register</a></li>
-                            <li><a href="./page-login.html">Login</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="./page-error-400.html">Error 400</a></li>
-                                    <li><a href="./page-error-403.html">Error 403</a></li>
-                                    <li><a href="./page-error-404.html">Error 404</a></li>
-                                    <li><a href="./page-error-500.html">Error 500</a></li>
-                                    <li><a href="./page-error-503.html">Error 503</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./page-lock-screen.html">Lock Screen</a></li>
-                        </ul>
-                    </li>
+<!--**********************************
+    Sidebar start
+***********************************-->
+<div class="quixnav">
+    <div class="quixnav-scroll">
+        <ul class="metismenu" id="menu">
+            <li class="nav-label first">Main Menu</li>
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="./index.html">Dashboard 1</a></li>
+                    <li><a href="./index2.html">Dashboard 2</a></li>
                 </ul>
-            </div>
+            </li>
+            <li class="nav-label">Groupe</li>
+            <li class="nav-label">Gestions</li>
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+            <i class="icon icon-app-store"></i><span class="nav-text">Gestion séances</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ path('showgroupe') }}">Liste Groupe</a></li>
+                    <li><a href="{{ path('showtype') }}">Liste TypeGroupe</a></li>
+                    <li><a href="{{ path('creategroupe') }}">Ajouter Groupe</a></li>
+                    <li><a href="{{ path('app_showSeance') }}">Liste séances</a></li>
+                    <li><a href="./app-calender.html">Calendar</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-app-store"></i><span class="nav-text">Gestion Type séances</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ path('app_showTypeSeance') }}">Liste de Types</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-chart-bar-33"></i><span class="nav-text">Blog personnel</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="{{path('afficheRessource')}}">Liste des Ressources</a></li>
+                    <li><a href="{{path('affichecategorie')}}">Liste des Catégories</a></li>
+                </ul>
+            </li>
+            <li class="nav-label">Utilisateur</li>
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-world-2"></i><span class="nav-text">Liste Utilisateur</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="./ui-accordion.html">Liste Utilisateur</a></li>
+                    <li><a href="./ui-alert.html">Coach</a></li>
+                    <li><a href="./ui-badge.html">Patient</a></li>
+                    <li><a href="./ui-button.html">Admin</a></li>
+                </ul>
+            </li>
 
-
-        </div>
-        <!--**********************************
-            Sidebar end
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-plug"></i><span class="nav-text">Séance</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="./uc-select2.html">Liste Séance</a></li>
+                    <li><a href="./uc-nestable.html">Nestedable</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-form"></i><span class="nav-text">Rubrique</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="./form-element.html">Liste Rubrique</a></li>
+                    <li><a href="./form-wizard.html">Wizard</a></li>
+                </ul>
+            </li>
+            
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--**********************************
+    Sidebar end
+***********************************-->
         ***********************************-->
 
         <!--**********************************
@@ -309,78 +242,43 @@
         <div class="footer">
             <div class="copyright">
                 <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-                <p>Distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a></p> 
+                <p>Distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a></p>
             </div>
         </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
-
-        <!--**********************************
-           Support ticket button start
-        ***********************************-->
-
-        <!--**********************************
-           Support ticket button end
-        ***********************************-->
-
 
     </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
 
-    <!--**********************************
-        Scripts
-    ***********************************-->
-    <!-- Required vendors -->
-    <script src="{{asset('back-office/vendor/global/global.min.js')}}"></script>
-    <script src="{{asset('back-office/js/quixnav-init.js')}}"></script>
-    <script src="{{asset('back-office/js/custom.min.js')}}"></script>
-
-
-    <!-- Vectormap -->
-    <script src="{{asset('back-office/vendor/raphael/raphael.min.js')}}"></script>
-    <script src="{{asset('back-office/vendor/morris/morris.min.js')}}"></script>
-
-
-    <script src="{{asset('back-office/vendor/circle-progress/circle-progress.min.js')}}"></script>
-    <script src="{{asset('back-office/vendor/chart.js/Chart.bundle.min.js')}}"></script>
-
-    <script src="{{asset('back-office/vendor/gaugeJS/dist/gauge.min.js')}}"></script>
-
-    <!--  flot-chart js -->
-    <script src="{{asset('back-office/vendor/flot/jquery.flot.js')}}"></script>
-    <script src="{{asset('back-office/vendor/flot/jquery.flot.resize.js')}}"></script>
-
-    <!-- Owl Carousel -->
-    <script src="{{asset('back-office/vendor/owl-carousel/js/owl.carousel.min.js')}}"></script>
-
-    <!-- Counter Up -->
-    <script src="{{asset('back-office/vendor/jqvmap/js/jquery.vmap.min.js')}}"></script>
-    <script src="{{asset('back-office/vendor/jqvmap/js/jquery.vmap.usa.js')}}"></script>
-    <script src="{{asset('back-office/vendor/jquery.counterup/jquery.counterup.min.js')}}"></script>
-
-
-    <script src="{{asset('back-office/js/dashboard/dashboard-1.js')}}"></script>
- {% block javascripts %}
-<script>
-// Fonction pour la gestion de la déconnexion
-function deconnexion() {
-    // Supprimer le token de la local storage
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    // Rediriger vers la page de déconnexion
-    window.location.href = '/deconnexion';
-}
-
-// Ajouter l'écouteur d'événements au lien de déconnexion
-document.getElementById('logout-link').addEventListener('click', function(event) {
-    event.preventDefault(); // Empêcher le comportement par défaut du lien
-    deconnexion();
-});
-</script>
-{% endblock %}
+    <script src="{{ asset('back-office/vendor/global/global.min.js') }}"></script>
+    <script src="{{ asset('back-office/js/quixnav-init.js') }}"></script>
+    <script src="{{ asset('back-office/js/custom.min.js') }}"></script>
+    <script src="{{ asset('back-office/vendor/raphael/raphael.min.js') }}"></script>
+    <script src="{{ asset('back-office/vendor/morris/morris.min.js') }}"></script>
+    <script src="{{ asset('back-office/vendor/circle-progress/circle-progress.min.js') }}"></script>
+    <script src="{{ asset('back-office/vendor/chart.js/Chart.bundle.min.js') }}"></script>
+    <script src="{{ asset('back-office/vendor/gaugeJS/dist/gauge.min.js') }}"></script>
+    <script src="{{ asset('back-office/vendor/flot/jquery.flot.js') }}"></script>
+    <script src="{{ asset('back-office/vendor/flot/jquery.flot.resize.js') }}"></script>
+    <script src="{{ asset('back-office/vendor/owl-carousel/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('back-office/vendor/jqvmap/js/jquery.vmap.min.js') }}"></script>
+    <script src="{{ asset('back-office/vendor/jqvmap/js/jquery.vmap.usa.js') }}"></script>
+    <script src="{{ asset('back-office/vendor/jquery.counterup/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('back-office/js/dashboard/dashboard-1.js') }}"></script>
+    {% block javascripts %}
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+    <script>
+        function deconnexion() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/deconnexion';
+        }
+        document.getElementById('logout-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            deconnexion();
+        });
+    </script>
+    {% endblock %}
 </body>
 
 </html>

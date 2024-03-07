@@ -105,22 +105,20 @@ public function deleteUtilisateur(ManagerRegistry $managerRegistry , $id, Utilis
 #[Route('/editProfil/{id}', name: 'editProfil', methods:['GET','POST'])]
 public function editProfil(ManagerRegistry $managerRegistry ,Security $security, Request $req, $id,
  UtilisateurRepository $utilisateurRepository)
-{
-    $user = $security->getUser();
-    $id = $user->getId();
-    $em = $managerRegistry->getManager();
-    $dataid=$utilisateurRepository->find($id);
+{$user = $security->getUser();
 
-    if (!$this->getUser())
-    {
+    if (!$user) {
         return $this->redirectToRoute('security.login');
     }
 
-    
-    
+    // Maintenant que nous avons vérifié que l'utilisateur est authentifié,
+    // nous pouvons accéder à ses informations en toute sécurité.
+    $id = $user->getId();
+    $dataid = $utilisateurRepository->find($id);
+    $em = $managerRegistry->getManager();
+    $user = $security->getUser();
     $form=$this->createForm(ProfilType::class,$dataid);
- 
-  
+
     $form->handleRequest($req);
 
     if ($form->isSubmitted() && $form->isValid()) { 
@@ -139,14 +137,17 @@ public function editProfil(ManagerRegistry $managerRegistry ,Security $security,
 public function editMdp(ManagerRegistry $managerRegistry, Request $request, Security $security, UtilisateurRepository $utilisateurRepository): Response 
 {
     $user = $security->getUser();
-    $id = $user->getId();
-    $dataid = $utilisateurRepository->find($id);
-    $em = $managerRegistry->getManager();
 
     if (!$user) {
         return $this->redirectToRoute('security.login');
     }
 
+    // Maintenant que nous avons vérifié que l'utilisateur est authentifié,
+    // nous pouvons accéder à ses informations en toute sécurité.
+    $id = $user->getId();
+    $dataid = $utilisateurRepository->find($id);
+    $em = $managerRegistry->getManager();
+     
     $form = $this->createForm(EditMdpType::class, $dataid);
     $form->handleRequest($request);
 
@@ -164,7 +165,6 @@ public function editMdp(ManagerRegistry $managerRegistry, Request $request, Secu
     return $this->renderForm('utilisateur/editMdp.html.twig', [
         'form' => $form,
         'mot' => $dataid,
-       
     ]);
 }
 
@@ -189,4 +189,14 @@ public function etatCompte(ManagerRegistry $managerRegistry,$id, $action, Utilis
 
     return $this->redirectToRoute('showuser');
 }
+
+#[Route('/listCoachs', name: 'listCoachs')]
+public function listCoachs(UtilisateurRepository $utilisateurRepository): Response
+    {
+        $coachs = $utilisateurRepository->findByRole('ROLE_COACH');
+
+        return $this->render('utilisateur/listCoachs.html.twig', [
+            'coachs' => $coachs,
+        ]);
+    }
 }

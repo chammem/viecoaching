@@ -92,7 +92,6 @@
                             </div>
                             <div class="header__logo">
                                 <a href="{{asset('front-office/image')}}"><img src="{{asset('front-office/image/or.png')}}" alt=""></a>
-                                <a href="{{asset('front-office/img')}}"><img src="{{asset('front-office/img/logocoaching.png')}}" alt=""></a>
                             </div>
                            
 
@@ -127,27 +126,24 @@
                     <nav class="header__menu mobile-menu" >
                         <ul>
                             <li class="active"><a href=" {{ path('homepage') }}">Acceuil</a></li>
-                            <li><a href="#">Coach</a></li>
+                            <li><a href="{{ path('listCoachs') }}">Coach</a></li>
                             <li><a href="{{ path('listegroupe') }}">Groupe</a></li>
                             <li><a href=" {{ path('afficheCatP') }}">Blog</a></li>
-                            <li><a href=" {{ path('apropos') }}">A propos</a></li>
-                            <li><a href=" {{ path('contact') }}">Contact</a></li>
-                            <li><a href="#">Pages</a>
-                            <li ><a href="./index.html">Accueil</a></li>
-                            <li><a href="./about.html">Ressources </a></li>
+                            {#<li><a href="./about.html">Ressources </a></li>#}
                           <li ><a href="{{ path('app_showSeancefront') }}">Séances</a></li>
 
                             <li><a href="#">Rubriques</a>
-                                <ul class="dropdown">
+                               {# <ul class="dropdown">
                                     <li><a href="./shop-details.html">Shop Details</a></li>
                                     <li><a href="./shoping-cart.html">Shoping Cart</a></li>
                                     <li><a href="./checkout.html">Check Out</a></li>
                                     <li><a href="./wisslist.html">Wisslist</a></li>
                                     <li><a href="./Class.html">Class</a></li>
                                     <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
+                                </ul>#}
                             </li>
-                            <li><a href="./contact.html">Contact</a></li>
+                             <li><a href=" {{ path('apropos') }}">A propos</a></li>
+                            <li><a href=" {{ path('contact') }}">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
