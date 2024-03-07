@@ -6,16 +6,44 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css"
  integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
  <style>
-        #calendrier{
-            width: 80%;
-            margin: auto;
-        }
+        
+    
+
+    #calendrier {
+        width: 70%; /* Largeur du calendrier */
+        margin: auto; /* Met le calendrier en deuxième position dans le flux de flexbox */
+    }
+
     </style>
+ <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-intro-title">Calendar</h4>
+
+                                <div class="">
+                                    <div id="external-events" class="my-3">
+                                        <p>Glissez et déposez votre séance ou cliquez dans le calendrier</p>
+                                        <div class="external-event" data-class="bg-primary"><i class="fa fa-move"></i>Réserver une séance individuelle</div>
+                                        <div class="external-event" data-class="bg-success"><i class="fa fa-move"></i>Rencontrez votre coach !
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <a href="javascript:void()" data-toggle="modal" data-target="#add-category" class="btn btn-primary btn-event w-100">
+                                        <span class="align-middle"><i class="ti-plus"></i></span> Créer 
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 <div id="calendrier">
 
 
 
 </div>
+
 <script>
     window.onload = () => {
         let calendarElt = document.querySelector("#calendrier")
