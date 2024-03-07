@@ -57,7 +57,7 @@ class ReservationController extends AbstractController
     public function accepterReservation($id): Response
     {
         // Redirection vers une autre page après avoir accepté la réservation
-        return $this->redirectToRoute('liste_des_reservations');
+        return $this->redirectToRoute('app_AddSeance');
     }
 
     #[Route('/refuser-reservation/{id}', name: 'refuser_reservation')]
@@ -65,6 +65,18 @@ class ReservationController extends AbstractController
     {
         // Redirection vers une autre page après avoir refusé la réservation
         return $this->redirectToRoute('liste_des_reservations');
+    }
+
+    
+    #[Route('/deletereservation/{id}', name: 'app_deletereservation')]
+    public function deleteTypeSeance($id , ManagerRegistry $managerRegistry , 
+   ReservationRepository $reservationRepository, Request $req ): Response
+    {   $em=$managerRegistry->getManager();
+        $id=$reservationRepository->find($id);
+        $em->remove($id);
+        $em->flush();
+        
+        return $this->redirectToRoute('app_showreservation');
     }
 
 

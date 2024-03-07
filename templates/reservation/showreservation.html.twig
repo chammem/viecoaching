@@ -3,7 +3,7 @@
 {% block body %}
 {% block title %}{% endblock %}
 
-<h1>Liste des séances</h1>
+<h1>Liste des réservations </h1>
 <div class="card-deck">
     {% for r in reservations %}
     <div class="card mb-3" style="border-color: #fd7e14;">
@@ -16,8 +16,8 @@
             <p class="card-text">backgroundColor: {{ r.backgroundColor }}</p>
              <p class="card-text">borderColor: {{ r.borderColor }}</p>
               <p class="card-text">textColor: {{ r.textColor }}</p>
-              <td><span class="badge badge-primary"><a href="{{ path('', {'id': i.id}) }}">Accepter</a></span></td>
-              <td><span class="badge badge-primary"><a href="{{ path('', {'id': i.id}) }}">Refuser</a></span></td>
+              <td><span class="badge badge-primary"><a href="{{ path('app_AddSeance', {'id': r.id}) }}">Accepter</a></span></td>
+              <td><span class="badge badge-primary"><a href="{{ path('app_deletereservation', {'id': r.id}) }}">Refuser</a></span></td>
 
        </div>
     </div>
