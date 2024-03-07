@@ -38,25 +38,22 @@
         });
     });
 
-    //Canvas Menu
-    $(".canvas__open").on('click', function () {
-        $(".offcanvas-menu-wrapper").addClass("active");
-        $(".offcanvas-menu-overlay").addClass("active");
-    });
+// Ajoute un écouteur d'événement pour le clic sur le lien "Sign in"
+$('#signin-link').on('click', function(event) {
+    // Empêche le comportement par défaut du lien
+    event.preventDefault();
+    
+    // Redirige vers l'URL de connexion
+    window.location.href = "{{ path('security.login') }}";
+});
 
-    $(".offcanvas-menu-overlay").on('click', function () {
-        $(".offcanvas-menu-wrapper").removeClass("active");
-        $(".offcanvas-menu-overlay").removeClass("active");
-    });
+    
 
 
     /*------------------
 		Navigation
 	--------------------*/
-    $(".mobile-menu").slicknav({
-        prependTo: '#mobile-menu-wrap',
-        allowParentLinks: true
-    });
+    
 
     /*-----------------------
         Hero Slider

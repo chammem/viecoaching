@@ -1,6 +1,20 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+homepage:
+    path: /
+    controller: App\Controller\HomeController::index
+security_logout:
+    path: /deconnexion
+    controller: App\Controller\SecurityController::deconnexion
+
+show_groupe:
+    path: /showgroupe
+    controller: App\Controller\GroupeController::show
+
+create_groupe:
+    path: /creategroupe
+    controller: App\Controller\GroupeController::create
 show_seance_front:
     path: /showSeancefront , /showSeance
     controller: App\Controller\SeanceController::showSeance
