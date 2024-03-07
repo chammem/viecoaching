@@ -46,6 +46,24 @@ public function findAllWithRessources()
             ->getQuery()
             ->getResult();
     }
+    public function getStatisticsByCategory(): array
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('c.nomCategorie AS category', 'COUNT(r.id) AS total')
+            ->leftJoin('c.ressource', 'r')
+            ->groupBy('c.nomCategorie');
+
+        return $qb->getQuery()->getResult();
+    }
+    public function findPaginated($page, $limit)
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.id', 'DESC')
+            ->getQuery()
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getResult();
+    }
 //    /**
 //     * @return Categorie[] Returns an array of Categorie objects
 //     */

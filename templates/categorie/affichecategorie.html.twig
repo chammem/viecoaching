@@ -53,7 +53,14 @@
 </head>
 <body>
     {% block title %}{% endblock %}
-
+{{ form_start(form) }}
+    <div class="form-group">
+        {{ form_row(form.nomCategorie, {'attr': {'class': 'form-control', 'placeholder': 'Recherche'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_widget(form.rechercher, {'attr': {'class': 'btn btn-primary', 'src': 'images/rechercher.png'}}) }}
+    </div>
+{{ form_end(form) }}
     <div class="container">
         <a href="{{ path('addcategorie') }}" class="button">Ajouter Catégorie</a>
 
@@ -82,7 +89,16 @@
                                     <td>{{ categorie.nomCategorie }}</td>
                                     <td>{{ categorie.ressource }}</td>
                                     <td>{{ categorie.description }}</td>
-                                    <td>{{ categorie.image }}</td>
+                                <td>
+    {% if categorie.image is not null %}
+        <img src="{{ asset('uploads/' ~ categorie.image) }}" style="width: 100px; height: auto;">
+     {% else %}
+        Aucune image
+    {% endif %}
+</td>
+
+
+
                                     <td style="text-align: center;">
                                         <a href="{{ path('editcategorie', {'id': categorie.id}) }}">
                                             <img src="{{ asset('images/modifie.png') }}" style="width: 22px; height: 22px;">
@@ -101,4 +117,13 @@
             </div>
         </div>
     </div>
+    <div class="container"> <!-- Nouvelle div container pour centrer le contenu -->
+    <div class="row justify-content-center"> <!-- Utilisation de justify-content-center pour centrer horizontalement -->
+        <div class="pagination-container">
+            <div class="bootstrap-badge">
+                <a href="javascript:void()" >{{ knp_pagination_render(cat) }}</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

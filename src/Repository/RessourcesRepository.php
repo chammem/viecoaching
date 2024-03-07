@@ -21,12 +21,12 @@ class RessourcesRepository extends ServiceEntityRepository
         parent::__construct($registry, Ressources::class);
     }
     //recherche ressource par typeR
-    public function recherBookbyref($TypeR){
-        return $this->createQueryBuilder('r')
-         ->where('r.Type=:Type')
-         ->setParameter('Type',$TypeR)
-         ->getQuery()
-         ->getResult();
+    public function recherche($nom){
+        return $this->createQueryBuilder('c')
+            ->where('c.TitreR LIKE :TitreR')
+            ->setParameter('TitreR', '%'.$nom.'%')
+            ->getQuery()
+            ->getResult();
     }
      //trie
      public function trie()
@@ -36,6 +36,16 @@ class RessourcesRepository extends ServiceEntityRepository
              ->getQuery()
              ->getResult();
      }
+     //
+     public function findPaginated($page, $limit)
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.id', 'DESC')
+            ->getQuery()
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getResult();
+    }
 
 //    /**
 //     * @return Ressources[] Returns an array of Ressources objects

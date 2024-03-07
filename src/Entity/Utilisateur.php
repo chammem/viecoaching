@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -89,11 +91,18 @@ class Utilisateur implements UserInterface
 
     
 
+    #[ORM\OneToMany(targetEntity: Ressources::class, mappedBy: 'utilisateur')]
+    private Collection $ressources;
+
     public function __construct()
     {
         $this->active = true; // Initialisation à true par défaut
         $this->groupes = new ArrayCollection();
+        $this->ressources = new ArrayCollection();
     }
+
+    
+
 
     public function getId(): ?int
     {
@@ -320,4 +329,38 @@ public function setImage(?string $image): self
     }
 
     
+
+    /**
+     * @return Collection<int, Ressources>
+     */
+    public function getRessources(): Collection
+    {
+        return $this->ressources;
+    }
+
+    public function addRessource(Ressources $ressource): static
+    {
+        if (!$this->ressources->contains($ressource)) {
+            $this->ressources->add($ressource);
+            $ressource->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRessource(Ressources $ressource): static
+    {
+        if ($this->ressources->removeElement($ressource)) {
+            // set the owning side to null (unless already changed)
+            if ($ressource->getUtilisateur() === $this) {
+                $ressource->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+   
+
+   
 }

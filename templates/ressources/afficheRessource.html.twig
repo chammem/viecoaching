@@ -53,6 +53,14 @@
 </head>
 <body>
     {% block title %}{% endblock %}
+{{ form_start(form) }}
+    <div class="form-group">
+        {{ form_row(form.TitreR, {'attr': {'class': 'form-control', 'placeholder': 'Recherche'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_widget(form.rechercher, {'attr': {'class': 'btn btn-primary', 'src': 'images/rechercher.png'}}) }}
+    </div>
+{{ form_end(form) }}
 
  <div class="container">
         <a href="{{ path('addressource') }}" class="button">Ajouter Ressource</a>
@@ -76,13 +84,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for ressource in ressource %}
+                            {% for ressource in ressources %}
                                 <tr>
                                     <td>{{ ressource.id }}</td>
                                     <td>{{ ressource.TitreR }}</td>
                                     <td>{{ ressource.TypeR }}</td>
                                     <td>{{ ressource.description }}</td>
-                                    <td>{{ ressource.url }}</td>
+                                    
+                                      <td>
+    {% if ressource.url is not null %}
+        <img src="{{ asset('uploads/' ~ ressource.url) }}" style="width: 100px; height: auto;">
+     {% else %}
+        Aucune image
+    {% endif %}
+</td>
                                     <td style="text-align: center;">
                                         <a href="{{ path('editressource', {'id': ressource.id}) }}">
                                             <img src="{{ asset('images/modifie.png') }}" style="width: 22px; height: 22px;">
@@ -101,4 +116,5 @@
             </div>
         </div>
     </div>
+    
 {% endblock %}

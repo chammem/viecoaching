@@ -1,50 +1,71 @@
 {% extends 'base-front.html.twig' %}
-{% block body %}
-<div class="breadcrumb-option">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="breadcrumb__text">
-                        <h2>Bibliothèque des différent Catégorie</h2>
 
-                    </div>
+{% block body %}
+<link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
+
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__text">
+                    <h2>Blog Des Catégories</h2>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="breadcrumb__links">
-                        <a href="./index.html">Accueil</a>
-                        <span>bibliothèque des ressources</span>
-                    </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__links">
+                    <a href="./index.html">Accueil</a>
+                    <span>Blog Des Catégories</span>
                 </div>
             </div>
         </div>
     </div>
-<body>
-    {% block title %}{% endblock %}
-</button>
- {{ form_start(form) }}
-        {{ form_row(form.nomCategorie) }}
-        {{ form_row(form.rechercher) }}
-    {{ form_end(form) }}
-<div class="row">
-    {% for categorie in cat %}
-        <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="product__item">
-                <div class="product__item__pic set-bg" data-setbg="{{ asset('uploads/' ~ categorie.image) }}">
-                    <div class="product__label">
-                        <span>{{ categorie.nomCategorie }}</span>
+</div>
+</br>
+</br>
+</br>
+
+<div class="container">
+    <div class="row justify-content-center">
+        {% for categorie in cat %}
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="{{ asset('uploads/' ~ categorie.image) }}">
+                        <div class="product__label">
+                            <span>{{ categorie.nomCategorie }}</span>
+                        </div>
+                    </div>
+                    <div class="product__item__text">
+                        <div class="cart_add">
+                            <h6><a href="{{ categorie.ressource }}"></a></h6>
+                            <a href="{{ path('afficheResP', {'id': categorie.id}) }}">Voir ressources</a>
+                        </div>
                     </div>
                 </div>
-                <div class="product__item__text">
-                    <div class="cart_add">
-                        <h6><a href="{{ categorie.ressource }}"></a></h6>
-                   <a href="{{ path('afficheResP', {'id': categorie.id}) }}">Voir ressources</a>
-                    </div>
+                <div class="star">
+                    <i class="lar la-star" data-value="1"></i>
+                    <i class="lar la-star" data-value="2"></i>
+                    <i class="lar la-star" data-value="3"></i>
+                    <i class="lar la-star" data-value="4"></i>
+                    <i class="lar la-star" data-value="5"></i>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+</br>
+</br>
+</br>
+</br>
+</br>
 
+<div class="container"> <!-- Nouvelle div container pour centrer le contenu -->
+    <div class="row justify-content-center"> <!-- Utilisation de justify-content-center pour centrer horizontalement -->
+        <div class="pagination-container">
+            <div class="bootstrap-badge">
+                <a href="javascript:void()" >{{ knp_pagination_render(cat) }}</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
-

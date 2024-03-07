@@ -6,9 +6,11 @@ use App\Entity\Categorie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\Entity\Ressources;
+use App\Form\RechercheResourceType;
 use App\Form\RessourcesType;
 use App\Repository\RessourcesRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use PHPUnit\TextUI\XmlConfiguration\File;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -52,27 +54,49 @@ class RessourcesController extends AbstractController
     //function affiche ressources
     
     #[Route('/afficheRessource', name: 'afficheRessource')]
-    public function afficheRessource(RessourcesRepository $x): Response
+    public function afficheRessource(RessourcesRepository $x ,Request $request,  PaginatorInterface $paginator): Response
     {
-       // $ressource = $x->findAll();
-       $ressource = $x->trie();
+       
+        $resources = $x->trie();
+        $pagination = $paginator->paginate(
+        $resources, 
+        $request->query->getInt('page',1),
+        2
+    );
+    $form=$this->createForm(RechercheResourceType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $data=$form->get('TitreR')->getData();
+            $Ref=$x->recherche($data);
+            return $this->renderForm('ressources/afficheRessource.html.twig', [
+                'ressources'=> $Ref,
+                'form'=> $form,
+            ]);
+        }
+        return $this->renderForm('ressources/afficheRessource.html.twig', [
+            'ressources' => $pagination ,
+            'ressources' => $resources ,
+             'form'=> $form,
 
-        return $this->render('ressources/afficheRessource.html.twig', [
-            'ressource'=> $ressource
         ]);
             
         }
-        //
+    
         //affiche partie patient
         #[Route('/afficheResP', name: 'afficheResP')]
-        public function afficheResP(RessourcesRepository $x): Response
+        public function afficheResP(Request $request, RessourcesRepository $x, PaginatorInterface $paginator): Response
         {
-            $ressource = $x->findAll();
+    
+            $resources=$x->findAll();
+            $pagination = $paginator->paginate(
+                $resources, 
+                $request->query->getInt('page',1),
+                2
+            );
             return $this->render('ressources/afficheResP.html.twig', [
-                'ressource'=> $ressource
+                'ressources' => $pagination 
             ]);
-                
-            }
+        }
         //Ajout ressource 
         #[Route('/addressource', name: 'addressource')]
         public function addressource(ManagerRegistry $managerRegistry, Request $req,SluggerInterface $slugger): Response
@@ -198,4 +222,14 @@ public function addressource(ManagerRegistry $managerRegistry, Request $req, Slu
             'form' => $form->createView(),
         ]);
     }*/
+
+   
+    #[Route('/statistic', name: 'statistic')]
+    public function statistic(RessourcesRepository $r): Response
+    {
+        $nombreR = $r->count([]);
+        return $this->render('ressources/statistic.html.twig', [
+            'nbr' => $nombreR,
+        ]);
+    }
 }

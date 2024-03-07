@@ -1,37 +1,39 @@
 {% extends 'base-front.html.twig' %}
 
 {% block body %}
-<style>.blog__item {
-    margin-bottom: 30px;
-}
+<style>
+    .blog__item {
+        margin-bottom: 30px;
+    }
 
-.blog__item__pic {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-}
+    .blog__item__pic {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+    }
 
-.blog__pic__inner {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    border-radius: 0 0 10px 10px;
-}
+    .blog__pic__inner {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        border-radius: 0 0 10px 10px;
+    }
 
-.blog__pic__inner h2.label {
-    margin-bottom: 10px;
-    font-size: 18px;
-}
+    .blog__pic__inner h2.label {
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
 
-.blog__pic__inner p.description {
-    font-size: 14px;
-    line-height: 1.6;
-}
+    .blog__pic__inner p.description {
+        font-size: 14px;
+        line-height: 1.6;
+    }
 </style>
+
 <div class="breadcrumb-option">
     <div class="container">
         <div class="row">
@@ -49,10 +51,13 @@
         </div>
     </div>
 </div>
+</br>
+</br>
+</br>
 
 <div class="container">
-    <div class="row">
-        {% for ressource in ressource %}
+    <div class="row justify-content-center"> <!-- Centering the blog items horizontally -->
+        {% for ressource in ressources %}
         <div class="col-md-4">
             <div class="blog__item">
                 <div class="blog__item__pic set-bg" data-setbg="{{ asset('uploads/' ~ ressource.url) }}">
@@ -64,6 +69,20 @@
             </div>
         </div>
         {% endfor %}
+    </div>
+</div>
+</br>
+</br>
+</br>
+</br>
+
+<div class="container"> <!-- Nouvelle div container pour centrer le contenu -->
+    <div class="row justify-content-center"> <!-- Utilisation de justify-content-center pour centrer horizontalement -->
+        <div class="pagination-container">
+            <div class="bootstrap-badge">
+                <a href="javascript:void()" >{{ knp_pagination_render(ressources) }}</a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
